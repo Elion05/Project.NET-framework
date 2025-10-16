@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36511.14 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaBookTrackerProject", "MangaBookTrackerProject\MangaBookTrackerProject.csproj", "{F71B344F-87C5-4ED4-8FCE-304872123FCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaBook_Models", "MangaBook_Models\MangaBook_Models.csproj", "{D81B7136-E426-4694-96B9-A005413FCC36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaBook_WPF", "MangaBook_WPF\MangaBook_WPF.csproj", "{8F0163DB-CFA2-42F8-800C-7232632F71A4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F71B344F-87C5-4ED4-8FCE-304872123FCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F71B344F-87C5-4ED4-8FCE-304872123FCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F71B344F-87C5-4ED4-8FCE-304872123FCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F71B344F-87C5-4ED4-8FCE-304872123FCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D81B7136-E426-4694-96B9-A005413FCC36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D81B7136-E426-4694-96B9-A005413FCC36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D81B7136-E426-4694-96B9-A005413FCC36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D81B7136-E426-4694-96B9-A005413FCC36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F0163DB-CFA2-42F8-800C-7232632F71A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F0163DB-CFA2-42F8-800C-7232632F71A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F0163DB-CFA2-42F8-800C-7232632F71A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F0163DB-CFA2-42F8-800C-7232632F71A4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0D2EA127-5771-490F-B9AE-DE68DDFF1F35}
+	EndGlobalSection
+EndGlobal
