@@ -16,6 +16,7 @@ namespace MangaBook_WPF
             MangaDbContext mangaContext = new MangaDbContext();
             MangaDbContext.Seeder(mangaContext);
         }
+
     }
 
 }

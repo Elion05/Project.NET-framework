@@ -23,11 +23,11 @@ namespace MangaBook_Models
         [DataType(DataType.Date)]
         public string geboorteDatum { get; set; } = string.Empty;
 
+        
         [Required]
         [Display(Name = "Beschrijving")]
         [DataType(DataType.MultilineText)]
         public string description { get; set; } = string.Empty;
-
 
 
         //dummy data
@@ -35,7 +35,7 @@ namespace MangaBook_Models
         {
             var list = new List<Author>
             {
-                new Author { Name = "Masashi Kishimoto", geboorteDatum = "8 November 1974", description = "Masashi Kishimoto is een Japanse mangaka. Zijn bekendste reeks, Naruto, verscheen van 1999 tot 2014 in het weekblad Shonen Weekly Jump en boekte wereldwijd succes. Van Naruto zijn er wereldwijd meer dan 220 miljoen exemplaren verkocht." },
+                new Author { Name = "Masashi Kishimoto",geboorteDatum = "8 November 1974", description = "Masashi Kishimoto is een Japanse mangaka. Zijn bekendste reeks, Naruto, verscheen van 1999 tot 2014 in het weekblad Shonen Weekly Jump en boekte wereldwijd succes. Van Naruto zijn er wereldwijd meer dan 220 miljoen exemplaren verkocht." },
                 new Author { Name = "Eiichiro Oda", geboorteDatum = "1 Januari 1975", description = "Eiichiro Oda is een Japanse mangaka, vooral bekend als de maker van de manga One Piece. Hij werd geboren op 1 januari 1975 in Kumamoto, Japan. Oda begon al op jonge leeftijd met tekenen en publiceerde zijn eerste werk op 17-jarige leeftijd." },
                 new Author { Name = "Hajime Isayama", geboorteDatum = "29 Augustus 1986", description = "Hajime Isayama is een Japanse mangaka, vooral bekend als de maker van de populaire manga- en anime-serie Attack on Titan (Shingeki no Kyojin). Hij werd geboren op 29 augustus 1986 in Ōyama, een stad in de prefectuur Oita, Japan." },
                 new Author { Name = "Koyoharu Gotouge", geboorteDatum = "5 Mei 1989", description = "Koyoharu Gotouge is een Japanse mangaka, vooral bekend als de maker van Demon Slayer: Kimetsu no Yaiba. Haar werk werd zeer populair vanwege de boeiende verhaalstructuur en de prachtige tekenstijl." },

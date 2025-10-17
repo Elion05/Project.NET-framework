@@ -2,6 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MangaBook Tracker" Height="600" Width="900">
+    
+
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
@@ -11,11 +13,18 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
         <TextBlock Text="📖MangaBook Tracker" FontSize="28" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,0,0,15"/>
 
+        <!--Zoekbalk-->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,50,0,10">
+            <TextBox x:Name="tbSearch" Width="300" Height="25" 
+             Margin="0,0,10,0"
+             TextChanged="tbSearch_TextChanged"/>
+            
+        </StackPanel>
+
         <!--Datagrid met informatie van de boeken-->
-        <DataGrid x:Name="MangaGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" ItemsSource="{Binding}">
+        <DataGrid x:Name="MangaGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" CanUserAddRows="False" SelectionChanged="MangaGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="200" CanUserSort="False"/>
                 <DataGridTextColumn Header="Author" Binding="{Binding Author.Name}" Width="200"  CanUserSort="False"/>
@@ -27,7 +36,7 @@
 
         <!--Buttons : verwijder, wijzig en voegtoe-->
         <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Grid.Row="2">
-            <Button x:Name="btnAdd" Content="VoegToe" Width="100" Margin="0,0,10,0" Click="btnAdd_Click"/>
+            <Button x:Name="btnAdd" Content="Toevoegen" Width="100" Margin="0,0,10,0" Click="btnAdd_Click"/>
             <Button x:Name="btnEdit" Content="Bewerk" Width="100" Margin="0,0,10,0" Click="btnEdit_Click" IsEnabled="False"/>
             <Button x:Name="btnDelete" Content="Verwijder" Width="100" Click="btnDelete_Click" IsEnabled="False"/>
         </StackPanel>
@@ -48,30 +57,34 @@
             </Grid.RowDefinitions>
 
             
-            
+            <!--Titel toevoegen van nieuwe boek-->
             <Label Content="Titel: " Grid.Row="0" Grid.Column="0" Margin="0,5"/>
             <TextBox x:Name="tbTitle" Grid.Row="0" Grid.Column="1" Width="300" Text="{Binding Title, Mode=TwoWay}"/>
 
-
+            <!--description toeveogen van nieuwe boek-->
             <Label Content="Beschrijving:" Grid.Row="1" Grid.Column="0" Margin="0,5"/>
             <TextBox x:Name="tbDescription" Grid.Row="1" Grid.Column="1" Width="300" Height="60"
             Text="{Binding Description, Mode=TwoWay}" AcceptsReturn="True" TextWrapping="Wrap"/>
 
+            <!--auteur  toevoegen, als auteur niet bestaat, auteur toevoegen-->
             <Label Content="Auteur:" Grid.Row="2" Grid.Column="0" Margin="0,5"/>
             <TextBox x:Name="tbAuthor" Grid.Row="2" Grid.Column="1" Width="300"
             Text="{Binding Author.Name, Mode=TwoWay}"/>
 
 
-
+            <!--genre kiezen door commbobox-->
             <Label Content="Genre:" Grid.Row="3" Grid.Column="0" Margin="0,5"/>
             <ComboBox x:Name="cbGenre" Grid.Row="3" Grid.Column="1" Width="200"
             DisplayMemberPath="Name" SelectedValuePath="Id" 
             SelectedValue="{Binding GenreId, Mode=TwoWay}"/>
-
+            
+            <!--release date kiezen-->
             <Label Content="Release datum:" Grid.Row="4" Grid.Column="0" Margin="0,5"/>
             <DatePicker x:Name="dpRelease" Grid.Row="4" Grid.Column="1"
             SelectedDate="{Binding ReleaseDate, Mode=TwoWay}"/>
-
+    
+            
+            <!--een opslaan knop-->
             <Button x:Name="btnSave" Content="Opslaan" Width="120" Margin="0,10,0,0" 
             Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left"
             Click="btnSave_Click"/>
@@ -80,6 +93,6 @@
         </Grid>
         
         
-        
+
     </Grid>
 </Window>

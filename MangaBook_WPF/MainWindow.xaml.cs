@@ -36,12 +36,16 @@ namespace MangaBook_WPF
             grDetails.DataContext = new MangaBook();
         }
 
-        // dit is om een boek te bewerken
+        // dit is om een boek te bewerken en de details te tonen
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             if (MangaGrid.SelectedItem is MangaBook selected)
             {
                 grDetails.Visibility = Visibility.Visible;
+
+                _context.Entry(selected).Reference(m => m.Author).Load();
+                tbAuthor.Text = selected.Author?.Name ?? "";
+
                 grDetails.DataContext = selected;
             }
         }
@@ -102,6 +106,44 @@ namespace MangaBook_WPF
                 }
             }
         }
+
+
+        //Dit is voor de selectie verandering in de datagrid zodat de bewerk en verwijder knop alleen actief is als er een item geselecteerd is
+        private void MangaGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            btnEdit.IsEnabled = MangaGrid.SelectedItem != null;
+            btnDelete.IsEnabled = MangaGrid.SelectedItem != null;
+        }
+
+
+
+        //Dit is de code behind de zoekbalk
+
+        //dit gaat automatisch filteren terwijl je intypt dus ik heb geen knop voorzien
+        private void tbSearch_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            FilterData();
+        }
+
+        private void FilterData()
+        {
+            string zoekterm = tbSearch.Text.ToLower();
+
+            //hier kan je kiezen op wat je wilt filteren,
+            //dus je schrijft gewoon welke genre auteur of boek je wilt en het filtert daarop
+            var gefilterdeManga = _context.MangaBooks
+                .Include(m => m.Author)
+                .Include(m => m.Genre)
+                .Where(m =>
+                    m.Title.ToLower().Contains(zoekterm) ||
+                    m.Author.Name.ToLower().Contains(zoekterm) ||
+                    m.Genre.Name.ToLower().Contains(zoekterm))
+                
+                .ToList();
+
+            MangaGrid.ItemsSource = gefilterdeManga;
+        }
+
     }
-    }
+}
 
