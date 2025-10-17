@@ -12,9 +12,7 @@ namespace MangaBook_WPF
         public MainWindow()
         {
             InitializeComponent();
-            _context = new MangaDbContext();
-            MangaDbContext.Seeder(_context);
-            LoadData();
+            // You may want to initialize _context here if needed
         }
 
         //dit is om de data te laden in de datagrid
@@ -79,7 +77,8 @@ namespace MangaBook_WPF
                     {
                         book.AuthorId = bestaandeAuteur.Id;
                     }
-                    else
+                    else { _context.SaveChanges();
+                    }
                     {
                         var nieuwAuteur = new Author
                         {
