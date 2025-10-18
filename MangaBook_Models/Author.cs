@@ -23,7 +23,7 @@ namespace MangaBook_Models
         [DataType(DataType.Date)]
         public string geboorteDatum { get; set; } = string.Empty;
 
-        
+
         [Required]
         [Display(Name = "Beschrijving")]
         [DataType(DataType.MultilineText)]
