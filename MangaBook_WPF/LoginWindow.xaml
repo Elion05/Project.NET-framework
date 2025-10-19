@@ -7,7 +7,24 @@
         mc:Ignorable="d"
         Title="LoginWindow" Height="377" Width="462">
     <Grid>
-        <TextBlock Text="Login Window" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" RenderTransformOrigin="0.467,-3.18" Margin="0,49,0,0"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <TextBlock Text="Log In" FontSize="24" FontWeight="Bold" Grid.Column="1" Grid.Row="0"  HorizontalAlignment="Left" Margin="83,20,0,20"/>
+        <Label Content="Gebruikersnaam:" Grid.Column="0" Grid.Row="1"/>
+        <TextBox x:Name="tbUsername" Grid.Column="1" Grid.Row="1"/>
+        <Label Content="Wachtwoord:" Grid.Column="0" Grid.Row="2"/>
+        <PasswordBox x:Name="tbPassword" Grid.Column="1" Grid.Row="2"  Margin="0,0,0,5"  />
+        <Button x:Name="btnLogin" Content="Inloggen" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="106,20,0,197" Grid.RowSpan="2"/>
+        <TextBlock x:Name="tbError" Foreground="Red" FontSize="16" Margin="10,10,20,-5" TextWrapping="Wrap" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

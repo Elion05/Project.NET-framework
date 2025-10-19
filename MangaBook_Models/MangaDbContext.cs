@@ -6,11 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using Microsoft.EntityFrameworkCore.SqlServer; // Add this using directive
+using Microsoft.EntityFrameworkCore.SqlServer;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore; // Add this using directive
 
 namespace MangaBook_Models
 {
-    public class MangaDbContext : DbContext
+    public class MangaDbContext : IdentityDbContext<MangaUser>
     {
         public DbSet<MangaBook> MangaBooks { get; set; }
         public DbSet<Author> Authors { get; set; }
@@ -29,6 +30,8 @@ namespace MangaBook_Models
         //het checkt of er data is of niet, zo nie dan vult hij de tabellen met dummy data
         public static void Seeder(MangaDbContext context)
         {
+            MangaUser.Seeder().Wait();
+
             if (!context.Authors.Any())
             {
                 context.Authors.AddRange(Author.SeedingData());
@@ -40,6 +43,7 @@ namespace MangaBook_Models
                 context.Genres.AddRange(Genre.SeedingData());
                 context.SaveChanges();
             }
+
 
             if (!context.MangaBooks.Any())
             {
