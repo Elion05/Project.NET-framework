@@ -12,8 +12,4 @@
     <ProjectReference Include="..\MangaBook_Models\MangaBook_Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-
 </Project>

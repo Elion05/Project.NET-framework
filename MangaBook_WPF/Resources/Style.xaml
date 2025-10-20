@@ -1,0 +1,117 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="Yale Blue">#0d3b66</Color>
+    <Color x:Key="Ye">#f4d35e</Color>
+    <Color x:Key="Prussian Blue">#1e6091</Color>
+    <Color x:Key="Lemon Chiffon">#FAF0CA</Color>
+    <Color x:Key="LichtGrijs">LightGray</Color>
+    
+
+
+
+        <SolidColorBrush x:Key="YaleBlueBrush" Color="{StaticResource Yale Blue}"/>
+    <SolidColorBrush x:Key="ye" Color="{StaticResource Ye}"/>
+    <SolidColorBrush x:Key="PrussianBlueBrush" Color="{StaticResource Prussian Blue}"/>
+    <SolidColorBrush x:Key="LemonChiffonBrush" Color="{StaticResource Lemon Chiffon}"/>
+
+
+    <!--Knoppen-->
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource YaleBlueBrush}"/>
+        <Setter Property="Foreground" Value="White"/> <!-- Changed to White -->
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Padding" Value="10,5"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" 
+                            CornerRadius="5">
+                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource ye}" />
+                <Setter Property="Foreground" Value="Black"/> <!-- On hover: black text -->
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="Gray"/>
+                <Setter Property="Foreground" Value="LightGray"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!--textblocks-->
+    <Style TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+    
+    <!--Windows achtergrond-->
+    <Style TargetType="Window">
+        <Setter Property="Background" Value="{StaticResource LemonChiffonBrush}"/>
+    </Style>
+
+    
+    <!--Datagrid-->
+    <!-- DataGridRow voor hover en selectie -->
+    <Style TargetType="DataGridRow">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="{StaticResource YaleBlueBrush}"/>
+        <Style.Triggers>
+            <!-- Hover -->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource ye}"/>
+                <Setter Property="Foreground" Value="{StaticResource YaleBlueBrush}"/>
+            </Trigger>
+            
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{StaticResource PrussianBlueBrush}"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+
+    <Style TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="{StaticResource YaleBlueBrush}" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <!--Textbox-->
+    <Style TargetType="TextBox">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="{StaticResource YaleBlueBrush}"/>
+        <Setter Property="Padding" Value="3"/>
+        <Setter Property="BorderBrush" Value="{StaticResource PrussianBlueBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+
+    <!--ComboBox-->
+    <Style TargetType="ComboBox">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="{StaticResource YaleBlueBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource PrussianBlueBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="3"/>
+    </Style>
+
+    <!--datepicker-->
+    <Style TargetType="DatePicker">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="{StaticResource YaleBlueBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource PrussianBlueBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+
+
+</ResourceDictionary>

@@ -33,11 +33,8 @@ namespace MangaBook_Models
             return $"{FirstName} {LastName}";
         }
 
-        public static async Task Seeder()
+        public static async Task Seeder(MangaDbContext context)
         {
-            var context = new MangaDbContext();
-
-
             if (!context.Roles.Any())
             {
                 context.Roles.AddRange(new List<IdentityRole>
@@ -75,17 +72,13 @@ namespace MangaBook_Models
                     new UserStore<MangaUser>(context),
                     null, new PasswordHasher<MangaUser>(),
                     null, null, null, null, null, null
-                    );
-
+                );
 
                 await userManager.CreateAsync(admin, "Admin123!");
                 await userManager.CreateAsync(normaleUser, "User123!");
 
                 await userManager.AddToRoleAsync(admin, "Admin");
                 await userManager.AddToRoleAsync(normaleUser, "User");
-
-
-                
             }
 
             Dummy = context.Users.First(u => u.UserName == "dummy");

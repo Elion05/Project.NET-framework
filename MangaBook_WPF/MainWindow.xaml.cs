@@ -136,14 +136,71 @@ namespace MangaBook_WPF
                 .Include(m => m.Genre)
                 .Where(m =>
                     m.Title.ToLower().Contains(zoekterm) ||
-                    m.Author.Name.ToLower().Contains(zoekterm) ||
-                    m.Genre.Name.ToLower().Contains(zoekterm))
+                    (m.Author != null && m.Author.Name.ToLower().Contains(zoekterm)) ||
+                    (m.Genre != null && m.Genre.Name.ToLower().Contains(zoekterm)) ||
+                    //je kan nu op jaar zoeken
+                    m.ReleaseDate.Year.ToString().Contains(zoekterm))
 
                 .ToList();
 
             MangaGrid.ItemsSource = gefilterdeManga;
         }
 
+        private void btnLoginLogout_Click(object sender, RoutedEventArgs e)
+        {
+            // Als niemand is ingelogd, toon LoginWindow
+            if (App.User == null || App.User == MangaUser.Dummy)
+            {
+                var loginWindow = new LoginWindow();
+                loginWindow.Owner = this; // Set owner to handle closing logic
+                this.Hide();
+                loginWindow.ShowDialog();
+
+                // After LoginWindow closes, decide whether to show MainWindow or close it
+                if (App.User != null && App.User != MangaUser.Dummy)
+                {
+                    btnLoginLogout.Content = "Logout";
+                    this.Show();
+                }
+                else
+                {
+                    this.Close(); // Close MainWindow if login was not successful
+                }
+            }
+            else
+            {
+                // Bevestiging voor uitloggen
+                var result = MessageBox.Show("Weet je zeker dat je wilt uitloggen?", "Bevestig logout", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    App.User = MangaUser.Dummy;
+                    btnLoginLogout.Content = "Login";
+
+                    // Hide MainWindow and show LoginWindow again
+                    var loginWindow = new LoginWindow();
+                    loginWindow.Owner = this;
+                    this.Hide();
+                    loginWindow.ShowDialog();
+
+                    // After LoginWindow closes, decide what to do
+                    if (App.User != null && App.User != MangaUser.Dummy)
+                    {
+                        btnLoginLogout.Content = "Logout";
+                        this.Show(); // User logged in again
+                    }
+                    else
+                    {
+                        this.Close(); // User did not log in, close the app
+                    }
+                }
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            btnLoginLogout.Content = (App.User != null && App.User != MangaUser.Dummy)
+                ? "Logout"
+                : "Login";
+        }
     }
 }
-

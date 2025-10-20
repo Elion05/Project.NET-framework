@@ -4,12 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace MangaBookTrackerProject
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
+            // Entry point for the MangaBookTrackerProject application
+            
+
         }
     }
 }

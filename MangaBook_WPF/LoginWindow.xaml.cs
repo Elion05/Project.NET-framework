@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MangaBook_Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MangaBook_WPF
 {
@@ -22,8 +25,48 @@ namespace MangaBook_WPF
         public LoginWindow()
         {
             InitializeComponent();
+        }
 
-         
+        private async void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            tbError.Text = "";
+
+            var username = tbUsername.Text.Trim();
+            var password = tbPassword.Password;
+
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                tbError.Text = "Vul gebruikersnaam en wachtwoord in.";
+                return;
+            }
+
+            var serviceProvider = App.ServiceProvider;
+            if (serviceProvider == null)
+            {
+                tbError.Text = "ServiceProvider niet beschikbaar.";
+                return;
+            }
+
+            var userManager = serviceProvider.GetRequiredService<UserManager<MangaUser>>();
+            var user = await userManager.FindByNameAsync(username);
+
+            if (user == null)
+            {
+                tbError.Text = "Gebruiker niet gevonden.";
+                return;
+            }
+
+            var result = await userManager.CheckPasswordAsync(user, password);
+            if (!result)
+            {
+                tbError.Text = "Wachtwoord is onjuist.";
+                return;
+            }
+
+            App.User = user;
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
         }
     }
 }

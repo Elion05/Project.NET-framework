@@ -30,7 +30,7 @@ namespace MangaBook_Models
         //het checkt of er data is of niet, zo nie dan vult hij de tabellen met dummy data
         public static void Seeder(MangaDbContext context)
         {
-            MangaUser.Seeder().Wait();
+                MangaUser.Seeder(context).Wait();
 
             if (!context.Authors.Any())
             {
