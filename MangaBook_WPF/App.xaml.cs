@@ -25,6 +25,7 @@ namespace MangaBook_WPF
             services.AddIdentityCore<MangaUser>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MangaDbContext>();
+               
 
             services.AddLogging();
             ServiceProvider = services.BuildServiceProvider();

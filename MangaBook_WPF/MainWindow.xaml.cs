@@ -1,5 +1,6 @@
 ﻿using MangaBook_Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using System.Windows;
 
@@ -32,8 +33,9 @@ namespace MangaBook_WPF
         //dit is om een boek toe te voegen
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            grDetails.Visibility = Visibility.Visible;
+            brDetails.Visibility = Visibility.Visible;
             grDetails.DataContext = new MangaBook();
+            tbAuthor.Text = string.Empty; // Clear author text for new entry
         }
 
         // dit is om een boek te bewerken en de details te tonen
@@ -41,11 +43,7 @@ namespace MangaBook_WPF
         {
             if (MangaGrid.SelectedItem is MangaBook selected)
             {
-                grDetails.Visibility = Visibility.Visible;
-
-                _context.Entry(selected).Reference(m => m.Author).Load();
-                tbAuthor.Text = selected.Author?.Name ?? "";
-
+                brDetails.Visibility = Visibility.Visible;
                 grDetails.DataContext = selected;
             }
         }
@@ -61,7 +59,8 @@ namespace MangaBook_WPF
                     _context.MangaBooks.Remove(selected);
                     _context.SaveChanges();
                     LoadData();
-                }
+                    brDetails.Visibility = Visibility.Collapsed;
+                    }
             }
         }
 
@@ -73,7 +72,8 @@ namespace MangaBook_WPF
                 //deze gedeelte tot lijn 89 is om de auteur toe te voegen als die nog niet bestaat
                 if (!string.IsNullOrWhiteSpace(tbAuthor.Text))
                 {
-                    var bestaandeAuteur = _context.Authors.FirstOrDefault(a => a.Name == tbAuthor.Text.ToLower());
+                    var authorName = tbAuthor.Text.Trim();
+                    var bestaandeAuteur = _context.Authors.FirstOrDefault(a => a.Name.ToLower() == authorName.ToLower());
 
                     if (bestaandeAuteur != null)
                     {
@@ -101,7 +101,7 @@ namespace MangaBook_WPF
                         _context.MangaBooks.Update(book);
 
                     _context.SaveChanges();
-                    grDetails.Visibility = Visibility.Collapsed;
+                    brDetails.Visibility = Visibility.Collapsed;
                     LoadData();
                 }
             }
@@ -117,8 +117,7 @@ namespace MangaBook_WPF
 
 
 
-        //Dit is de code behind de zoekbalk
-
+        //Dit is de code voor de zoekbalk
         //dit gaat automatisch filteren terwijl je intypt dus ik heb geen knop voorzien
         private void tbSearch_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
@@ -201,6 +200,26 @@ namespace MangaBook_WPF
             btnLoginLogout.Content = (App.User != null && App.User != MangaUser.Dummy)
                 ? "Logout"
                 : "Login";
+        }
+
+        //registratie knop in mainwindow
+
+        private void btnRegister_Click(object sender, RoutedEventArgs e)
+        {
+            var serviceProvider = App.ServiceProvider;
+            if (serviceProvider == null)
+            {
+                MessageBox.Show("ServiceProvider niet beschikbaar.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            var userManager = serviceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.UserManager<MangaUser>>();
+            var registratieWindow = new RegistratieWindow(_context, userManager);
+            registratieWindow.Owner = this;
+            this.Hide();
+            registratieWindow.ShowDialog();
+            // After RegistratieWindow closes, show MainWindow again
+            this.Show();
+
         }
     }
 }

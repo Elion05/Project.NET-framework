@@ -68,5 +68,14 @@ namespace MangaBook_WPF
             mainWindow.Show();
             this.Close();
         }
+
+        private void btnRegister_Click(object sender, RoutedEventArgs e)
+        {
+            var context = App.ServiceProvider.GetRequiredService<MangaDbContext>();
+            var userManager = App.ServiceProvider.GetRequiredService<UserManager<MangaUser>>();
+
+            var registerWindow = new RegistratieWindow(context, userManager);
+            registerWindow.ShowDialog();
+        }
     }
 }
