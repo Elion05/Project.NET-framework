@@ -30,8 +30,7 @@
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" 
                             CornerRadius="5">
-                        <ContentPresenter HorizontalAlignment="Center" 
-                                          VerticalAlignment="Center"/>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -96,7 +95,7 @@
         <Setter Property="BorderThickness" Value="1"/>
     </Style>
 
-    <!--ComboBox-->
+    <!--ComboBox voor mainwindow-->
     <Style TargetType="ComboBox">
         <Setter Property="Background" Value="White"/>
         <Setter Property="Foreground" Value="{StaticResource YaleBlueBrush}"/>
@@ -111,6 +110,43 @@
         <Setter Property="Foreground" Value="{StaticResource YaleBlueBrush}"/>
         <Setter Property="BorderBrush" Value="{StaticResource PrussianBlueBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+
+
+
+
+   <!--Combobox voor de RolesWindow-->
+    <Style x:Key="DarkComboBoxStyle" TargetType="ComboBox">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="#1A1A1A"/>
+        <Setter Property="BorderBrush" Value="#FFD700"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="4,2"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Background" Value="#1A1A1A"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Padding" Value="5,3"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsHighlighted" Value="True">
+                            <Setter Property="Background" Value="#333366"/>
+                            <Setter Property="Foreground" Value="#FFD700"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#FFD700"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 

@@ -1,7 +1,8 @@
 ﻿using MangaBook_Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace MangaBook_WPF
@@ -90,10 +91,7 @@ namespace MangaBook_WPF
                         _context.Authors.Add(nieuwAuteur);
                         _context.SaveChanges();
                         book.AuthorId = nieuwAuteur.Id;
-                    }
-                    ;
-
-
+                    };
                     //dit is voor de boek zelf te updaten of toe te voegen
                     if (book.Id == 0)
                         _context.MangaBooks.Add(book);
@@ -160,6 +158,7 @@ namespace MangaBook_WPF
                 {
                     btnLoginLogout.Content = "Logout";
                     this.Show();
+                    Window_Loaded(this, new RoutedEventArgs());
                 }
                 else
                 {
@@ -174,6 +173,7 @@ namespace MangaBook_WPF
                 {
                     App.User = MangaUser.Dummy;
                     btnLoginLogout.Content = "Login";
+                    Window_Loaded(this, new RoutedEventArgs());
 
                     // Hide MainWindow and show LoginWindow again
                     var loginWindow = new LoginWindow();
@@ -195,15 +195,54 @@ namespace MangaBook_WPF
             }
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             btnLoginLogout.Content = (App.User != null && App.User != MangaUser.Dummy)
                 ? "Logout"
                 : "Login";
+
+
+            if(App.User != null && App.User != MangaUser.Dummy)
+            {
+                var serviceProvider = App.ServiceProvider;
+                if (serviceProvider == null)
+                {
+                    //die knoppen verbergen als de serviceprovider niet beschikbaar is(copilot heeft dit toegevoegd)
+                    btnRoles.Visibility = Visibility.Collapsed;
+                    btnAdd.Visibility = Visibility.Collapsed;
+                    btnEdit.Visibility = Visibility.Collapsed;
+                    btnDelete.Visibility = Visibility.Collapsed;
+                    return;
+                }
+
+                //Controleer of de gebruiker een Admin is, zo niet krijgt hij dit niet te zien
+                var userManager = serviceProvider.GetRequiredService<UserManager<MangaUser>>();
+                bool isAdmin = await userManager.IsInRoleAsync(App.User, "Admin");
+                btnRoles.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
+                btnAdd.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
+                btnEdit.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
+                btnDelete.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
+
+                if (!isAdmin)
+                {
+                    //worden niet actief als de gebruiker geen admin is
+                    btnEdit.IsEnabled = false;
+                    btnDelete.IsEnabled = false;
+                }
+            }
+            else
+            {
+                //Als er geen gebruiker is ingelogd, verberg alle admin knoppen
+                btnRoles.Visibility = Visibility.Collapsed;
+                btnAdd.Visibility = Visibility.Collapsed;
+                btnEdit.Visibility = Visibility.Collapsed;
+                btnDelete.Visibility = Visibility.Collapsed;
+                btnEdit.IsEnabled = false;
+                btnDelete.IsEnabled = false;
+            }
         }
 
         //registratie knop in mainwindow
-
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
             var serviceProvider = App.ServiceProvider;
@@ -220,6 +259,23 @@ namespace MangaBook_WPF
             // After RegistratieWindow closes, show MainWindow again
             this.Show();
 
+        }
+
+
+
+        //Roles knop in mainwindow
+        private void btnRoles_Click(object sender, RoutedEventArgs e)
+        {
+            var serviceProvider = App.ServiceProvider;
+            if (serviceProvider == null)
+            {
+                MessageBox.Show("ServiceProvider niet beschikbaar.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            var userManager = serviceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.UserManager<MangaUser>>();
+            var rolesWindow = new RolesWindow(_context, userManager);
+            rolesWindow.Owner = this;
+            rolesWindow.ShowDialog();
         }
     }
 }

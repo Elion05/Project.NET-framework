@@ -41,7 +41,6 @@ namespace MangaBook_Models
                 {
                     new IdentityRole { Id = "Admin", Name = "Admin", NormalizedName = "ADMIN" },
                     new IdentityRole { Id = "User", Name = "User", NormalizedName = "USER" },
-                    new IdentityRole { Id = "Moderator", Name = "Moderator", NormalizedName = "MODERATOR" }
                 });
                 context.SaveChanges();
             }
@@ -79,6 +78,7 @@ namespace MangaBook_Models
 
                 await userManager.AddToRoleAsync(admin, "Admin");
                 await userManager.AddToRoleAsync(normaleUser, "User");
+
             }
 
             Dummy = context.Users.First(u => u.UserName == "dummy");

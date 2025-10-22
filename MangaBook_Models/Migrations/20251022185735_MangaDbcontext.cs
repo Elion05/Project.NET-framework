@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MangaBook_Models.Migrations
 {
     /// <inheritdoc />
-    public partial class MangaDB : Migration
+    public partial class MangaDbcontext : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
