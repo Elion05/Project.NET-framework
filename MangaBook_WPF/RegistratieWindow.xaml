@@ -56,7 +56,7 @@
 
         <StackPanel Grid.Row="7" HorizontalAlignment="Center" Margin="0,20,0,0">
             <!--Registratie knop-->
-            <Button x:Name="btnRegister" Content="Account aanmaken" Width="150" Height="30" Click="btnRegister_Click"/>
+            <Button x:Name="btnRegister" Content="Account aanmaken" Width="150" Height="30" Click="btnRegister_Click" IsDefault="True"/>
 
             <!--error message-->
             <TextBlock x:Name="tbError" Foreground="red" FontSize="14" TextAlignment="Center" TextWrapping="Wrap" Margin="0,20,0,0"/>

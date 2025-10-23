@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 
 namespace MangaBook_WPF
 {
@@ -200,46 +201,6 @@ namespace MangaBook_WPF
             btnLoginLogout.Content = (App.User != null && App.User != MangaUser.Dummy)
                 ? "Logout"
                 : "Login";
-
-
-            if(App.User != null && App.User != MangaUser.Dummy)
-            {
-                var serviceProvider = App.ServiceProvider;
-                if (serviceProvider == null)
-                {
-                    //die knoppen verbergen als de serviceprovider niet beschikbaar is(copilot heeft dit toegevoegd)
-                    btnRoles.Visibility = Visibility.Collapsed;
-                    btnAdd.Visibility = Visibility.Collapsed;
-                    btnEdit.Visibility = Visibility.Collapsed;
-                    btnDelete.Visibility = Visibility.Collapsed;
-                    return;
-                }
-
-                //Controleer of de gebruiker een Admin is, zo niet krijgt hij dit niet te zien
-                var userManager = serviceProvider.GetRequiredService<UserManager<MangaUser>>();
-                bool isAdmin = await userManager.IsInRoleAsync(App.User, "Admin");
-                btnRoles.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
-                btnAdd.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
-                btnEdit.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
-                btnDelete.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
-
-                if (!isAdmin)
-                {
-                    //worden niet actief als de gebruiker geen admin is
-                    btnEdit.IsEnabled = false;
-                    btnDelete.IsEnabled = false;
-                }
-            }
-            else
-            {
-                //Als er geen gebruiker is ingelogd, verberg alle admin knoppen
-                btnRoles.Visibility = Visibility.Collapsed;
-                btnAdd.Visibility = Visibility.Collapsed;
-                btnEdit.Visibility = Visibility.Collapsed;
-                btnDelete.Visibility = Visibility.Collapsed;
-                btnEdit.IsEnabled = false;
-                btnDelete.IsEnabled = false;
-            }
         }
 
         //registratie knop in mainwindow
@@ -276,6 +237,23 @@ namespace MangaBook_WPF
             var rolesWindow = new RolesWindow(_context, userManager);
             rolesWindow.Owner = this;
             rolesWindow.ShowDialog();
+        }
+
+        private void AuthorName_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Hyperlink hyperlink && hyperlink.DataContext is MangaBook mangaBook)
+            {
+                if (mangaBook.Author != null)
+                {
+                    var authorWindow = new AuthorWindow(mangaBook.Author);
+                    authorWindow.Owner = this;
+                    authorWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Geen beschrijving beschikbaar voor deze auteur.", "Informatie", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
         }
     }
 }

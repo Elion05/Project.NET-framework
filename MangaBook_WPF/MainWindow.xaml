@@ -40,7 +40,17 @@
         <DataGrid x:Name="MangaGrid" Grid.Row="1" AutoGenerateColumns="False"  IsReadOnly="True" SelectionMode="Single"  CanUserAddRows="False" SelectionChanged="MangaGrid_SelectionChanged" BorderThickness="0" GridLinesVisibility="None" HeadersVisibility="Column" RowHeaderWidth="0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="200"/>
-                <DataGridTextColumn Header="Author" Binding="{Binding Author.Name}" Width="200"/>
+                <DataGridTemplateColumn Header="Author" Width="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Hyperlink Click="AuthorName_Click">
+                                    <TextBlock Text="{Binding Author.Name}" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Genre" Binding="{Binding Genre.Name}" Width="150"/>
                 <DataGridTextColumn Header="Release Date" Binding="{Binding ReleaseDate, StringFormat={}{0:dd/MM/yyyy}}" Width="150"/>
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>

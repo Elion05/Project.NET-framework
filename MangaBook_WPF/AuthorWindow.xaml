@@ -1,0 +1,57 @@
+﻿<Window x:Class="MangaBook_WPF.AuthorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MangaBook_WPF"
+        mc:Ignorable="d"
+        Title="AuthorWindow" Height="520" Width="820" Background="{DynamicResource YaleBlueBrush}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+
+        <!--Informatie van de autheur-->
+        <StackPanel VerticalAlignment="Top" Margin="104,0,166,0" Grid.ColumnSpan="2">
+
+            <TextBlock Text="{Binding Name}" FontSize="26"  FontWeight="Bold"  Foreground="#FFD700"/>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Geboortedatum: " FontWeight="Bold"/>
+                <TextBlock Text="{Binding geboorteDatum}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Nationaliteit: " FontWeight="Bold"/>
+                <TextBlock Text="{Binding Nationaliteit}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Favoriet eten: " FontWeight="Bold"/>
+                <TextBlock Text="{Binding favoriteFood}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Favoriete sport: " FontWeight="Bold"/>
+                <TextBlock Text="{Binding FavorieteSport}"/>
+            </StackPanel>
+
+            <TextBlock Text="Beschrijving:" FontWeight="Bold"  Margin="0,15,0,5"/>
+            <TextBox Text="{Binding description}"   AcceptsReturn="True" TextWrapping="Wrap" Background="#3A3A4A" BorderBrush="#555" BorderThickness="1" Foreground="White" Height="150" IsReadOnly="True"/>
+
+            <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right"  Margin="0,20,0,0">
+                <Button Content="Sluiten" Width="100" Click="BtnClose_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
