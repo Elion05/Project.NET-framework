@@ -65,7 +65,6 @@
         </StackPanel>
 
         <Border Grid.Row="3" Margin="0,20,0,0" Background="WhiteSmoke" CornerRadius="8" Padding="10"  Visibility="Collapsed" x:Name="brDetails">
-
             <Grid x:Name="grDetails">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
