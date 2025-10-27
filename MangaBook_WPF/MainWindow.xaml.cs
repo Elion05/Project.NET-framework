@@ -215,6 +215,7 @@ namespace MangaBook_WPF
                     btnAdd.Visibility = Visibility.Collapsed;
                     btnEdit.Visibility = Visibility.Collapsed;
                     btnDelete.Visibility = Visibility.Collapsed;
+                    btnGenreToevoegen.Visibility = Visibility.Collapsed;
                     return;
                 }
 
@@ -225,6 +226,7 @@ namespace MangaBook_WPF
                 btnAdd.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
                 btnEdit.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
                 btnDelete.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
+                btnGenreToevoegen.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
 
                 if (!isAdmin)
                 {
@@ -240,6 +242,7 @@ namespace MangaBook_WPF
                 btnAdd.Visibility = Visibility.Collapsed;
                 btnEdit.Visibility = Visibility.Collapsed;
                 btnDelete.Visibility = Visibility.Collapsed;
+                btnGenreToevoegen.Visibility = Visibility.Collapsed;
                 btnEdit.IsEnabled = false;
                 btnDelete.IsEnabled = false;
             }
@@ -264,7 +267,6 @@ namespace MangaBook_WPF
             this.Show();
 
         }
-
 
 
         //Roles knop in mainwindow
@@ -299,6 +301,17 @@ namespace MangaBook_WPF
                     MessageBox.Show("Geen beschrijving beschikbaar voor deze auteur.", "Informatie", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
+        }
+
+
+        //genre toevoegen knop in mainwindow
+        private void btnGenreToevoegen_Click(object sender, RoutedEventArgs e)
+        {
+            var genreWindow = new AddGenreWindow(_context);
+            genreWindow.Owner = this;
+            genreWindow.ShowDialog();
+
+            cbGenre.ItemsSource = _context.Genres.ToList();
         }
     }
 }
