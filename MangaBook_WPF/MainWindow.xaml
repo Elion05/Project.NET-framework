@@ -34,6 +34,7 @@
             <TextBox x:Name="tbSearch" Width="300" Height="25" Margin="0,0,10,0" TextChanged="tbSearch_TextChanged"/>
             <Button x:Name="btnRoles" Content="Rollen geven" Width="100" Height="25" Click="btnRoles_Click"/>
             <Button x:Name="btnGenreToevoegen" Content="Genre toevoegen" Width="120" Height="25" Margin="10,0,0,0" Click="btnGenreToevoegen_Click"/>
+            <Button x:Name="btnAuthorToevoegen" Content="Auteur toevoegen" Width="120" Height="25" Margin="10,0,0,0" Click="btnAuthorToevoegen_Click"/>
         </StackPanel>
 
         <!--DataGrid-->
@@ -98,7 +99,8 @@
 
                 <!-- Auteur -->
                 <Label Content="Auteur:" Grid.Row="2" Grid.Column="0" Margin="0,5"/>
-                <TextBox x:Name="tbAuthor" Grid.Row="2" Grid.Column="1" Width="300" Text="{Binding Author.Name, Mode=TwoWay}"/>
+                <ComboBox x:Name="tbAuthor" Grid.Row="2" Grid.Column="1" Width="200" DisplayMemberPath="Name" SelectedValuePath="Id" SelectedValue="{Binding AuthorId, Mode=TwoWay}"/>
+
 
                 <!-- Genre -->
                 <Label Content="Genre:" Grid.Row="3" Grid.Column="0" Margin="0,5"/>

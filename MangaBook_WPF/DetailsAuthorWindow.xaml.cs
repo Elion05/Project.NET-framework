@@ -19,13 +19,13 @@ namespace MangaBook_WPF
             DataContext = author;
         }
 
-        // ❌ Sluitknop
+        //sluit knop om de window te sluiten
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        //edit knop
+        //edit knop om de velden te bewerken van de auteur
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
             brEditAuthorDetails.Visibility = Visibility.Visible;
@@ -85,7 +85,7 @@ namespace MangaBook_WPF
                 return;
             }
 
-            //If admin = toon de knoppen
+            //als de gebruiker een admin is de knoppen tonen
             var userManager = serviceProvider.GetRequiredService<UserManager<MangaUser>>();
             bool isAdmin = await userManager.IsInRoleAsync(App.User, "Admin");
 
@@ -93,9 +93,6 @@ namespace MangaBook_WPF
             btnEdit.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private void btnEdit_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
+      
     }
 }

@@ -10,8 +10,11 @@ namespace MangaBook_WPF
 {
     public partial class MainWindow : Window
     {
+        //zo kan je communiceren met de database aandehand van _context
         private MangaDbContext _context;
 
+
+        //dit is de constructor van mainwindow
         public MainWindow()
         {
             InitializeComponent();
@@ -29,7 +32,9 @@ namespace MangaBook_WPF
                 .ToList();
 
             MangaGrid.ItemsSource = mangaList;
+            //om de comboboxen te vullen met de data uit de database
             cbGenre.ItemsSource = _context.Genres.ToList();
+            tbAuthor.ItemsSource = _context.Authors.ToList();
         }
 
         //dit is om een boek toe te voegen
@@ -40,38 +45,41 @@ namespace MangaBook_WPF
             tbAuthor.Text = string.Empty; // Clear author text for new entry
         }
 
-        // dit is om een boek te bewerken en de details te tonen
+        //Dit is om de formulier in te vullen aandehand van de geselecteerde boek
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             if (MangaGrid.SelectedItem is MangaBook selected)
-            {
+            { 
                 brDetails.Visibility = Visibility.Visible;
                 grDetails.DataContext = selected;
             }
         }
 
-        //dit is om een boek te verwijderen
+        //dit is om een boek te verwijderen, met bevestiging
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             if (MangaGrid.SelectedItem is MangaBook selected)
             {
-                if (MessageBox.Show($"Weet je zeker dat je '{selected.Title}' wilt verwijderen?",
-                                    "Bevestigen", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                var result = MessageBox.Show($"Ben je zeker dat je  '{selected.Title}' wilt verwijderen?",
+                                             "Verwijderen bevestigen", 
+                                             MessageBoxButton.YesNo, MessageBoxImage.Stop);
+
+                //als ja is gekozen wordt het boek verwijderd, geen soft delete maar hard delete
+                if (result == MessageBoxResult.Yes)
                 {
                     _context.MangaBooks.Remove(selected);
                     _context.SaveChanges();
                     LoadData();
                     brDetails.Visibility = Visibility.Collapsed;
-                    }
+                }
             }
         }
 
-        //dit is om een boek op te slaan
+        //deze functie is om de wijzigingen van het boek op te slaan, en ook een nieuwe auteur toe te voegen als die nog niet bestaat(kopelt het boek aan de juiste auteur automatisch)
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             if (grDetails.DataContext is MangaBook book)
             {
-                //deze gedeelte tot lijn 89 is om de auteur toe te voegen als die nog niet bestaat
                 if (!string.IsNullOrWhiteSpace(tbAuthor.Text))
                 {
                     var authorName = tbAuthor.Text.Trim();
@@ -96,7 +104,7 @@ namespace MangaBook_WPF
                         _context.SaveChanges();
                         book.AuthorId = nieuwAuteur.Id;
                     };
-                    //dit is voor de boek zelf te updaten of toe te voegen
+                  
                     if (book.Id == 0)
                         _context.MangaBooks.Add(book);
                     else
@@ -131,7 +139,6 @@ namespace MangaBook_WPF
             string zoekterm = tbSearch.Text.ToLower();
 
             //hier kan je kiezen op wat je wilt filteren,
-            //dus je schrijft gewoon welke genre auteur of boek je wilt en het filtert daarop
             var gefilterdeManga = _context.MangaBooks
                 .Include(m => m.Author)
                 .Include(m => m.Genre)
@@ -312,6 +319,15 @@ namespace MangaBook_WPF
             genreWindow.ShowDialog();
 
             cbGenre.ItemsSource = _context.Genres.ToList();
+        }
+
+        private void btnAuthorToevoegen_Click(object sender, RoutedEventArgs e)
+        {
+            var AddAuthorWindow = new AddAuthorWindow();
+            AddAuthorWindow.Owner = this;
+            AddAuthorWindow.ShowDialog();
+
+            tbAuthor.ItemsSource = _context.Authors.ToList();
         }
     }
 }
