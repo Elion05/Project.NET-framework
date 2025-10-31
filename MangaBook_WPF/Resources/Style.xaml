@@ -6,14 +6,15 @@
     <Color x:Key="Prussian Blue">#1e6091</Color>
     <Color x:Key="Lemon Chiffon">#FAF0CA</Color>
     <Color x:Key="LichtGrijs">LightGray</Color>
-    
 
 
 
-        <SolidColorBrush x:Key="YaleBlueBrush" Color="{StaticResource Yale Blue}"/>
+
+    <SolidColorBrush x:Key="YaleBlueBrush" Color="{StaticResource Yale Blue}"/>
     <SolidColorBrush x:Key="ye" Color="{StaticResource Ye}"/>
     <SolidColorBrush x:Key="PrussianBlueBrush" Color="{StaticResource Prussian Blue}"/>
     <SolidColorBrush x:Key="LemonChiffonBrush" Color="{StaticResource Lemon Chiffon}"/>
+   
 
 
     <!--Knoppen-->

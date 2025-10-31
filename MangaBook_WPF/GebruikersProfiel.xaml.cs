@@ -23,6 +23,7 @@ namespace MangaBook_WPF
     {
         private MangaDbContext _context;
         private UserManager<MangaUser> _userManager;
+        private MangaUser _currentUser;
 
         public GebruikersProfiel(MangaDbContext context, UserManager<MangaUser> userManager)
         {
@@ -31,12 +32,64 @@ namespace MangaBook_WPF
             _userManager = userManager;
         }
 
-        private void btnSaveProfile_Click(object sender, RoutedEventArgs e)
+
+        //opslaan profiel
+        private async void btnSaveProfile_Click(object sender, RoutedEventArgs e)
         {
-            //testen of de knop werkt
-            MessageBox.Show("Profiel succesvol opgeslagen!", "Informatie", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            if(_currentUser == null)
+            {
+                MessageBox.Show("Geen gebruiker geladen.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            //gebruikersgegevens bijwerken, de informatie staat al direct in de textboxes
+            _currentUser.UserName = tbGebruikersnaam.Text;
+            _currentUser.FirstName = tbVoornaam.Text;
+            _currentUser.LastName = tbAchternaam.Text;
+            _currentUser.Email = tbEmail.Text;
+
+            var result = await _userManager.UpdateAsync(_currentUser);
+
+
+            if (result.Succeeded)
+            {
+                MessageBox.Show("Gebruikersprofiel bijgewerkt.", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+            }
+            else
+            {
+                string fout = string.Join("\n", result.Errors.Select(err => err.Description));
+                MessageBox.Show($"Fout bij bijwerken gebruikersprofiel:\n{fout}", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+                MessageBox.Show("Profiel succesvol opgeslagen!", "Informatie", MessageBoxButton.OK, MessageBoxImage.Information);
             this.Close();
 
+        }
+
+        private  async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(App.User == null || App.User == MangaUser.Dummy)
+            {
+                MessageBox.Show("Er is geen gebruiker ingelogd.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
+                return;
+            }
+            _currentUser = await _userManager.FindByIdAsync(App.User.Id);
+
+            if(_currentUser != null)
+            {
+                tbGebruikersnaam.Text = _currentUser.UserName;
+                tbEmail.Text = _currentUser.Email;
+                tbVoornaam.Text = _currentUser.FirstName;
+                tbAchternaam.Text = _currentUser.LastName;
+            }
+            else
+            {
+                MessageBox.Show("De ingelogde gebruiker kon niet gevonden worden.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
+            }
         }
     }
 }
