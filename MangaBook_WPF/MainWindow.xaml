@@ -17,32 +17,31 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
-        <TextBlock Text="📖 MangaBook Tracker"   FontSize="28" FontWeight="Bold" Foreground="LightGray" TextDecorations="Underline" Margin="0,0,0,15"/>
+        <TextBlock Text="📖 MangaBook Tracker"   FontSize="28" FontWeight="Bold" Foreground="{DynamicResource ye}" TextDecorations="Underline" Margin="0,0,0,15"/>
+
 
         <!--Login/Logout knop / Profiel knop -->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" Width="251">
-            <Button x:Name="btnLoginLogout" Content="Login" Width="100" Height="25" Click="btnLoginLogout_Click"/>
-            <Button x:Name="btnProfile" Content="Profiel" Width="100" Height="25" Margin="10,0,0,0" Click="btnProfile_Click" Visibility="Collapsed"/>
-        </StackPanel>
-
-
-        <!--Zoekbalk-->
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,50,0,10">
-            <TextBox x:Name="tbSearch" Width="300" Height="25" Margin="0,0,10,0" TextChanged="tbSearch_TextChanged"/>
+        <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,10,0">
+            <Button x:Name="btnLoginLogout" Content="Login" Width="102" Height="25" Click="btnLoginLogout_Click"/>
+            <Button x:Name="btnProfile" Content="Profiel" Width="83" Height="25" Margin="10,0,0,0" Click="btnProfile_Click" Visibility="Collapsed"/>
         </StackPanel>
 
         <!--DropdownMenu-->
-        <Menu HorizontalAlignment="Right" Margin="0,20,190,45" Grid.Row="0">
+        <Menu VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="0">
             <MenuItem Header="Admin Commands" x:Name="menuAdmin" Visibility="Collapsed">
                 <MenuItem Header="Rollen geven" Click="MenuRoles_Click"/>
                 <MenuItem Header="Auteur Toevoegen" Click="MenuItem_AddAuthor_Click"/>
                 <MenuItem Header="Genre Toevoegen" Click="MenuItem_AddGenre_Click"/>
             </MenuItem>
         </Menu>
+
+        <!--Zoekbalk-->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,50,0,10">
+            <TextBox x:Name="tbSearch" Width="300" Height="25" Margin="0,0,10,0" TextChanged="tbSearch_TextChanged"/>
+        </StackPanel>
 
         <!--DataGrid-->
         <DataGrid x:Name="MangaGrid" Grid.Row="1" AutoGenerateColumns="False"  IsReadOnly="True" SelectionMode="Single"  CanUserAddRows="False" SelectionChanged="MangaGrid_SelectionChanged" BorderThickness="0" GridLinesVisibility="None" HeadersVisibility="Column" RowHeaderWidth="0">

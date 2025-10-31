@@ -20,14 +20,16 @@
         <TextBlock Text="👤 Gebruikers Profiel" FontSize="34" HorizontalAlignment="Left" Margin="250,30,0,0" VerticalAlignment="Top" Foreground="{StaticResource ye}"/>
 
         <!--Data dat de gebruiker kan aanpassen, de huidige data staat al automatisch in de textboxes-->
-        <Label Content="Voornaam:" Margin="96,158,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="{StaticResource ye}"/>
-        <TextBox x:Name="tbVoornaam" Width="300" Height="25" Margin="228,164,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Label Content="Achternaam:" Margin="99,195,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="{StaticResource ye}"/>
-        <TextBox x:Name="tbAchternaam" Width="300" Height="24" Margin="228,204,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label Content="Voornaam:" Margin="89,133,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="{StaticResource ye}"/>
+        <TextBox x:Name="tbVoornaam" Width="300" Height="25" Margin="228,143,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label Content="Achternaam:" Margin="81,170,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="{StaticResource ye}"/>
+        <TextBox x:Name="tbAchternaam" Width="300" Height="24" Margin="228,178,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label Content="Wachtwoord:" Margin="78,207,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="{StaticResource ye}"/>
+        <PasswordBox x:Name="pbWachtwoord" Width="300" Height="25" Margin="228,213,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Label Content="Gebruikersnaam:" Margin="62,243,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="{StaticResource ye}"/>
         <TextBox x:Name="tbGebruikersnaam" Width="300" Height="25" Margin="228,249,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Label Content="E-mail:" Margin="141,285,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="{StaticResource ye}"/>
-        <TextBox x:Name="tbEmail" Width="300" Height="25" Margin="228,297,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Label Content="E-mail:" Margin="141,280,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="{StaticResource ye}"/>
+        <TextBox x:Name="tbEmail" Width="300" Height="25" Margin="228,286,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
         <Button x:Name="btnSaveProfile" Content="Profiel Opslaan" Width="150" Height="30" Margin="0,0,325,50" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="btnSaveProfile_Click"/>
 
 

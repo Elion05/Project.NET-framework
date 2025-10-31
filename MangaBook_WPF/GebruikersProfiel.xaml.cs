@@ -46,6 +46,7 @@ namespace MangaBook_WPF
             //gebruikersgegevens bijwerken, de informatie staat al direct in de textboxes
             _currentUser.UserName = tbGebruikersnaam.Text;
             _currentUser.FirstName = tbVoornaam.Text;
+            _currentUser.PasswordHash = _userManager.PasswordHasher.HashPassword(_currentUser, pbWachtwoord.Password);
             _currentUser.LastName = tbAchternaam.Text;
             _currentUser.Email = tbEmail.Text;
 
@@ -82,6 +83,7 @@ namespace MangaBook_WPF
             {
                 tbGebruikersnaam.Text = _currentUser.UserName;
                 tbEmail.Text = _currentUser.Email;
+                pbWachtwoord.Password = "********";
                 tbVoornaam.Text = _currentUser.FirstName;
                 tbAchternaam.Text = _currentUser.LastName;
             }
