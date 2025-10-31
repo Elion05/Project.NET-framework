@@ -52,7 +52,7 @@ namespace MangaBook_WPF
                 _author.Nationaliteit = tbEditNationaliteit.Text;
                 _author.FavorieteSport = tbEditFavorieteSport.Text;
 
-                // Opslaan in database
+                //Opslaan in database
                 _context.Authors.Update(_author);
                 _context.SaveChanges();
 

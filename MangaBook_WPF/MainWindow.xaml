@@ -20,22 +20,29 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        
+
         <TextBlock Text="📖 MangaBook Tracker"   FontSize="28" FontWeight="Bold" Foreground="LightGray" TextDecorations="Underline" Margin="0,0,0,15"/>
 
-        <!--Login/Logout knop -->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0">
+        <!--Login/Logout knop / Profiel knop -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" Width="251">
             <Button x:Name="btnLoginLogout" Content="Login" Width="100" Height="25" Click="btnLoginLogout_Click"/>
+            <Button x:Name="btnProfile" Content="Profiel" Width="100" Height="25" Margin="10,0,0,0" Click="btnProfile_Click" Visibility="Collapsed"/>
         </StackPanel>
 
 
-        <!-- Zoekbalk -->
+        <!--Zoekbalk-->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,50,0,10">
             <TextBox x:Name="tbSearch" Width="300" Height="25" Margin="0,0,10,0" TextChanged="tbSearch_TextChanged"/>
-            <Button x:Name="btnRoles" Content="Rollen geven" Width="100" Height="25" Click="btnRoles_Click"/>
-            <Button x:Name="btnGenreToevoegen" Content="Genre toevoegen" Width="120" Height="25" Margin="10,0,0,0" Click="btnGenreToevoegen_Click"/>
-            <Button x:Name="btnAuthorToevoegen" Content="Auteur toevoegen" Width="120" Height="25" Margin="10,0,0,0" Click="btnAuthorToevoegen_Click"/>
         </StackPanel>
+
+        <!--DropdownMenu-->
+        <Menu HorizontalAlignment="Right" Margin="0,20,190,45" Grid.Row="0">
+            <MenuItem Header="Admin Commands" x:Name="menuAdmin" Visibility="Collapsed">
+                <MenuItem Header="Rollen geven" Click="MenuRoles_Click"/>
+                <MenuItem Header="Auteur Toevoegen" Click="MenuItem_AddAuthor_Click"/>
+                <MenuItem Header="Genre Toevoegen" Click="MenuItem_AddGenre_Click"/>
+            </MenuItem>
+        </Menu>
 
         <!--DataGrid-->
         <DataGrid x:Name="MangaGrid" Grid.Row="1" AutoGenerateColumns="False"  IsReadOnly="True" SelectionMode="Single"  CanUserAddRows="False" SelectionChanged="MangaGrid_SelectionChanged" BorderThickness="0" GridLinesVisibility="None" HeadersVisibility="Column" RowHeaderWidth="0">
@@ -52,7 +59,21 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Genre" Binding="{Binding Genre.Name}" Width="150"/>
+
+
+                <DataGridTemplateColumn Header="Genre" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Hyperlink Click="GenreName_Click"
+                                           DataContext="{Binding}">
+                                    <TextBlock Text="{Binding Genre.Name}" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
                 <DataGridTextColumn Header="Release Date" Binding="{Binding ReleaseDate, StringFormat={}{0:dd/MM/yyyy}}" Width="150"/>
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
             </DataGrid.Columns>
@@ -105,7 +126,7 @@
                 <!-- Genre -->
                 <Label Content="Genre:" Grid.Row="3" Grid.Column="0" Margin="0,5"/>
                 <ComboBox x:Name="cbGenre" Grid.Row="3" Grid.Column="1" Width="200" DisplayMemberPath="Name" SelectedValuePath="Id"  SelectedValue="{Binding GenreId, Mode=TwoWay}"/>
-                 
+
                 <!-- Release Date -->
                 <Label Content="Release datum:" Grid.Row="4" Grid.Column="0" Margin="0,5"/>
                 <DatePicker x:Name="dpRelease" Grid.Row="4" Grid.Column="1" SelectedDate="{Binding ReleaseDate, Mode=TwoWay}"/>

@@ -21,10 +21,10 @@ namespace MangaBook_WPF
     public partial class AddAuthorWindow : Window
     {
         private readonly MangaDbContext _context;
-        public AddAuthorWindow()
+        public AddAuthorWindow(MangaDbContext context)
         {
-            _context = new MangaDbContext();
             InitializeComponent();
+            _context = context;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -44,16 +44,16 @@ namespace MangaBook_WPF
 
             if(_context.Authors.Any(a => a.Name.ToLower() == Auteurnaam.ToLower()))
             {
-                MessageBox.Show("Deze auteur bestaat al.");
+                MessageBox.Show("Deze auteur bestaat al.", "Waarschuwing", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
 
             var newAuthor = new Author { Name = Auteurnaam };
             _context.Authors.Add(newAuthor);
             _context.SaveChanges();
 
-            MessageBox.Show($"Auteur '{newAuthor.Name}' is succesvol toegevoegd.");
+            MessageBox.Show($"Auteur '{newAuthor.Name}' is succesvol toegevoegd.", "Informatie", MessageBoxButton.OK, MessageBoxImage.Information);
             this.Close();
-
         }
     }
 }

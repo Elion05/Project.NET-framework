@@ -1,0 +1,67 @@
+﻿<Window x:Class="MangaBook_WPF.DetailsGenreWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MangaBook_WPF"
+        mc:Ignorable="d"
+        Title="DetailsGenreWindow" Height="550" Width="800" Background="{DynamicResource PrussianBlueBrush}" Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        
+
+        <StackPanel VerticalAlignment="Top" Margin="7,126,-7,0" Grid.RowSpan="2">
+
+            <!--Naam van de genre-->
+            <TextBlock Text="{Binding Name, StringFormat='Genre: {0}'}" FontSize="26"  FontWeight="Bold"  Foreground="#FFD700" HorizontalAlignment="Center"/>
+
+            <!--Beschrijving van de genre type-->
+            <TextBlock Text="Beschrijving:" FontWeight="Bold"  Margin="0,15,0,5" HorizontalAlignment="Center"/>
+            <TextBox Text="{Binding genreBeschrijving}"   AcceptsReturn="True" TextWrapping="Wrap" Background="#3A3A4A" BorderBrush="#555" BorderThickness="1" Foreground="White" Height="150" Width="400" IsReadOnly="True" HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Left"  Margin="465,215,0,-147" Grid.Row="1" Grid.RowSpan="2">
+            <Button x:Name="btnEditGenre" Content="Bewerken" Width="100" Click="btnEditGenre_Click" Margin="0,0,10,0" Height="29"/>
+            <Button Content="Sluit" Width="100" Height="30" Click="btnClose_Click"/>
+        </StackPanel>
+
+        <Border Grid.Row="2" Margin="0,20,0,0" Background="WhiteSmoke" CornerRadius="8" Padding="10" Visibility="Collapsed" x:Name="brEditGenreDetails">
+            <Grid x:Name="grEditGenreDetails">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+
+                <Label Content="Genre Naam:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <TextBox x:Name="tbGenreNaam" Grid.Row="0" Grid.Column="1" Width="200"/>
+
+                <Label Content="Beschrijving:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Margin="0,10,10,0"/>
+                <TextBox x:Name="tbGenreBeschrijving" Grid.Row="1" Grid.Column="1" Width="200" Height="100" AcceptsReturn="True" TextWrapping="Wrap" Margin="0,10,0,0"/>
+
+                <Button x:Name="btnSave" Content="Opslaan" Width="100" Height="30" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="0,10,0,0" Click="OpslaanKnop_Click"/>
+            </Grid>
+        </Border>
+
+
+
+
+    </Grid>
+</Window>

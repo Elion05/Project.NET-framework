@@ -52,7 +52,8 @@ namespace MangaBook_WPF
             _context.Genres.Add(newGenre);
             _context.SaveChanges();
 
-            MessageBox.Show($"Genre '{newGenre.Name}' is succesvol toegevoegd.");
+            MessageBox.Show($"Genre '{newGenre.Name}' is succesvol toegevoegd.", "Informatie", MessageBoxButton.OK, MessageBoxImage.Information);
+            
             this.Close();
 
         }

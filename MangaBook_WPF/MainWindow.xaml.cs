@@ -125,8 +125,6 @@ namespace MangaBook_WPF
             btnDelete.IsEnabled = MangaGrid.SelectedItem != null;
         }
 
-
-
         //Dit is de code voor de zoekbalk
         //dit gaat automatisch filteren terwijl je intypt dus ik heb geen knop voorzien
         private void tbSearch_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -214,26 +212,26 @@ namespace MangaBook_WPF
 
             if (App.User != null && App.User != MangaUser.Dummy)
             {
+                btnProfile.Visibility = Visibility.Visible; // Show profile button when logged in
+
                 var serviceProvider = App.ServiceProvider;
                 if (serviceProvider == null)
                 {
                     //die knoppen verbergen als de serviceprovider niet beschikbaar is(copilot heeft dit toegevoegd)
-                    btnRoles.Visibility = Visibility.Collapsed;
+                    menuAdmin.Visibility = Visibility.Collapsed;
                     btnAdd.Visibility = Visibility.Collapsed;
                     btnEdit.Visibility = Visibility.Collapsed;
                     btnDelete.Visibility = Visibility.Collapsed;
-                    btnGenreToevoegen.Visibility = Visibility.Collapsed;
                     return;
                 }
 
                 //Controleer of de gebruiker een Admin is, zo niet krijgt hij dit niet te zien
                 var userManager = serviceProvider.GetRequiredService<UserManager<MangaUser>>();
                 bool isAdmin = await userManager.IsInRoleAsync(App.User, "Admin");
-                btnRoles.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
+                menuAdmin.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
                 btnAdd.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
                 btnEdit.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
                 btnDelete.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
-                btnGenreToevoegen.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
 
                 if (!isAdmin)
                 {
@@ -245,11 +243,11 @@ namespace MangaBook_WPF
             else
             {
                 //Als er geen gebruiker is ingelogd, verberg alle admin knoppen
-                btnRoles.Visibility = Visibility.Collapsed;
+                btnProfile.Visibility = Visibility.Collapsed; // Hide profile button when not logged in
+                menuAdmin.Visibility = Visibility.Collapsed;
                 btnAdd.Visibility = Visibility.Collapsed;
                 btnEdit.Visibility = Visibility.Collapsed;
                 btnDelete.Visibility = Visibility.Collapsed;
-                btnGenreToevoegen.Visibility = Visibility.Collapsed;
                 btnEdit.IsEnabled = false;
                 btnDelete.IsEnabled = false;
             }
@@ -270,7 +268,7 @@ namespace MangaBook_WPF
             registratieWindow.Owner = this;
             this.Hide();
             registratieWindow.ShowDialog();
-            // After RegistratieWindow closes, show MainWindow again
+            
             this.Show();
 
         }
@@ -291,6 +289,24 @@ namespace MangaBook_WPF
             rolesWindow.ShowDialog();
         }
 
+        private void GenreName_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Hyperlink hyperlink && hyperlink.DataContext is MangaBook mangaBook)
+            {
+                if (mangaBook.Genre != null)
+                {
+                    var genreWindow = new DetailsGenreWindow(mangaBook.Genre, _context);     
+                    genreWindow.Owner = this;
+                    genreWindow.ShowDialog();
+                    
+                    LoadData(); 
+                }
+                else
+                {
+                    MessageBox.Show("Geen beschrijving beschikbaar voor dit genre.", "Informatie", MessageBoxButton.OK, MessageBoxImage.Information);
+                }       
+            }
+        }
         private void AuthorName_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Hyperlink hyperlink && hyperlink.DataContext is MangaBook mangaBook)
@@ -323,11 +339,41 @@ namespace MangaBook_WPF
 
         private void btnAuthorToevoegen_Click(object sender, RoutedEventArgs e)
         {
-            var AddAuthorWindow = new AddAuthorWindow();
+            var AddAuthorWindow = new AddAuthorWindow(_context);
             AddAuthorWindow.Owner = this;
             AddAuthorWindow.ShowDialog();
-
             tbAuthor.ItemsSource = _context.Authors.ToList();
+        }
+
+       private void MenuRoles_Click(object sender, RoutedEventArgs e)
+        {
+            btnRoles_Click(sender, e);
+        }
+        private void MenuItem_AddGenre_Click(object sender, RoutedEventArgs e)
+        {
+            btnGenreToevoegen_Click(sender, e);
+        }
+        private void MenuItem_AddAuthor_Click(object sender, RoutedEventArgs e)
+        {
+            btnAuthorToevoegen_Click(sender, e);
+        }
+
+        private void btnProfile_Click(object sender, RoutedEventArgs e)
+        {
+            //als er een gebruiker is ingelogd, open het profiel venster
+            if (App.User != null && App.User != MangaUser.Dummy)
+            {
+                var serviceProvider = App.ServiceProvider;
+                if (serviceProvider == null)
+                {
+                    MessageBox.Show("ServiceProvider niet beschikbaar.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                var userManager = serviceProvider.GetRequiredService<UserManager<MangaUser>>();
+                var profileWindow = new GebruikersProfiel(_context, userManager);
+                profileWindow.Owner = this;
+                profileWindow.ShowDialog();
+            }
         }
     }
 }

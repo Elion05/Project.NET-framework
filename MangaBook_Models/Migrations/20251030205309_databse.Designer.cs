@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MangaBook_Models.Migrations
 {
     [DbContext(typeof(MangaDbContext))]
-    [Migration("20251023195833_mangaDb")]
-    partial class mangaDb
+    [Migration("20251030205309_databse")]
+    partial class databse
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,6 +68,10 @@ namespace MangaBook_Models.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("genreBeschrijving")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

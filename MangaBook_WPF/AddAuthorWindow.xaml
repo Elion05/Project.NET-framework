@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MangaBook_WPF"
         mc:Ignorable="d"
-        Title="AddAuthorWindow" Height="450" Width="800" Background="{DynamicResource YaleBlueBrush}">
+        Title="AddAuthorWindow" Height="500" Width="800" Background="{DynamicResource YaleBlueBrush}">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -15,9 +15,9 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
-        <TextBlock Text="👨‍🏫Auteur Toevoegen" FontSize="34" HorizontalAlignment="Left" Margin="226,43,0,344"/>
-        <Label Content="Auteur naam" Margin="120,101,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="LightGray" FontSize="20"/>
-        <TextBox x:Name="tbAuteurNaam" Width="300" Height="25" Margin="0,107,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBlock Text="👨‍🏫Auteur Toevoegen" FontSize="34" HorizontalAlignment="Left" Margin="205,48,0,339"/>
+        <Label Content="Auteur naam" Margin="118,159,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="LightGray" FontSize="20"/>
+        <TextBox x:Name="tbAuteurNaam" Width="300" Height="25" Margin="0,165,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Button x:Name="btnAddAuthor" Content="Auteur Toevoegen" Width="150" Height="30" Margin="0,0,339,217" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="btnAddAuthor_Click"/>
         <TextBlock x:Name="tbErrorMessage" Foreground="Red" Margin="0,150,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 

@@ -48,7 +48,7 @@ namespace MangaBook_Models
         {
             var list = new List<MangaBook>();
 
-            list.AddRange(
+            list.AddRange( 
             new MangaBook
             {
                 Title = "Naruto",
