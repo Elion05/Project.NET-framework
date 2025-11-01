@@ -29,6 +29,7 @@ namespace MangaBook_WPF
             var mangaList = _context.MangaBooks
                 .Include(m => m.Author)
                 .Include(m => m.Genre)
+                .Where(m => !m.IsDeleted) //soft delete
                 .ToList();
 
             MangaGrid.ItemsSource = mangaList;
@@ -67,7 +68,8 @@ namespace MangaBook_WPF
                 //als ja is gekozen wordt het boek verwijderd, geen soft delete maar hard delete
                 if (result == MessageBoxResult.Yes)
                 {
-                    _context.MangaBooks.Remove(selected);
+                    selected.IsDeleted = true;
+                    _context.MangaBooks.Update(selected);
                     _context.SaveChanges();
                     LoadData();
                     brDetails.Visibility = Visibility.Collapsed;
@@ -140,13 +142,11 @@ namespace MangaBook_WPF
             var gefilterdeManga = _context.MangaBooks
                 .Include(m => m.Author)
                 .Include(m => m.Genre)
-                .Where(m =>
-                    m.Title.ToLower().Contains(zoekterm) ||
-                    (m.Author != null && m.Author.Name.ToLower().Contains(zoekterm)) ||
-                    (m.Genre != null && m.Genre.Name.ToLower().Contains(zoekterm)) ||
-                    //je kan nu op jaar zoeken
-                    m.ReleaseDate.Year.ToString().Contains(zoekterm))
-
+                .Where(m => !m.IsDeleted &&
+                            (m.Title.ToLower().Contains(zoekterm) ||
+                             m.Description.ToLower().Contains(zoekterm) ||
+                             (m.Author != null && m.Author.Name.ToLower().Contains(zoekterm)) ||
+                             (m.Genre != null && m.Genre.Name.ToLower().Contains(zoekterm))))
                 .ToList();
 
             MangaGrid.ItemsSource = gefilterdeManga;

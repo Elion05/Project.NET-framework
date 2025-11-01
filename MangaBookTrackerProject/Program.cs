@@ -14,7 +14,8 @@ namespace MangaBookTrackerProject
         
         static void Main(string[] args)
         {
-            Console.WriteLine("Hier  is niets te zien");
+            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hier is niks te zien want ik ben nog bezig met de code.");
         }
     }
 }

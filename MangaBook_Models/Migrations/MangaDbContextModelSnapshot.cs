@@ -95,6 +95,9 @@ namespace MangaBook_Models.Migrations
                     b.Property<int>("GenreId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
 

@@ -30,7 +30,7 @@
         </StackPanel>
 
         <!--DropdownMenu-->
-        <Menu VerticalAlignment="Top" Margin="10,0,0,0" Grid.Column="0">
+        <Menu VerticalAlignment="Top" Margin="900,12,0,0" Grid.Column="0" HorizontalAlignment="Left">
             <MenuItem Header="Admin Commands" x:Name="menuAdmin" Visibility="Collapsed">
                 <MenuItem Header="Rollen geven" Click="MenuRoles_Click"/>
                 <MenuItem Header="Auteur Toevoegen" Click="MenuItem_AddAuthor_Click"/>

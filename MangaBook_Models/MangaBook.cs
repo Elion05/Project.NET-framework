@@ -22,6 +22,9 @@ namespace MangaBook_Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; } = string.Empty;
 
+
+       public bool IsDeleted { get; set; } = false;
+
         [Required]
         [Display(Name = "Publicatiedatum")]
         [DataType(DataType.Date)]
