@@ -15,6 +15,8 @@ namespace MangaBook_Models
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
 
+        public bool IsDeleted { get; set; } = false;
+
 
         public static MangaUser Dummy = new MangaUser
         {

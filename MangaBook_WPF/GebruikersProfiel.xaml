@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MangaBook_WPF"
         mc:Ignorable="d"
-        Title="GebruikersProfiel" Height="550" Width="880" Loaded="Window_Loaded" Background="{DynamicResource YaleBlueBrush}">
+        Title="GebruikersProfiel" Height="550" Width="880" Loaded="Window_Loaded" Background="{DynamicResource PrussianBlueBrush}">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -30,7 +30,7 @@
         <TextBox x:Name="tbGebruikersnaam" Width="300" Height="25" Margin="228,249,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Label Content="E-mail:" Margin="141,280,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="{StaticResource ye}"/>
         <TextBox x:Name="tbEmail" Width="300" Height="25" Margin="228,286,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
-        <Button x:Name="btnSaveProfile" Content="Profiel Opslaan" Width="150" Height="30" Margin="0,0,325,50" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="btnSaveProfile_Click"/>
+        <Button x:Name="btnSaveProfile" Content="Profiel Opslaan" Width="150" Height="30" Margin="0,0,325,50" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="btnSaveProfile_Click" IsDefault="True"/>
 
 
     </Grid>

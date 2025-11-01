@@ -32,7 +32,7 @@ namespace MangaBook_WPF
             if (_genre != null)
             {
                 // Nieuwe waarden opslaan
-                _genre.Name = tbGenreNaam.Text;
+               
                 _genre.genreBeschrijving = tbGenreBeschrijving.Text;
 
                 // Opslaan in database
@@ -54,7 +54,7 @@ namespace MangaBook_WPF
             brEditGenreDetails.Visibility = Visibility.Visible;
 
             // Velden invullen met huidige gegevens
-            tbGenreNaam.Text = _genre.Name;
+           
             tbGenreBeschrijving.Text = _genre.genreBeschrijving;
         }
 
@@ -88,7 +88,7 @@ namespace MangaBook_WPF
         {
             if(_genre != null)
             {
-                _genre.Name = tbGenreNaam.Text;
+                
                 _genre.genreBeschrijving = tbGenreBeschrijving.Text;
 
                 _context.Genres.Update(_genre);

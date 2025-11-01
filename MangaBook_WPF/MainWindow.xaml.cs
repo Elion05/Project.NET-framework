@@ -212,7 +212,9 @@ namespace MangaBook_WPF
 
             if (App.User != null && App.User != MangaUser.Dummy)
             {
-                btnProfile.Visibility = Visibility.Visible; // Show profile button when logged in
+                btnProfile.Visibility = Visibility.Visible; //profiel tonen voor iedereen die ingelogd is
+                //menuAdmin.Visibility = Visibility.Visible; //admin menu tonen voor iedereen die ingelogd is
+
 
                 var serviceProvider = App.ServiceProvider;
                 if (serviceProvider == null)
@@ -243,7 +245,7 @@ namespace MangaBook_WPF
             else
             {
                 //Als er geen gebruiker is ingelogd, verberg alle admin knoppen
-                btnProfile.Visibility = Visibility.Collapsed; // Hide profile button when not logged in
+                btnProfile.Visibility = Visibility.Collapsed; 
                 menuAdmin.Visibility = Visibility.Collapsed;
                 btnAdd.Visibility = Visibility.Collapsed;
                 btnEdit.Visibility = Visibility.Collapsed;

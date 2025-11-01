@@ -24,6 +24,7 @@ namespace MangaBook_Models
         public string genreBeschrijving { get; set; } = string.Empty;
 
 
+
         //dummy data
         public static List<Genre> SeedingData()
         {

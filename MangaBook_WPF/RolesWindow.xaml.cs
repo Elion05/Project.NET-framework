@@ -19,7 +19,8 @@ namespace MangaBook_WPF
             _context = context;
             _userManager  = userManager;
 
-            cbUsers.ItemsSource = _context.Users
+            cbUsers.ItemsSource = _userManager.Users
+                .Where(u => !u.IsDeleted)
                 .OrderBy(u => u.UserName)
                 .ToList();
         }
