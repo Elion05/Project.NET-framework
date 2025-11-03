@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore.SqlServer;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore; // Add this using directive
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore; 
 
 namespace MangaBook_Models
 {
@@ -27,10 +27,10 @@ namespace MangaBook_Models
 
 
         //dit is voor de seeding van de database met dummy data
-        //het checkt of er data is of niet, zo nie dan vult hij de tabellen met dummy data
-        public static void Seeder(MangaDbContext context)
+ 
+        public static async Task Seeder(MangaDbContext context)
         {
-                MangaUser.Seeder(context).Wait();
+                await MangaUser.Seeder(context);
 
             if (!context.Authors.Any())
             {

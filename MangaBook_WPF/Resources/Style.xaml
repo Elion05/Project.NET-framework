@@ -20,7 +20,7 @@
     <!--Knoppen-->
     <Style TargetType="Button">
         <Setter Property="Background" Value="{StaticResource YaleBlueBrush}"/>
-        <Setter Property="Foreground" Value="White"/> <!-- Changed to White -->
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Padding" Value="10,5"/>
         <Setter Property="Margin" Value="5"/>
@@ -39,7 +39,7 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource ye}" />
-                <Setter Property="Foreground" Value="Black"/> <!-- On hover: black text -->
+                <Setter Property="Foreground" Value="Black"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Background" Value="Gray"/>
@@ -60,13 +60,13 @@
     </Style>
 
     
-    <!--Datagrid-->
-    <!-- DataGridRow voor hover en selectie -->
+    <!--Datagrid en datagrid hover-->
+    
     <Style TargetType="DataGridRow">
         <Setter Property="Background" Value="White"/>
         <Setter Property="Foreground" Value="{StaticResource YaleBlueBrush}"/>
         <Style.Triggers>
-            <!-- Hover -->
+            <!--Hover-->
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource ye}"/>
                 <Setter Property="Foreground" Value="{StaticResource YaleBlueBrush}"/>

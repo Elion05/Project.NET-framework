@@ -78,6 +78,8 @@ namespace MangaBook_Models
                 await userManager.CreateAsync(admin, "Admin123!");
                 await userManager.CreateAsync(normaleUser, "User123!");
 
+                
+
                 await userManager.AddToRoleAsync(admin, "Admin");
                 await userManager.AddToRoleAsync(normaleUser, "User");
 

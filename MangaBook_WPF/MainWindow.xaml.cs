@@ -158,11 +158,11 @@ namespace MangaBook_WPF
             if (App.User == null || App.User == MangaUser.Dummy)
             {
                 var loginWindow = new LoginWindow();
-                loginWindow.Owner = this; // Set owner to handle closing logic
+                loginWindow.Owner = this; //Set owner to handle closing logic
                 this.Hide();
                 loginWindow.ShowDialog();
 
-                // After LoginWindow closes, decide whether to show MainWindow or close it
+                //After LoginWindow closes, decide whether to show MainWindow or close it
                 if (App.User != null && App.User != MangaUser.Dummy)
                 {
                     btnLoginLogout.Content = "Logout";
@@ -194,11 +194,11 @@ namespace MangaBook_WPF
                     if (App.User != null && App.User != MangaUser.Dummy)
                     {
                         btnLoginLogout.Content = "Logout";
-                        this.Show(); // User logged in again
+                        this.Show(); 
                     }
                     else
                     {
-                        this.Close(); // User did not log in, close the app
+                        this.Close(); 
                     }
                 }
             }
@@ -213,13 +213,10 @@ namespace MangaBook_WPF
             if (App.User != null && App.User != MangaUser.Dummy)
             {
                 btnProfile.Visibility = Visibility.Visible; //profiel tonen voor iedereen die ingelogd is
-                //menuAdmin.Visibility = Visibility.Visible; //admin menu tonen voor iedereen die ingelogd is
-
 
                 var serviceProvider = App.ServiceProvider;
-                if (serviceProvider == null)
+                if(serviceProvider == null)
                 {
-                    //die knoppen verbergen als de serviceprovider niet beschikbaar is(copilot heeft dit toegevoegd)
                     menuAdmin.Visibility = Visibility.Collapsed;
                     btnAdd.Visibility = Visibility.Collapsed;
                     btnEdit.Visibility = Visibility.Collapsed;
@@ -227,17 +224,15 @@ namespace MangaBook_WPF
                     return;
                 }
 
-                //Controleer of de gebruiker een Admin is, zo niet krijgt hij dit niet te zien
                 var userManager = serviceProvider.GetRequiredService<UserManager<MangaUser>>();
                 bool isAdmin = await userManager.IsInRoleAsync(App.User, "Admin");
                 menuAdmin.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
                 btnAdd.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
                 btnEdit.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
                 btnDelete.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
-
-                if (!isAdmin)
+                
+                if(!isAdmin)
                 {
-                    //worden niet actief als de gebruiker geen admin is
                     btnEdit.IsEnabled = false;
                     btnDelete.IsEnabled = false;
                 }

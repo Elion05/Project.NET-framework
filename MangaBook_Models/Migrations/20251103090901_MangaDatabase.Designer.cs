@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MangaBook_Models.Migrations
 {
     [DbContext(typeof(MangaDbContext))]
-    [Migration("20251101182433_DatabaseProject")]
-    partial class DatabaseProject
+    [Migration("20251103090901_MangaDatabase")]
+    partial class MangaDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

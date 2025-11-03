@@ -35,11 +35,11 @@ namespace MangaBook_WPF
                
                 _genre.genreBeschrijving = tbGenreBeschrijving.Text;
 
-                // Opslaan in database
+                //Opslaan in database
                 _context.Genres.Update(_genre);
                 _context.SaveChanges();
 
-                // UI verversen
+                
                 brEditGenreDetails.Visibility = Visibility.Collapsed;
                 DataContext = null;
                 DataContext = _genre;
@@ -53,7 +53,7 @@ namespace MangaBook_WPF
         {
             brEditGenreDetails.Visibility = Visibility.Visible;
 
-            // Velden invullen met huidige gegevens
+            //Velden invullen met huidige gegevens
            
             tbGenreBeschrijving.Text = _genre.genreBeschrijving;
         }
