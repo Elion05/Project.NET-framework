@@ -44,7 +44,7 @@ namespace MangaBook_WPF
         {
             if (_author != null)
             {
-                // Nieuwe waarden opslaan
+                //informatie updaten
                 _author.Name = tbEditName.Text;
                 _author.geboorteDatum = tbEditGeboorteDatum.Text;
                 _author.description = tbEditDescription.Text;
@@ -56,7 +56,6 @@ namespace MangaBook_WPF
                 _context.Authors.Update(_author);
                 _context.SaveChanges();
 
-                // UI verversen
                 brEditAuthorDetails.Visibility = Visibility.Collapsed;
                 DataContext = null;
                 DataContext = _author;

@@ -46,8 +46,8 @@
         <!--DataGrid-->
         <DataGrid x:Name="MangaGrid" Grid.Row="1" AutoGenerateColumns="False"  IsReadOnly="True" SelectionMode="Single"  CanUserAddRows="False" SelectionChanged="MangaGrid_SelectionChanged" BorderThickness="0" GridLinesVisibility="None" HeadersVisibility="Column" RowHeaderWidth="0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="200"/>
-                <DataGridTemplateColumn Header="Author" Width="200">
+                <DataGridTextColumn Header="Titel" Binding="{Binding Title}" Width="200"/>
+                <DataGridTemplateColumn Header="Auteur" Width="200">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -74,7 +74,7 @@
                 </DataGridTemplateColumn>
 
                 <DataGridTextColumn Header="Release Date" Binding="{Binding ReleaseDate, StringFormat={}{0:dd/MM/yyyy}}" Width="150"/>
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
+                <DataGridTextColumn Header="Beschrijving" Binding="{Binding Description}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 

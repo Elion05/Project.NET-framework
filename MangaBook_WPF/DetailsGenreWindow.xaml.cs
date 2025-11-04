@@ -44,7 +44,7 @@ namespace MangaBook_WPF
                 DataContext = null;
                 DataContext = _genre;
 
-                MessageBox.Show("Genre-informatie succesvol opgeslagen.",
+                MessageBox.Show("Genre informatie succesvol opgeslagen.",
                     "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
@@ -96,7 +96,7 @@ namespace MangaBook_WPF
 
                 brEditGenreDetails.Visibility = Visibility.Collapsed;
 
-                MessageBox.Show("Genre-informatie succesvol opgeslagen.",
+                MessageBox.Show("Genre informatie succesvol opgeslagen.",
                     "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }

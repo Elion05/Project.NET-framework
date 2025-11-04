@@ -10,11 +10,11 @@ namespace MangaBook_WPF
 {
     public partial class MainWindow : Window
     {
-        //zo kan je communiceren met de database aandehand van _context
+        //_context om te communiceren met de database
         private MangaDbContext _context;
 
 
-        //dit is de constructor van mainwindow
+        //constructor van MainWindow
         public MainWindow()
         {
             InitializeComponent();
@@ -33,10 +33,12 @@ namespace MangaBook_WPF
                 .ToList();
 
             MangaGrid.ItemsSource = mangaList;
+
             //om de comboboxen te vullen met de data uit de database
             cbGenre.ItemsSource = _context.Genres.ToList();
             tbAuthor.ItemsSource = _context.Authors.ToList();
         }
+
 
         //dit is om een boek toe te voegen
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -61,9 +63,7 @@ namespace MangaBook_WPF
         {
             if (MangaGrid.SelectedItem is MangaBook selected)
             {
-                var result = MessageBox.Show($"Ben je zeker dat je  '{selected.Title}' wilt verwijderen?",
-                                             "Verwijderen bevestigen", 
-                                             MessageBoxButton.YesNo, MessageBoxImage.Stop);
+                var result = MessageBox.Show($"Ben je zeker dat je  '{selected.Title}' wilt verwijderen?", "Verwijderen bevestigen", MessageBoxButton.YesNo, MessageBoxImage.Stop);
 
                 //als ja is gekozen wordt het boek verwijderd, geen soft delete maar hard delete
                 if (result == MessageBoxResult.Yes)
@@ -106,12 +106,11 @@ namespace MangaBook_WPF
                         _context.SaveChanges();
                         book.AuthorId = nieuwAuteur.Id;
                     };
-                  
+
                     if (book.Id == 0)
                         _context.MangaBooks.Add(book);
                     else
                         _context.MangaBooks.Update(book);
-
                     _context.SaveChanges();
                     brDetails.Visibility = Visibility.Collapsed;
                     LoadData();
@@ -127,7 +126,6 @@ namespace MangaBook_WPF
             btnDelete.IsEnabled = MangaGrid.SelectedItem != null;
         }
 
-        //Dit is de code voor de zoekbalk
         //dit gaat automatisch filteren terwijl je intypt dus ik heb geen knop voorzien
         private void tbSearch_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
@@ -138,7 +136,7 @@ namespace MangaBook_WPF
         {
             string zoekterm = tbSearch.Text.ToLower();
 
-            //hier kan je kiezen op wat je wilt filteren,
+            //hier kan je kiezen op wat je wilt filteren voor de zoekbalk
             var gefilterdeManga = _context.MangaBooks
                 .Include(m => m.Author)
                 .Include(m => m.Genre)
@@ -156,15 +154,15 @@ namespace MangaBook_WPF
 
         private void btnLoginLogout_Click(object sender, RoutedEventArgs e)
         {
-            // Als niemand is ingelogd, toon LoginWindow
+            //Als niemand is ingelogd, toon LoginWindow
             if (App.User == null || App.User == MangaUser.Dummy)
             {
                 var loginWindow = new LoginWindow();
-                loginWindow.Owner = this; //Set owner to handle closing logic
+                loginWindow.Owner = this; 
                 this.Hide();
                 loginWindow.ShowDialog();
 
-                //After LoginWindow closes, decide whether to show MainWindow or close it
+                //als LoginWindow gesloten is, controleer of er een gebruiker is ingelogd
                 if (App.User != null && App.User != MangaUser.Dummy)
                 {
                     btnLoginLogout.Content = "Logout";
@@ -173,7 +171,7 @@ namespace MangaBook_WPF
                 }
                 else
                 {
-                    this.Close(); // Close MainWindow if login was not successful
+                    this.Close(); 
                 }
             }
             else
@@ -206,6 +204,8 @@ namespace MangaBook_WPF
             }
         }
 
+
+
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             btnLoginLogout.Content = (App.User != null && App.User != MangaUser.Dummy)
@@ -226,18 +226,14 @@ namespace MangaBook_WPF
                     return;
                 }
 
+                //als de gebruiker admin roles heeft, toon alle knoppen
                 var userManager = serviceProvider.GetRequiredService<UserManager<MangaUser>>();
                 bool isAdmin = await userManager.IsInRoleAsync(App.User, "Admin");
                 menuAdmin.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
                 btnAdd.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
                 btnEdit.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
                 btnDelete.Visibility = isAdmin ? Visibility.Visible : Visibility.Collapsed;
-                
-                if(!isAdmin)
-                {
-                    btnEdit.IsEnabled = false;
-                    btnDelete.IsEnabled = false;
-                }
+
             }
             else
             {
@@ -283,9 +279,9 @@ namespace MangaBook_WPF
                 return;
             }
             var userManager = serviceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.UserManager<MangaUser>>();
-            var rolesWindow = new RolesWindow(_context, userManager);
-            rolesWindow.Owner = this;
-            rolesWindow.ShowDialog();
+            var Gebruikersbeheer = new Gebruikersbeheer(_context, userManager);
+            Gebruikersbeheer.Owner = this;
+            Gebruikersbeheer.ShowDialog();
         }
 
         private void GenreName_Click(object sender, RoutedEventArgs e)

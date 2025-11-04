@@ -63,20 +63,23 @@ namespace MangaBook_WPF
                 return;
             }
 
-            if(user.LockoutEnd != null && user.LockoutEnd > DateTimeOffset.Now)
+            //MessageBox tonen als de gebruiker geblokkeerd is
+            if (user.LockoutEnd != null && user.LockoutEnd > DateTimeOffset.Now)
             {
                 MessageBox.Show("Je account is geblokkeerd.", "Geblokkeerde gebruiker", MessageBoxButton.OK, MessageBoxImage.Stop);
 
                 return;
             }
-            
 
+
+            //MainWindow openen en LoginWindow sluiten
             App.User = user;
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Close();
         }
 
+        //RegistratieWindow openen bij klikken van account aanmaken knop
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
             var context = App.ServiceProvider.GetRequiredService<MangaDbContext>();

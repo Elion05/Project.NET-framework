@@ -7,13 +7,13 @@ using System.Windows.Controls;
 
 namespace MangaBook_WPF
 {
-    public partial class RolesWindow : Window
+    public partial class Gebruikersbeheer : Window
     {
         private readonly MangaDbContext _context;
         private readonly UserManager<MangaUser> _userManager;
         private MangaUser? _selectedUser;
 
-        public RolesWindow(MangaDbContext context, UserManager<MangaUser> userManager)
+        public Gebruikersbeheer(MangaDbContext context, UserManager<MangaUser> userManager)
         {
             InitializeComponent();
             _context = context;
