@@ -63,6 +63,14 @@ namespace MangaBook_WPF
                 return;
             }
 
+            if(user.LockoutEnd != null && user.LockoutEnd > DateTimeOffset.Now)
+            {
+                MessageBox.Show("Je account is geblokkeerd.", "Geblokkeerde gebruiker", MessageBoxButton.OK, MessageBoxImage.Stop);
+
+                return;
+            }
+            
+
             App.User = user;
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();

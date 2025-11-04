@@ -147,6 +147,8 @@ namespace MangaBook_WPF
                              m.Description.ToLower().Contains(zoekterm) ||
                              (m.Author != null && m.Author.Name.ToLower().Contains(zoekterm)) ||
                              (m.Genre != null && m.Genre.Name.ToLower().Contains(zoekterm))))
+                             
+                 
                 .ToList();
 
             MangaGrid.ItemsSource = gefilterdeManga;
@@ -342,7 +344,7 @@ namespace MangaBook_WPF
             tbAuthor.ItemsSource = _context.Authors.ToList();
         }
 
-       private void MenuRoles_Click(object sender, RoutedEventArgs e)
+       private void GebruikersBeheer_Click(object sender, RoutedEventArgs e)
         {
             btnRoles_Click(sender, e);
         }

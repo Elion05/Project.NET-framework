@@ -52,6 +52,11 @@ namespace MangaBook_WPF
 
             lbRoles.ItemsSource = roles;
             lbRoles.Visibility = Visibility.Visible;
+            btnBlokeer.Visibility = Visibility.Visible;
+
+            btnBlokeer.Content = _selectedUser.LockoutEnd == null
+                ? "Blokkeer gebruiker"
+                : "Deblokkeer gebruiker";
         }
 
         private async void lbRoles_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -85,6 +90,33 @@ namespace MangaBook_WPF
 
             await freshContext.SaveChangesAsync();
             MessageBox.Show("Rollen succesvol bijgewerkt!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private async void btnBlokeer_Click(object sender, RoutedEventArgs e)
+        {
+            if(_selectedUser == null)
+                return;
+
+            var user = await _userManager.FindByIdAsync(_selectedUser.Id);
+            if(user == null)
+                return;
+
+            //gebruikers blokkeren
+            if(user.LockoutEnd == null)
+            {
+                user.LockoutEnd = DateTimeOffset.MaxValue;
+                MessageBox.Show($"{user.UserName} is nu geblokkeerd, je kan hem altijd deblokkeren.", "Geblokkeerd", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                user.LockoutEnd = null;
+                MessageBox.Show($"{user.UserName} is nu gedeblokkeerd.", "Gedeblokkeerd", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            await _userManager.UpdateAsync(user);
+
+            btnBlokeer.Content = user.LockoutEnd == null
+                ? "Blokkeer gebruiker"
+                : "Deblokkeer gebruiker";
         }
     }
 }
