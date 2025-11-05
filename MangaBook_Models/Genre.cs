@@ -23,8 +23,6 @@ namespace MangaBook_Models
         [Display(Name = "Beschrijving")]
         public string genreBeschrijving { get; set; } = string.Empty;
 
-
-
         //dummy data
         public static List<Genre> SeedingData()
         {

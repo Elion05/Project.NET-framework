@@ -13,10 +13,10 @@ namespace MangaBook_Models
 {
     public class MangaDbContext : IdentityDbContext<MangaUser>
     {
+        //dit is om met de database te werken
         public DbSet<MangaBook> MangaBooks { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Genre> Genres { get; set; }
-
         public DbSet<Nieuws_Bericht> Nieuws_Berichten { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

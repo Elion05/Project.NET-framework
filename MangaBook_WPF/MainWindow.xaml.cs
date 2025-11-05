@@ -96,11 +96,11 @@ namespace MangaBook_WPF
                         var nieuwAuteur = new Author
                         {
                             Name = tbAuthor.Text,
-                            geboorteDatum = "Onbekend",
-                            description = "Momteneel niks",
-                            favoriteFood = "Onbekend",
-                            Nationaliteit = "Onbekend",
-                            FavorieteSport = "Onbekend"
+                            geboorteDatum = "",
+                            description = "",
+                            favoriteFood = "",
+                            Nationaliteit = "",
+                            FavorieteSport = ""
                         };
                         _context.Authors.Add(nieuwAuteur);
                         _context.SaveChanges();
@@ -172,7 +172,7 @@ namespace MangaBook_WPF
             }
             else
             {
-                // Bevestiging voor uitloggen
+                //Bevestiging voor uitloggen
                 var result = MessageBox.Show("Weet je zeker dat je wilt uitloggen?", "Bevestig logout", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
@@ -180,7 +180,7 @@ namespace MangaBook_WPF
                     btnLoginLogout.Content = "Login";
                     Window_Loaded(this, new RoutedEventArgs());
 
-                    // Hide MainWindow and show LoginWindow again
+                    //hide MainWindow and show LoginWindow again
                     var loginWindow = new LoginWindow();
                     loginWindow.Owner = this;
                     this.Hide();
@@ -205,6 +205,7 @@ namespace MangaBook_WPF
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             btnLoginLogout.Content = (App.User != null && App.User != MangaUser.Dummy)
+                //dit is zodat de knop verandert van content
                 ? "Logout"
                 : "Login";
 
@@ -244,30 +245,13 @@ namespace MangaBook_WPF
             }
         }
          
-        
-        //registratie knop in mainwindow
-        private void btnRegister_Click(object sender, RoutedEventArgs e)
-        {
-            var serviceProvider = App.ServiceProvider;
-            if (serviceProvider == null)
-            {
-                MessageBox.Show("ServiceProvider niet beschikbaar.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            var userManager = serviceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.UserManager<MangaUser>>();
-            var registratieWindow = new RegistratieWindow(_context, userManager);
-            registratieWindow.Owner = this;
-            this.Hide();
-            registratieWindow.ShowDialog();
-            
-            this.Show();
 
-        }
 
 
         //Roles knop in mainwindow
         private void btnRoles_Click(object sender, RoutedEventArgs e)
         {
+            
             var serviceProvider = App.ServiceProvider;
             if (serviceProvider == null)
             {
@@ -324,7 +308,6 @@ namespace MangaBook_WPF
             var genreWindow = new AddGenreWindow(_context);
             genreWindow.Owner = this;
             genreWindow.ShowDialog();
-
             cbGenre.ItemsSource = _context.Genres.ToList();
         }
 
@@ -372,8 +355,6 @@ namespace MangaBook_WPF
             var nieuwsWindow = new NieuwsWindow();
             nieuwsWindow.Owner = this;
             nieuwsWindow.ShowDialog();
-
-
         }
     }
 }
