@@ -34,7 +34,7 @@ namespace MangaBook_WPF
 
             using var freshContext = new MangaDbContext();
 
-            // User roles ophalen
+            //User roles ophalen
             var userRoles = freshContext.UserRoles
                 .Where(ur => ur.UserId == _selectedUser.Id)
                 .Select(ur => ur.RoleId)
@@ -59,6 +59,8 @@ namespace MangaBook_WPF
                 : "Deblokkeer gebruiker";
         }
 
+
+        //wanneer je een rol selecteert of deselecteert in de lijst, wordt de rol toegevoegd of verwijderd voor de geselecteerde gebruiker in de database, dus direct opgeslagen
         private async void lbRoles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_selectedUser == null)
@@ -78,13 +80,15 @@ namespace MangaBook_WPF
             foreach (ListBoxItem item in lbRoles.Items)
             {
                 string role = item.Tag.ToString()!;
-                bool shouldHaveRole = lbRoles.SelectedItems.Contains(item);
+                bool NieuweRol = lbRoles.SelectedItems.Contains(item);
 
-                bool hasRole = await userManager.IsInRoleAsync(user, role);
+                //dit is een bool om te contrleren of de gebruiker de rol al heeft
+                bool HeeftRole = await userManager.IsInRoleAsync(user, role);
 
-                if (shouldHaveRole && !hasRole)
+                
+                if (NieuweRol && !HeeftRole)
                     await userManager.AddToRoleAsync(user, role);
-                else if (!shouldHaveRole && hasRole)
+                else if (!NieuweRol && HeeftRole)
                     await userManager.RemoveFromRoleAsync(user, role);
             }
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MangaBook_Models.Migrations
 {
     /// <inheritdoc />
-    public partial class MangaDatabase : Migration
+    public partial class Databae : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -192,6 +192,29 @@ namespace MangaBook_Models.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Nieuws_Berichten",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Titel = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    Inhoud = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    Datum = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    GebruikerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    isVerwijderd = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Nieuws_Berichten", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Nieuws_Berichten_AspNetUsers_GebruikerId",
+                        column: x => x.GebruikerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MangaBooks",
                 columns: table => new
                 {
@@ -269,6 +292,11 @@ namespace MangaBook_Models.Migrations
                 name: "IX_MangaBooks_GenreId",
                 table: "MangaBooks",
                 column: "GenreId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Nieuws_Berichten_GebruikerId",
+                table: "Nieuws_Berichten",
+                column: "GebruikerId");
         }
 
         /// <inheritdoc />
@@ -293,16 +321,19 @@ namespace MangaBook_Models.Migrations
                 name: "MangaBooks");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "Nieuws_Berichten");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Authors");
 
             migrationBuilder.DropTable(
                 name: "Genres");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

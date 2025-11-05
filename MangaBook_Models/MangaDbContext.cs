@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore.SqlServer;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore; 
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MangaBook_Models
 {
@@ -16,6 +16,8 @@ namespace MangaBook_Models
         public DbSet<MangaBook> MangaBooks { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Genre> Genres { get; set; }
+
+        public DbSet<Nieuws_Bericht> Nieuws_Berichten { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -27,10 +29,10 @@ namespace MangaBook_Models
 
 
         //dit is voor de seeding van de database met dummy data
- 
+
         public static async Task Seeder(MangaDbContext context)
         {
-                await MangaUser.Seeder(context);
+            await MangaUser.Seeder(context);
 
             if (!context.Authors.Any())
             {
@@ -49,6 +51,21 @@ namespace MangaBook_Models
             {
                 context.MangaBooks.AddRange(MangaBook.SeedingData());
                 context.SaveChanges();
+            }
+
+            if (!context.Nieuws_Berichten.Any())
+            {
+                context.Nieuws_Berichten.AddRange(new List<Nieuws_Bericht>
+                {
+                    new Nieuws_Bericht
+                    {
+                        Titel = "Welkom bij MangaBook!",
+                        Inhoud = "Random text hier blahblahblahlbahlvah",
+                        GebruikerId = context.Users.FirstOrDefault(u => u.UserName == "admin")?.Id??"",
+                        Datum = DateTime.Now,
+                    }
+                });
+                 context.SaveChanges();
             }
         }
     }

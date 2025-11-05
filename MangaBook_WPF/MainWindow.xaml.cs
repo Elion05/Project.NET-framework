@@ -129,11 +129,6 @@ namespace MangaBook_WPF
         //dit gaat automatisch filteren terwijl je intypt dus ik heb geen knop voorzien
         private void tbSearch_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            FilterData();
-        }
-
-        private void FilterData()
-        {
             string zoekterm = tbSearch.Text.ToLower();
 
             //hier kan je kiezen op wat je wilt filteren voor de zoekbalk
@@ -145,12 +140,13 @@ namespace MangaBook_WPF
                              m.Description.ToLower().Contains(zoekterm) ||
                              (m.Author != null && m.Author.Name.ToLower().Contains(zoekterm)) ||
                              (m.Genre != null && m.Genre.Name.ToLower().Contains(zoekterm))))
-                             
-                 
+
+
                 .ToList();
 
             MangaGrid.ItemsSource = gefilterdeManga;
         }
+
 
         private void btnLoginLogout_Click(object sender, RoutedEventArgs e)
         {
@@ -214,7 +210,7 @@ namespace MangaBook_WPF
 
             if (App.User != null && App.User != MangaUser.Dummy)
             {
-                btnProfile.Visibility = Visibility.Visible; //profiel tonen voor iedereen die ingelogd is
+                btnProfiel.Visibility = Visibility.Visible; //profiel tonen voor iedereen die ingelogd is
 
                 var serviceProvider = App.ServiceProvider;
                 if(serviceProvider == null)
@@ -238,7 +234,7 @@ namespace MangaBook_WPF
             else
             {
                 //Als er geen gebruiker is ingelogd, verberg alle admin knoppen
-                btnProfile.Visibility = Visibility.Collapsed; 
+                btnProfiel.Visibility = Visibility.Collapsed; 
                 menuAdmin.Visibility = Visibility.Collapsed;
                 btnAdd.Visibility = Visibility.Collapsed;
                 btnEdit.Visibility = Visibility.Collapsed;
@@ -353,7 +349,7 @@ namespace MangaBook_WPF
             btnAuthorToevoegen_Click(sender, e);
         }
 
-        private void btnProfile_Click(object sender, RoutedEventArgs e)
+        private void btnProfiel_Click(object sender, RoutedEventArgs e)
         {
             //als er een gebruiker is ingelogd, open het profiel venster
             if (App.User != null && App.User != MangaUser.Dummy)
@@ -369,6 +365,15 @@ namespace MangaBook_WPF
                 profileWindow.Owner = this;
                 profileWindow.ShowDialog();
             }
+        }
+
+        private void nieuwsBericht_Click(object sender, RoutedEventArgs e)
+        {
+            var nieuwsWindow = new NieuwsWindow();
+            nieuwsWindow.Owner = this;
+            nieuwsWindow.ShowDialog();
+
+
         }
     }
 }

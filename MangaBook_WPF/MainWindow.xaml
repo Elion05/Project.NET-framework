@@ -22,11 +22,16 @@
 
         <TextBlock Text="📖 MangaBook Tracker"   FontSize="28" FontWeight="Bold" Foreground="{DynamicResource ye}" TextDecorations="Underline" Margin="0,0,0,15"/>
 
+        <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="749,0,0,0">
+            <Button x:Name="nieuwsBericht" Content="NieuwsBericht" Width="126" Height="37" Click="nieuwsBericht_Click"/>
+        </StackPanel>
 
+        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="600,0,0,0">
+            <Button x:Name="btnProfiel" Content="Profiel" Width="126" Height="37" Click="btnProfiel_Click"/>
+        </StackPanel>
         <!--Login/Logout knop / Profiel knop -->
         <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,10,0">
             <Button x:Name="btnLoginLogout" Content="Login" Width="102" Height="25" Click="btnLoginLogout_Click"/>
-            <Button x:Name="btnProfile" Content="Profiel" Width="83" Height="25" Margin="10,0,0,0" Click="btnProfile_Click" Visibility="Collapsed"/>
         </StackPanel>
 
         <!--DropdownMenu-->

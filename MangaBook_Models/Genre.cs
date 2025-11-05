@@ -37,7 +37,13 @@ namespace MangaBook_Models
                 new Genre { Name = "Kodomo", genreBeschrijving = "Kodomo is gericht op jonge kinderen en bevat eenvoudige, vrolijke verhalen met duidelijke moraal, humor en kleurrijke karakters."},
                 new Genre { Name = "Mecha" , genreBeschrijving = "Mecha draait om gigantische robots of machines die vaak door mensen bestuurd worden en combineert actie, technologie en sciencefiction."},
                 new Genre { Name = "Isekai",  genreBeschrijving = "Isekai vertelt het verhaal van personages die naar een andere wereld worden getransporteerd, meestal vol magie, avontuur en herontdekking." },
-                new Genre {Name = "Sport", genreBeschrijving = "Sport manga draait om competitie, teamwork, training en persoonlijke groei, met inspirerende verhalen rond verschillende sporten en toernooien."}
+                new Genre {Name = "Sport", genreBeschrijving = "Sport manga draait om competitie, teamwork, training en persoonlijke groei, met inspirerende verhalen rond verschillende sporten en toernooien."},
+                new Genre { Name = "Komedie", genreBeschrijving = "Komedie manga richt zich op humor en grappige situaties, vaak met excentrieke personages en absurde plots." },
+                new Genre { Name = "Sci-Fi", genreBeschrijving = "Sciencefiction manga verkent futuristische concepten, technologie en de impact daarvan op de samenleving." },
+                new Genre { Name = "Historisch", genreBeschrijving = "Historische manga speelt zich af in het verleden en kan zowel feitelijke als fictieve gebeurtenissen en personages bevatten." },
+                new Genre { Name = "Magical Girl", genreBeschrijving = "Magical Girl is een subgenre van shojo waarin meisjes magische krachten krijgen om het kwaad te bestrijden." },
+                new Genre { Name = "Romantiek", genreBeschrijving = "Romantische manga richt zich op liefdesverhalen en de ontwikkeling van relaties tussen personages." },
+                new Genre { Name = "Drama", genreBeschrijving = "Drama manga richt zich op realistische verhalen, emotionele conflicten en karakterontwikkeling." }
             };
             return list;
         }
