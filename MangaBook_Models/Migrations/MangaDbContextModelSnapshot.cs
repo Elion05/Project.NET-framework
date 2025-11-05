@@ -207,8 +207,8 @@ namespace MangaBook_Models.Migrations
 
                     b.Property<string>("Inhoud")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(3500)
+                        .HasColumnType("nvarchar(3500)");
 
                     b.Property<string>("Titel")
                         .IsRequired()

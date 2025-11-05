@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MangaBook_Models.Migrations
 {
     [DbContext(typeof(MangaDbContext))]
-    [Migration("20251104214419_Databae")]
-    partial class Databae
+    [Migration("20251105120103_databaseProject")]
+    partial class databaseProject
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -210,8 +210,8 @@ namespace MangaBook_Models.Migrations
 
                     b.Property<string>("Inhoud")
                         .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasMaxLength(3500)
+                        .HasColumnType("nvarchar(3500)");
 
                     b.Property<string>("Titel")
                         .IsRequired()

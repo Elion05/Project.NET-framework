@@ -23,7 +23,7 @@ namespace MangaBook_WPF
     {
         private MangaDbContext _context;
         private UserManager<MangaUser> _userManager;
-        private MangaUser _currentUser;
+        private MangaUser? _currentUser;
 
         public GebruikersProfiel(MangaDbContext context, UserManager<MangaUser> userManager)
         {
@@ -46,9 +46,15 @@ namespace MangaBook_WPF
             //gebruikersgegevens bijwerken, de informatie staat al direct in de textboxes
             _currentUser.UserName = tbGebruikersnaam.Text;
             _currentUser.FirstName = tbVoornaam.Text;
-            _currentUser.PasswordHash = _userManager.PasswordHasher.HashPassword(_currentUser, pbWachtwoord.Password);
             _currentUser.LastName = tbAchternaam.Text;
             _currentUser.Email = tbEmail.Text;
+
+            //Alleen wachtwoord bijwerken als er iets anders is ingevuld dan "********"
+            if (!string.IsNullOrWhiteSpace(pbWachtwoord.Password) && pbWachtwoord.Password != "********")
+            {
+                var newPasswordHash = _userManager.PasswordHasher.HashPassword(_currentUser, pbWachtwoord.Password);
+                _currentUser.PasswordHash = newPasswordHash;
+            }
 
             var result = await _userManager.UpdateAsync(_currentUser);
 
@@ -63,10 +69,6 @@ namespace MangaBook_WPF
                 string fout = string.Join("\n", result.Errors.Select(err => err.Description));
                 MessageBox.Show($"Fout bij bijwerken gebruikersprofiel:\n{fout}", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-                MessageBox.Show("Profiel succesvol opgeslagen!", "Informatie", MessageBoxButton.OK, MessageBoxImage.Information);
-            this.Close();
-
         }
 
         private  async void Window_Loaded(object sender, RoutedEventArgs e)

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MangaBook_Models.Migrations
 {
     /// <inheritdoc />
-    public partial class Databae : Migration
+    public partial class databaseProject : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -198,7 +198,7 @@ namespace MangaBook_Models.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Titel = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    Inhoud = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    Inhoud = table.Column<string>(type: "nvarchar(3500)", maxLength: 3500, nullable: false),
                     Datum = table.Column<DateTime>(type: "datetime2", nullable: false),
                     GebruikerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     isVerwijderd = table.Column<bool>(type: "bit", nullable: false)

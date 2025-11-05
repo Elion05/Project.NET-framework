@@ -12,7 +12,7 @@ namespace MangaBook_Models
         [Required, MaxLength(40)]
         public string Titel { get; set; } = string.Empty;
 
-        [Required, MaxLength(300)]
+        [Required, MaxLength(3500)]
         public string Inhoud { get; set; } = string.Empty;
 
         [Required]
