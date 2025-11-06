@@ -7,6 +7,7 @@ using System.Windows.Controls;
 
 namespace MangaBook_WPF
 {
+    //7) Algemene Gebruikersbeheer, admin kan gerbuikers blokkeren, en rollen toevoegen
     public partial class Gebruikersbeheer : Window
     {
         private readonly MangaDbContext _context;

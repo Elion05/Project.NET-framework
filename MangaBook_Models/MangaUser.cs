@@ -12,6 +12,7 @@ namespace MangaBook_Models
     public class MangaUser : IdentityUser
     {
 
+        //5) Identity Framework: Je voorziet een eigen user-class met minstens één extra eigenschap voor je gebruikers
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
 
@@ -35,6 +36,7 @@ namespace MangaBook_Models
             return $"{FirstName} {LastName}";
         }
 
+        //7) Rollen, 
         public static async Task Seeder(MangaDbContext context)
         {
             if (!context.Roles.Any())

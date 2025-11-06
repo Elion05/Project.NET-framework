@@ -22,7 +22,7 @@ namespace MangaBook_Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; } = string.Empty;
 
-
+        //4) SoftDelete
        public bool IsDeleted { get; set; } = false;
 
         [Required]
@@ -30,13 +30,14 @@ namespace MangaBook_Models
         [DataType(DataType.Date)]
         public DateTime ReleaseDate { get; set; } = DateTime.Now;
 
+
+        //1)relaties
         [Required]
         [Display(Name = "Auteur")]
         [ForeignKey("Author")]
         public int AuthorId { get; set; }
         public Author? Author { get; set; }
-
-
+        //1) 
         [Required]
         [Display(Name = "Genre")]
         [ForeignKey("Genre")]

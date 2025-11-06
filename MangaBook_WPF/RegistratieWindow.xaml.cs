@@ -7,7 +7,8 @@ namespace MangaBook_WPF
 {
     /// <summary>
     /// Interaction logic for RegistratieWindow.xaml
-    /// </summary>
+    ////6) Registratie
+    ///</summary>
     public partial class RegistratieWindow : Window
     {
         private readonly MangaDbContext _context = new MangaDbContext();

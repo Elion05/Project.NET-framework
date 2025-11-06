@@ -26,6 +26,7 @@ namespace MangaBook_WPF
         //dit is om de data te laden in de datagrid
         private void LoadData()
         {
+            //9)LINQ query 
             var mangaList = _context.MangaBooks
                 .Include(m => m.Author)
                 .Include(m => m.Genre)
@@ -147,7 +148,7 @@ namespace MangaBook_WPF
             MangaGrid.ItemsSource = gefilterdeManga;
         }
 
-
+        //6) Login/Logout
         private void btnLoginLogout_Click(object sender, RoutedEventArgs e)
         {
             //Als niemand is ingelogd, toon LoginWindow
@@ -173,6 +174,7 @@ namespace MangaBook_WPF
             else
             {
                 //Bevestiging voor uitloggen
+                //10)Popup Window
                 var result = MessageBox.Show("Weet je zeker dat je wilt uitloggen?", "Bevestig logout", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {

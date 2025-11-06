@@ -20,6 +20,7 @@ namespace MangaBook_WPF
     /// <summary>
     /// Interaction logic for LoginWindow.xaml
     /// </summary>
+    /// 6) Login
     public partial class LoginWindow : Window
     {
         public LoginWindow()
@@ -55,7 +56,7 @@ namespace MangaBook_WPF
                 tbError.Text = "Gebruiker niet gevonden.";
                 return;
             }
-
+            
             var result = await userManager.CheckPasswordAsync(user, password);
             if (!result)
             {

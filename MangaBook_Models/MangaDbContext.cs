@@ -13,12 +13,13 @@ namespace MangaBook_Models
 {
     public class MangaDbContext : IdentityDbContext<MangaUser>
     {
-        //dit is om met de database te werken
+        //dit is om met de database te werken, en de models
         public DbSet<MangaBook> MangaBooks { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Nieuws_Bericht> Nieuws_Berichten { get; set; }
 
+        //2)databank en migratie
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //string connectionString = "Server=localhost;Database=AgendaDb;User Id=sa;Password=Your_password123;MultipleActiveResultSets=true";
@@ -27,13 +28,12 @@ namespace MangaBook_Models
             optionsBuilder.UseSqlServer(connectionString);
         }
 
-
         //dit is voor de seeding van de database met dummy data
-
         public static async Task Seeder(MangaDbContext context)
         {
             await MangaUser.Seeder(context);
 
+            //3) Seeding van dummyData, direct bijgevuld in de database
             if (!context.Authors.Any())
             {
                 context.Authors.AddRange(Author.SeedingData());
@@ -45,8 +45,6 @@ namespace MangaBook_Models
                 context.Genres.AddRange(Genre.SeedingData());
                 context.SaveChanges();
             }
-
-
             if (!context.MangaBooks.Any())
             {
                 context.MangaBooks.AddRange(MangaBook.SeedingData());
@@ -57,6 +55,7 @@ namespace MangaBook_Models
             {
                 context.Nieuws_Berichten.AddRange(new List<Nieuws_Bericht>
                 {
+                    
                     new Nieuws_Bericht
                     {
                         Titel = "Welkom bij MangaBook!",

@@ -22,7 +22,7 @@ namespace MangaBook_Models
 
         [ForeignKey(nameof(GebruikerId))]
         public MangaUser? Gebruiker { get; set; }
-
+        //4) Softdelete
         public bool isVerwijderd { get; set; } = false;
     }
 }

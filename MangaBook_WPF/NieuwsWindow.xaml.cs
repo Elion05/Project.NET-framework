@@ -35,11 +35,19 @@ namespace MangaBook_WPF
 
         private void LoadNieuws()
         {
-            var nieuwsLijst = _context.Nieuws_Berichten
-                .Where(n => !n.isVerwijderd)
-                .Include(n => n.Gebruiker)
-                .OrderByDescending(n => n.Datum)
-                .ToList();
+            //9)Linq query
+            //var nieuwsLijst = _context.Nieuws_Berichten 
+            //    .Where(n => !n.isVerwijderd) 
+            //    .Include(n => n.Gebruiker)
+            //    .OrderByDescending(n => n.Datum)
+            //    .ToList();
+
+            //Dit is in QUERY syntax 
+             var nieuwsLijst = (from n in _context.Nieuws_Berichten
+                            where!n.isVerwijderd  //4) Softdelete, zodat de rij niet verwijderd wordt, de rij tonen zodra !n.isVerwijderd false is
+                            orderby n.Datum descending
+                            select n).ToList();
+
             NieuwsListBox.ItemsSource = nieuwsLijst;
 
             btnEdit.IsEnabled = false;
@@ -85,6 +93,7 @@ namespace MangaBook_WPF
 
             if(bevestiging == MessageBoxResult.Yes)
             {
+                //8) DELETE CRUD
                 _geselecteerdBericht.isVerwijderd = true;
                 _context.SaveChanges();
                 LoadNieuws();
@@ -103,9 +112,22 @@ namespace MangaBook_WPF
                 return;
             }
 
+            if (titel.Length > 40)
+            {
+                MessageBox.Show("De titel mag maximaal 40 karakters lang zijn.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (inhoud.Length > 3500)
+            {
+                MessageBox.Show("De inhoud mag maximaal 3500 karakters lang zijn.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             if (_isEditing && _geselecteerdBericht != null)
             {
-                // Bewerken
+                //Bewerken
+                //8) UPDATE CRUD
                 _geselecteerdBericht.Titel = titel;
                 _geselecteerdBericht.Inhoud = inhoud;
                 _context.SaveChanges();
@@ -114,6 +136,7 @@ namespace MangaBook_WPF
             else
             {
                 //bericht aamnaken
+                //8) CREATE CRUD
                 var nieuw = new Nieuws_Bericht
                 {
                     Titel = titel,
