@@ -33,7 +33,7 @@
             <Button x:Name="btnRegister" Content="Account aanmaken" FontSize="15" Width="156" Height="35" Click="btnRegister_Click"/>
         </StackPanel>
         <TextBlock x:Name="tbInfo" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Margin="10,75,10,44" Foreground="Black" FontSize="13" TextWrapping="Wrap"
-                   Text="Voorbeeld gebruikers:  admin Admin123!"/>
+                   Text="Voorbeeld gebruikers:  admin Admin123! Baka Test1!123 user User123!"/>
         <TextBlock x:Name="tbError" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Foreground="Red" FontSize="15" Margin="10,61,255,44" Grid.RowSpan="3" Text=""/>
     </Grid>
 </Window>

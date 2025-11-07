@@ -30,7 +30,8 @@
 
         <!--Informatie van de autheur-->
         <StackPanel VerticalAlignment="Center" Margin="135,0,135,0" Grid.ColumnSpan="2">
-
+            
+            <!--//13) Binding-->
             <TextBlock Text="{Binding Name}" FontSize="26"  FontWeight="Bold"  Foreground="#FFD700"/>
 
             <StackPanel Orientation="Horizontal">

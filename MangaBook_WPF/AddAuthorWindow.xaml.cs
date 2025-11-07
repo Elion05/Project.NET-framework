@@ -27,6 +27,7 @@ namespace MangaBook_WPF
 
             if(string.IsNullOrWhiteSpace(Auteurnaam))
             {
+                //15) Foutmeldingen enof waarschuwingen
                 MessageBox.Show("Voer een geldige auteur naam in .");
                 return;
             }

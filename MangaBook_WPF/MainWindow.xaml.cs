@@ -184,20 +184,9 @@ namespace MangaBook_WPF
 
                     //hide MainWindow and show LoginWindow again
                     var loginWindow = new LoginWindow();
-                    loginWindow.Owner = this;
-                    this.Hide();
-                    loginWindow.ShowDialog();
-
-                    // After LoginWindow closes, decide what to do
-                    if (App.User != null && App.User != MangaUser.Dummy)
-                    {
-                        btnLoginLogout.Content = "Logout";
-                        this.Show(); 
-                    }
-                    else
-                    {
-                        this.Close(); 
-                    }
+                    loginWindow.Show();
+                    this.Close();
+                    
                 }
             }
         }

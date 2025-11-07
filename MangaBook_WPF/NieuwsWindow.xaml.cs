@@ -93,11 +93,18 @@ namespace MangaBook_WPF
 
             if(bevestiging == MessageBoxResult.Yes)
             {
-                //8) DELETE CRUD
-                _geselecteerdBericht.isVerwijderd = true;
-                _context.SaveChanges();
-                LoadNieuws();
-                MessageBox.Show("Bericht succesvol verwijderd.", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+                try
+                {
+                    //8) DELETE CRUD
+                    _geselecteerdBericht.isVerwijderd = true;
+                    _context.SaveChanges();
+                    LoadNieuws();
+                    MessageBox.Show("Bericht succesvol verwijderd.", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Er is een fout opgetreden bij het verwijderen: " + ex.Message);
+                }
             }
         }
 
@@ -123,36 +130,43 @@ namespace MangaBook_WPF
                 MessageBox.Show("De inhoud mag maximaal 3500 karakters lang zijn.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
-            if (_isEditing && _geselecteerdBericht != null)
+            //12)try/catch fouthandeling
+            try
             {
-                //Bewerken
-                //8) UPDATE CRUD
-                _geselecteerdBericht.Titel = titel;
-                _geselecteerdBericht.Inhoud = inhoud;
-                _context.SaveChanges();
-                MessageBox.Show("Bericht bijgewerkt.", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                //bericht aamnaken
-                //8) CREATE CRUD
-                var nieuw = new Nieuws_Bericht
+                if (_isEditing && _geselecteerdBericht != null)
                 {
-                    Titel = titel,
-                    Inhoud = inhoud,
-                    Datum = DateTime.Now,
-                    GebruikerId = App.User?.Id ?? "", //ingelogde gebruiker
-                    isVerwijderd = false
-                };
+                    //Bewerken
+                    //8) UPDATE CRUD
+                    _geselecteerdBericht.Titel = titel;
+                    _geselecteerdBericht.Inhoud = inhoud;
+                    _context.SaveChanges();
+                    MessageBox.Show("Bericht bijgewerkt.", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    //bericht aamnaken
+                    //8) CREATE CRUD
+                    var nieuw = new Nieuws_Bericht
+                    {
+                        Titel = titel,
+                        Inhoud = inhoud,
+                        Datum = DateTime.Now,
+                        GebruikerId = App.User?.Id ?? "", //ingelogde gebruiker bv admin, user, test1
+                        isVerwijderd = false
+                    };
 
-                _context.Nieuws_Berichten.Add(nieuw);
-                _context.SaveChanges();
-                MessageBox.Show("Nieuw bericht toegevoegd!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _context.Nieuws_Berichten.Add(nieuw);
+                    _context.SaveChanges();
+                    MessageBox.Show("Nieuw bericht toegevoegd!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
+                brDetails.Visibility = Visibility.Collapsed;
+                LoadNieuws();
             }
-
-            brDetails.Visibility = Visibility.Collapsed;
-            LoadNieuws();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Er is een fout opgetreden bij het opslaan: " + ex.Message);
+            }
         }
 
 
