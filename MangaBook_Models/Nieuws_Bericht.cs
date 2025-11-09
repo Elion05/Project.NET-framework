@@ -26,3 +26,4 @@ namespace MangaBook_Models
         public bool isVerwijderd { get; set; } = false;
     }
 }
+
