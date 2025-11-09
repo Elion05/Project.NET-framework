@@ -83,30 +83,41 @@ namespace MangaBook_WPF
         {
             if (grDetails.DataContext is MangaBook book)
             {
+                if(string.IsNullOrWhiteSpace(book.Title) || string.IsNullOrWhiteSpace(book.Description))
+                {
+                    MessageBox.Show("Titel en beschrijving moeten ingevuld worden", "fout", MessageBoxButton.OK, MessageBoxImage.Stop);
+                    return;
+                }
+                if (book.Title.Length > 50)
+                {
+                    MessageBox.Show("De titel mag maximaal 50 tekens lang zijn.", "fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                }
+                if (book.Description.Length > 130)
+                {
+                    MessageBox.Show("De beschrijving mag maximaal 130 karakters lang zijn.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                //controlleer of er een boek dezelfde titel heeft( het boek mag wel dezelfde auteur en genre hebben
+                if (book.Id == 0 && _context.MangaBooks.Any(m => m.Title.ToLower() == book.Title.ToLower()))
+                {
+                    MessageBox.Show("Deze titel bestaat al, geef een andere titel in.", "foutje", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                
+                //
                 if (!string.IsNullOrWhiteSpace(tbAuthor.Text))
                 {
                     var authorName = tbAuthor.Text.Trim();
                     var bestaandeAuteur = _context.Authors.FirstOrDefault(a => a.Name.ToLower() == authorName.ToLower());
 
-                    if (bestaandeAuteur != null)
-                    {
-                        book.AuthorId = bestaandeAuteur.Id;
-                    }
-                    else
-                    {
-                        var nieuwAuteur = new Author
-                        {
-                            Name = tbAuthor.Text,
-                            geboorteDatum = "",
-                            description = "",
-                            favoriteFood = "",
-                            Nationaliteit = "",
-                            FavorieteSport = ""
-                        };
-                        _context.Authors.Add(nieuwAuteur);
-                        _context.SaveChanges();
-                        book.AuthorId = nieuwAuteur.Id;
-                    };
+
+                   // Koppel de bestaande auteur aan het boek
+                    book.Author = bestaandeAuteur;
+
+                    // Koppel de bestaande auteur aan het boek
+                    book.Author = bestaandeAuteur;
 
                     if (book.Id == 0)
                         _context.MangaBooks.Add(book);

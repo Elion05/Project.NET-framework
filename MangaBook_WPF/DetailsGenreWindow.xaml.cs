@@ -86,9 +86,14 @@ namespace MangaBook_WPF
 
         private void OpslaanKnop_Click(object sender, RoutedEventArgs e)
         {
-            if(_genre != null)
+            if (tbGenreBeschrijving.Text.Length > 250)
             {
-                
+                MessageBox.Show("Genre beschrijving mag niet langer zijn dan 250 karakters.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (_genre != null)
+            {
                 _genre.genreBeschrijving = tbGenreBeschrijving.Text;
 
                 _context.Genres.Update(_genre);

@@ -68,6 +68,24 @@ namespace MangaBook_WPF
                 return;
             }
 
+            //controlleer of gebruikersnaam al genomen is
+            var bestaandeUserName = await _userManager.FindByNameAsync(tbUsername.Text);
+            if (bestaandeUserName != null)
+            {
+                tbError.Text = "Deze gebruikersnaam is al gebruikt.";
+                tbUsername.Focus();
+                return ;
+            }
+
+            //hetzelfde als bij de gebruikersnaam maar dan met email
+            var gebruikteEmail = await _userManager.FindByEmailAsync(tbEmail.Text);
+            if (gebruikteEmail != null)
+            {
+                tbError.Text = "Deze email is al in gebruik, geef een andere email";
+                tbEmail.Focus();
+                return ;
+            }
+
 
             //maak nieuwe gebruiker aan de hand van de ingevoerde gegevens
             var newGebruiker = new MangaUser
@@ -87,7 +105,7 @@ namespace MangaBook_WPF
 
             if (resultaat.Succeeded)
             {
-                //default role is "User"
+                //default role is User
                 await _userManager.AddToRoleAsync(newGebruiker, "User");
 
                 MessageBox.Show("Je account is succesvol aangemaakt!", "Registratie voltooid", MessageBoxButton.OK, MessageBoxImage.Information);

@@ -13,11 +13,11 @@ namespace MangaBook_Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required, MaxLength(40)]
         [Display(Name = "Title")]
         public string Title { get; set; } = string.Empty;
 
-        [Required]
+        [Required, MaxLength(130)]
         [Display(Name = "Beschrijving")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; } = string.Empty;
@@ -384,7 +384,7 @@ namespace MangaBook_Models
             new MangaBook
             {
                 Title = "Dr. Stone",
-                Description = "A genius high school student awakens in a world where humanity has been turned to stone and aims to rebuild civilization with science.",
+                Description = "A genius high school student awakens in a world where humanity has been turned to stone and aims to rebuild civilization.",
                 ReleaseDate = new DateTime(2017, 3, 6),
                 AuthorId = 39,
                 GenreId = 10

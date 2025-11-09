@@ -15,11 +15,13 @@ namespace MangaBook_Models
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(20)]
         [Display(Name = "Genre naam")]
         public string Name { get; set; } = string.Empty;
 
 
         [Required]
+        [MaxLength(250)]
         [Display(Name = "Beschrijving")]
         public string genreBeschrijving { get; set; } = string.Empty;
 

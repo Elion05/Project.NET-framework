@@ -44,6 +44,39 @@ namespace MangaBook_WPF
         {
             if (_author != null)
             {
+                // Validate input lengths
+                if (tbEditName.Text.Trim().Length > 30)
+                {
+                    MessageBox.Show("De naam van de auteur mag maximaal 30 karakters lang zijn.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                if (tbEditDescription.Text.Trim().Length > 240)
+                {
+                    MessageBox.Show("De beschrijving mag maximaal 240 karakters lang zijn.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                if(tbEditFavorieteSport.Text.Trim().Length > 30)
+                {
+                    MessageBox.Show("De favoriete sport mag maximaal 30 tekens lang zijn." , "Fout", MessageBoxButton.OK , MessageBoxImage.Error);
+                    return;
+                }
+                if(tbEditFavoriteFood.Text.Trim().Length > 30)
+                {
+                    MessageBox.Show("De favoriete eten mag maximaal 30 tekens lang zijn.", "fout", MessageBoxButton.OK,MessageBoxImage.Error);
+                    return;
+                }
+                if (tbEditNationaliteit.Text.Trim().Length > 30)
+                {
+                    MessageBox.Show("De Nationaliteit  mag maximaal 30 tekens lang zijn.", "fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                
+                if (!DateTime.TryParseExact(tbEditGeboorteDatum.Text.Trim(), "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out _))
+                {
+                    MessageBox.Show("Ongeldige geboortedatumformaat. Gebruik alstublieft het formaat dd/MM/yyyy.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
                 //informatie updaten
                 _author.Name = tbEditName.Text;
                 _author.geboorteDatum = tbEditGeboorteDatum.Text;

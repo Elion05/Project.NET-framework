@@ -2,19 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace MangaBook_WPF
 {
@@ -26,6 +16,7 @@ namespace MangaBook_WPF
         private readonly MangaDbContext _context;
         private bool _isEditing = false;
         private Nieuws_Bericht? _geselecteerdBericht;
+        private bool _sorteer = true;
         public NieuwsWindow()
         {
             InitializeComponent();
@@ -42,8 +33,9 @@ namespace MangaBook_WPF
             //    .OrderByDescending(n => n.Datum)
             //    .ToList();
 
-            //Dit is in QUERY syntax 
-             var nieuwsLijst = (from n in _context.Nieuws_Berichten
+            //Dit is in 9) dit is de QUERY syntax , we moesten 2 soorten querys schrijven
+            //om te conecteren met de class _context.Nieuws_Berichten
+            var nieuwsLijst = (from n in _context.Nieuws_Berichten
                             where!n.isVerwijderd  //4) Softdelete, zodat de rij niet verwijderd wordt, de rij tonen zodra !n.isVerwijderd false is
                             orderby n.Datum descending
                             select n).ToList();
@@ -52,6 +44,8 @@ namespace MangaBook_WPF
 
             btnEdit.IsEnabled = false;
             btnDelete.IsEnabled = false;
+
+
         }
         private void NieuwsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -199,6 +193,8 @@ namespace MangaBook_WPF
                 btnDelete.Visibility = Visibility.Collapsed;
             }
         }
+
+       
     }
 }
 
