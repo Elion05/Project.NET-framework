@@ -52,9 +52,7 @@ namespace MangaBook_WPF
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             brEditGenreDetails.Visibility = Visibility.Visible;
-
             //Velden invullen met huidige gegevens
-           
             tbGenreBeschrijving.Text = _genre.genreBeschrijving;
         }
 

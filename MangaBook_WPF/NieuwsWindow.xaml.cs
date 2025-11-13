@@ -36,9 +36,12 @@ namespace MangaBook_WPF
             //Dit is in 9) dit is de QUERY syntax , we moesten 2 soorten querys schrijven
             //om te conecteren met de class _context.Nieuws_Berichten
             var nieuwsLijst = (from n in _context.Nieuws_Berichten
+                               
                             where!n.isVerwijderd  //4) Softdelete, zodat de rij niet verwijderd wordt, de rij tonen zodra !n.isVerwijderd false is
                             orderby n.Datum descending
-                            select n).ToList();
+                            select n)
+                            .Include(n => n.Gebruiker)
+                            .ToList();
 
             NieuwsListBox.ItemsSource = nieuwsLijst;
 

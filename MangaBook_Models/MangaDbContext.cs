@@ -54,8 +54,7 @@ namespace MangaBook_Models
             if (!context.Nieuws_Berichten.Any())
             {
                 context.Nieuws_Berichten.AddRange(new List<Nieuws_Bericht>
-                {
-                    
+                { 
                     new Nieuws_Bericht
                     {
                         Titel = "Welkom bij MangaBook!",
