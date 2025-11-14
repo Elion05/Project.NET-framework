@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Design;
 
 namespace MangaBook_Models
 {
@@ -16,30 +12,30 @@ namespace MangaBook_Models
         [Required]
         [MaxLength(30)]
         [Display(Name = "Auteur naam")]
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; } = "";
 
         [Required]
         [Display(Name = "Geboorte datum")]
         [DataType(DataType.Date)]
-        public string geboorteDatum { get; set; } = string.Empty;
-
+        public string geboorteDatum { get; set; } = "";
 
         [Required]
         [MaxLength(240)]
         [Display(Name = "Beschrijving")]
         [DataType(DataType.MultilineText)]
-        public string description { get; set; } = string.Empty;
+        public string description { get; set; } = "";
 
         //favoriete eten 
         [MaxLength(30)]
         [Display(Name = "Favoriet eten")]
         public string? favoriteFood { get; set; }
+
         [MaxLength(30)]
         [Display(Name = "Nationaliteit")]
         public string? Nationaliteit { get; set; }
 
         [MaxLength(30)]
-        [Display(Name ="Favoriete Sport")]
+        [Display(Name = "Favoriete Sport")]
         public string? FavorieteSport { get; set; }
 
         //dummy data

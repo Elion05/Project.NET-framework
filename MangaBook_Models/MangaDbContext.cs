@@ -1,31 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
-using Microsoft.EntityFrameworkCore.SqlServer;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.Linq;
+using System;
+using System.Collections.Generic;
 
 namespace MangaBook_Models
 {
     public class MangaDbContext : IdentityDbContext<MangaUser>
     {
-        //dit is om met de database te werken, en de models
+        //constructor zodat je opties kan doorgeven bij het aanmaken van de context in de Manga_Web project
+        public MangaDbContext(DbContextOptions<MangaDbContext> options)
+            : base(options)
+        {
+        }
+
+        //zodat je tabellen hebt in de database
         public DbSet<MangaBook> MangaBooks { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Nieuws_Bericht> Nieuws_Berichten { get; set; }
 
-        //2)databank en migratie
+        //Fallback optie voor het geval er geen opties worden doorgegeven
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //string connectionString = "Server=localhost;Database=AgendaDb;User Id=sa;Password=Your_password123;MultipleActiveResultSets=true";
-            string connectionString = "Server=(localdb)\\mssqllocaldb;Database=MangaDbContext;Trusted_Connection=true;MultipleActiveResultSets=true";
-
-            optionsBuilder.UseSqlServer(connectionString);
+            if (!optionsBuilder.IsConfigured)
+            {
+                string connectionString = "Server=(localdb)\\mssqllocaldb;Database=MangaDbContext;Trusted_Connection=true;MultipleActiveResultSets=true";
+                optionsBuilder.UseSqlServer(connectionString);
+            }
         }
 
         //dit is voor de seeding van de database met dummy data
