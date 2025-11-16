@@ -9,23 +9,22 @@ using MangaBook_Models;
 
 namespace Manga_Web
 {
-    public class MangaBooksController : Controller
+    public class GenresController : Controller
     {
         private readonly MangaDbContext _context;
 
-        public MangaBooksController(MangaDbContext context)
+        public GenresController(MangaDbContext context)
         {
             _context = context;
         }
 
-        // GET: MangaBooks
+        // GET: Genres
         public async Task<IActionResult> Index()
         {
-            var mangaDbContext = _context.MangaBooks.Include(m => m.Author).Include(m => m.Genre);
-            return View(await mangaDbContext.ToListAsync());
+            return View(await _context.Genres.ToListAsync());
         }
 
-        // GET: MangaBooks/Details/5
+        // GET: Genres/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,45 +32,39 @@ namespace Manga_Web
                 return NotFound();
             }
 
-            var mangaBook = await _context.MangaBooks
-                .Include(m => m.Author)
-                .Include(m => m.Genre)
+            var genre = await _context.Genres
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (mangaBook == null)
+            if (genre == null)
             {
                 return NotFound();
             }
 
-            return View(mangaBook);
+            return View(genre);
         }
 
-        // GET: MangaBooks/Create
+        // GET: Genres/Create
         public IActionResult Create()
         {
-            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Name");
-            ViewData["GenreId"] = new SelectList(_context.Genres, "Id", "Name");
             return View();
         }
 
-        // POST: MangaBooks/Create
+        // POST: Genres/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,IsDeleted,ReleaseDate,AuthorId,GenreId")] MangaBook mangaBook)
+        public async Task<IActionResult> Create([Bind("Id,Name,genreBeschrijving")] Genre genre)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(mangaBook);
+                _context.Add(genre);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Name", mangaBook.AuthorId);
-            ViewData["GenreId"] = new SelectList(_context.Genres, "Id", "Name", mangaBook.GenreId);
-            return View(mangaBook);
+            return View(genre);
         }
 
-        // GET: MangaBooks/Edit/5
+        // GET: Genres/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,24 +72,22 @@ namespace Manga_Web
                 return NotFound();
             }
 
-            var mangaBook = await _context.MangaBooks.FindAsync(id);
-            if (mangaBook == null)
+            var genre = await _context.Genres.FindAsync(id);
+            if (genre == null)
             {
                 return NotFound();
             }
-            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Name", mangaBook.AuthorId);
-            ViewData["GenreId"] = new SelectList(_context.Genres, "Id", "Name", mangaBook.GenreId);
-            return View(mangaBook);
+            return View(genre);
         }
 
-        // POST: MangaBooks/Edit/5
+        // POST: Genres/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,IsDeleted,ReleaseDate,AuthorId,GenreId")] MangaBook mangaBook)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,genreBeschrijving")] Genre genre)
         {
-            if (id != mangaBook.Id)
+            if (id != genre.Id)
             {
                 return NotFound();
             }
@@ -105,12 +96,12 @@ namespace Manga_Web
             {
                 try
                 {
-                    _context.Update(mangaBook);
+                    _context.Update(genre);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MangaBookExists(mangaBook.Id))
+                    if (!GenreExists(genre.Id))
                     {
                         return NotFound();
                     }
@@ -121,12 +112,10 @@ namespace Manga_Web
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Name", mangaBook.AuthorId);
-            ViewData["GenreId"] = new SelectList(_context.Genres, "Id", "Name", mangaBook.GenreId);
-            return View(mangaBook);
+            return View(genre);
         }
 
-        // GET: MangaBooks/Delete/5
+        // GET: Genres/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,38 +123,34 @@ namespace Manga_Web
                 return NotFound();
             }
 
-            var mangaBook = await _context.MangaBooks
-                .Include(m => m.Author)
-                .Include(m => m.Genre)
+            var genre = await _context.Genres
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (mangaBook == null)
+            if (genre == null)
             {
                 return NotFound();
             }
 
-            return View(mangaBook);
+            return View(genre);
         }
 
-        // POST: MangaBooks/Delete/5
+        // POST: Genres/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var mangaBook = await _context.MangaBooks.FindAsync(id);
-            if (mangaBook != null)
+            var genre = await _context.Genres.FindAsync(id);
+            if (genre != null)
             {
-                _context.MangaBooks.Remove(mangaBook);
+                _context.Genres.Remove(genre);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MangaBookExists(int id)
+        private bool GenreExists(int id)
         {
-            return _context.MangaBooks.Any(e => e.Id == id);
+            return _context.Genres.Any(e => e.Id == id);
         }
-
-        
     }
 }

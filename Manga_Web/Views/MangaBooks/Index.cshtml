@@ -47,11 +47,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ReleaseDate)
             </td>
+            <!--Hyperlink voor de auteur en genres-->
+           <td>
+                 <Span TextDecorations="Underline" TextColor="Blue">
+                    <a asp-action="Details" asp-controller="Authors" asp-route-id="@item.Author.Id"> @Html.DisplayFor(modelItem => item.Author.Name)</a>
+                 </Span>
+           </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Author.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre.Name)
+                <span>
+                    <a asp-action="Details" asp-controller="Genres" asp-route-id="@item.Genre.Id"> @Html.DisplayFor(modelItem => item.Genre.Name)</a>
+                </span>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
