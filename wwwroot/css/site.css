@@ -1,0 +1,83 @@
+/* Kleurenpalet gebaseerd op uw WPF Style.xaml */
+:root {
+    --yale-blue: #0d3b66;
+    --ye-yellow: #f4d35e;
+    --prussian-blue: #1e6091;
+    --lemon-chiffon: #FAF0CA;
+    --white: #fff;
+    --black: #000;
+}
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+/* Algemene pagina stijlen */
+body {
+    background-color: var(--prussian-blue) !important;
+    color: var(--white) !important;
+    margin-bottom: 60px;
+}
+
+/* Navigatiebalk */
+.navbar {
+    background-color: var(--yale-blue) !important;
+    border-bottom: 1px solid var(--yale-blue) !important;
+}
+
+.navbar-brand {
+    color: var(--ye-yellow) !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    color: var(--white) !important;
+}
+
+.nav-link:hover {
+    color: var(--ye-yellow) !important;
+}
+
+/* Algemene link stijlen */
+a {
+    color: var(--ye-yellow);
+}
+
+a:hover {
+    color: var(--lemon-chiffon);
+}
+
+/* Stijl voor primaire knoppen */
+.btn-primary {
+    color: var(--white);
+    background-color: var(--yale-blue);
+    border-color: var(--yale-blue);
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 5px;
+    margin: 5px;
+    border-width: 0;
+}
+
+.btn-primary:hover {
+    background-color: var(--ye-yellow);
+    color: var(--black);
+}
+
+/* Footer */
+.footer {
+    color: var(--lemon-chiffon);
+    border-top: 1px solid var(--yale-blue) !important;
+}

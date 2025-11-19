@@ -2,68 +2,80 @@
 @{
     ViewData["Title"] = "Index";
 }
+<link a:href="/css/site.css"/>
+<h1 class="manga-boeken-title">Manga Boeken</h1>
+            
 
-<h1>Manga Boeken</h1>
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p class="search-bar-mangaboek">
+            Find by name: <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReleaseDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Genre)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
+@if (Model.Any())
+{
+    <table class="table-mangaboek">
+        <thead class="thead-table-mangaboek">
+            <tr class="tr-table-mangaboek">
+                <th class="th-mangaboek th-mangaboek-title">
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th class="th-mangaboek th-mangaboek-description">
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+            
+                <th class="th-mangaboek th-mangaboek-release-date">
+                    @Html.DisplayNameFor(model => model.ReleaseDate)
+                </th>
+                <th class="th-mangaboek th-mangaboek-author">
+                    @Html.DisplayNameFor(model => model.Author)
+                </th>
+                <th class="th-mangaboek th-mangaboek-genre">
+                    @Html.DisplayNameFor(model => model.Genre)
+                </th>
+                <th class="th-mangaboek th-mangaboek-actions"></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr class="tr-mangaboek-item">
+                <td class="td-mangaboek td-mangaboek-title">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td class="td-mangaboek td-mangaboek-description">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+            
+                <td class="td-mangaboek td-mangaboek-release-date">
+                    @Html.DisplayFor(modelItem => item.ReleaseDate)
+                </td>
+                <!--Hyperlink voor de auteur en genres-->
+            <td class="td-mangaboek td-mangaboek-author">
+                    <span class="author-link-container">
+                        <a class="link-author" asp-action="Details" asp-controller="Authors" asp-route-id="@item.Author.Id"> @Html.DisplayFor(modelItem => item.Author.Name)</a>
+                    </span>
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDeleted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReleaseDate)
-            </td>
-            <!--Hyperlink voor de auteur en genres-->
-           <td>
-                 <Span TextDecorations="Underline" TextColor="Blue">
-                    <a asp-action="Details" asp-controller="Authors" asp-route-id="@item.Author.Id"> @Html.DisplayFor(modelItem => item.Author.Name)</a>
-                 </Span>
-           </td>
-            <td>
-                <span>
-                    <a asp-action="Details" asp-controller="Genres" asp-route-id="@item.Genre.Id"> @Html.DisplayFor(modelItem => item.Genre.Name)</a>
-                </span>
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+                <td class="td-mangaboek td-mangaboek-genre">
+                    <span class="genre-link-container">
+                        <a class="link-genre" asp-action="Details" asp-controller="Genres" asp-route-id="@item.Genre.Id"> @Html.DisplayFor(modelItem => item.Genre.Name)</a>
+                    </span>
+                </td>
+                
+                <td class="td-mangaboek td-mangaboek-actions">
+                    <a class="action-link action-edit" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a class="action-link action-details" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a class="action-link action-delete" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
 }
-    </tbody>
-</table>
+else if (ViewData["Message"] != null)
+{
+    <p>@ViewData["Message"]</p>
+}

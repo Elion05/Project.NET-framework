@@ -29,3 +29,169 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+/******/
+/**/
+/*Dit is de style voor de NieuwsBericht Index*/
+/***/
+.Nieuws-container {
+    margin-top: 20px;
+}
+
+
+.Nieuws-card {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.Nieuws-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.Nieuws-date {
+    font-size: 0.9em;
+    color: #666666;
+    margin-bottom: 12px;
+}
+
+.Nieuws-content {
+    font-size: 1em;
+    color: #333333;
+    margin-bottom: 16px;
+    word-wrap: break-word;
+}
+
+
+.Nieuws-footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+}
+
+.Nieuws-Gebruiker-view {
+    font-weight: 600;
+    color: #555555;
+}
+
+.Nieuws-actions a {
+    text-decoration: none;
+    margin-left: 15px;
+    font-weight: bold;
+}
+
+.Nieuws-actions a:hover {
+        text-decoration: underline;
+    }
+
+
+.Nieuws-h1 {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+
+.create-new-link-Nieuws {
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+}
+
+
+
+/*Mangabook css copilot css die de nieuwsbericht namaakt*/
+.table-mangaboek {
+    border-collapse: separate;
+    border-spacing: 0 15px; /* Creates space between rows */
+    width: 100%;
+}
+
+.thead-table-mangaboek {
+    display: none; /* Hide the table header to better mimic card layout */
+}
+
+.tr-mangaboek-item {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: block; /* Treat each row as a block-level card */
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.td-mangaboek {
+    display: block; /* Stack cells vertically */
+    width: 100%;
+    padding: 5px 0;
+    border: none; /* Remove default table cell borders */
+}
+
+.td-mangaboek-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.td-mangaboek-description {
+    font-size: 1em;
+    color: #333333;
+    margin-bottom: 16px;
+    word-wrap: break-word;
+}
+
+.td-mangaboek-release-date,
+.td-mangaboek-author,
+.td-mangaboek-genre {
+    font-size: 0.9em;
+    color: #666666;
+    margin-bottom: 8px;
+}
+
+/* Add labels using ::before pseudo-element */
+.td-mangaboek-release-date::before {
+    content: "Release Date: ";
+    font-weight: bold;
+}
+
+.td-mangaboek-author::before {
+    content: "Author: ";
+    font-weight: bold;
+}
+
+.td-mangaboek-genre::before {
+    content: "Genre: ";
+    font-weight: bold;
+}
+
+.td-mangaboek-actions {
+    margin-top: 16px;
+    text-align: right;
+}
+
+.td-mangaboek-actions a {
+    text-decoration: none;
+    margin-left: 15px;
+    font-weight: bold;
+}
+
+.td-mangaboek-actions a:hover {
+    text-decoration: underline;
+}
+
+.link-author, .link-genre {
+    text-decoration: none;
+    font-weight: normal;
+}

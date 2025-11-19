@@ -1,107 +1,22 @@
 ﻿@model IEnumerable<MangaBook_Models.Nieuws_Bericht>
 
+<link a:href="/css/site.css" />
 @{
     ViewData["Title"] = "Nieuws";
 }
 
-<style>
-    
-    body {
-        background-color: #f4f4f4;
-        font-family: sans-serif;
-    }
-    
-    .news-container {
-        margin-top: 20px;
-    }
-
-   
-    .news-card {
-        background-color: #ffffff;
-        border: 1px solid #dddddd;
-        border-radius: 8px;
-        padding: 20px;
-        margin-bottom: 16px;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-   
-    .news-title {
-        font-size: 1.5em;
-        font-weight: bold;
-        margin-bottom: 8px;
-    }
-
-    
-    .news-date {
-        font-size: 0.9em;
-        color: #666666;
-        margin-bottom: 12px;
-    }
-
-    
-    .news-content {
-        font-size: 1em;
-        color: #333333;
-        margin-bottom: 16px;
-        word-wrap: break-word;
-    }
-
-    
-    .news-footer {
-        margin-top: auto; 
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 0.9em;
-    }
-
-    .news-user {
-        font-weight: 600;
-        color: #555555;
-    }
-
-    .news-actions a {
-        text-decoration: none;
-        margin-left: 15px;
-        font-weight: bold;
-    }
-
-    .news-actions a:hover {
-        text-decoration: underline;
-    }
-
-   
-    h1 {
-        text-align: center;
-        font-size: 24px;
-        font-weight: 500;
-        margin-top: 10px;
-        margin-bottom: 20px;
-    }
-
- 
-    .create-new-link {
-        display: inline-block;
-        margin-bottom: 20px;
-        font-size: 1.1em;
-    }
-
-</style>
-
-<h1>MangaTracker Nieuws Berichten</h1>
+<h1 class="Nieuws-h1">Nieuws berichten</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-primary">Maak Nieuw Nieuws Bericht</a>
 </p>
+
 <button class="sorteren btn btn-secondary">Sorteer op datum (Nieuwste eerst)</button>
 
-<div class="news-container">
+<div class="Nieuws-container">
     @foreach (var item in Model)
     {
-        <div class="news-card" data-date="@item.Datum.ToString("o")">
+        <div class="Nieuws-card" data-date="@item.Datum.ToString("o")">
             <div class="news-title">
                 @Html.DisplayFor(modelItem => item.Titel)
             </div>
@@ -111,11 +26,11 @@
             <div class="news-content">
                 @Html.DisplayFor(modelItem => item.Inhoud)
             </div>
-            <div class="news-footer">
-                <div class="news-user">
+            <div class="Nieuws-footer">
+                <div class="Nieuws-Gebruiker-view">
                     Gepost door: @(item.Gebruiker?.UserName ?? "Onbekend")
                 </div>
-                <div class="news-actions">
+                <div class="Nieuws-actions">
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
@@ -133,13 +48,13 @@
         //dit is de functie om de nieuwsberichten te sorteren op datum
     document.addEventListener('DOMContentLoaded', function () {
         const sorteerKnop = document.querySelector('.sorteren');
-        const container = document.querySelector('.news-container');
-        
+        const container = document.querySelector('.Nieuws-container');
+
         let isDalend = true;
 
         sorteerKnop.addEventListener('click', function () {
-           
-            const cards = Array.from(container.querySelectorAll('.news-card'));
+
+            const cards = Array.from(container.querySelectorAll('.Nieuws-card'));
 
            
             cards.sort((cardA, cardB) => {
