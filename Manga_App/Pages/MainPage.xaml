@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Manga_App.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Image
+                Source="shonen_jump.png"
+                HeightRequest="185"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a hovercraft number nine" />
+
+            <Label Text="Add new Manga" FontSize="Title" FontAttributes="Bold" />
+            <Entry Placeholder="Enter manga title" Text="{Binding Title}" />
+            <Editor Placeholder="Enter manga description" Text="{Binding Description}" AutoSize="TextChanges" />
+            <Button Text="Add Manga" Command="{Binding VoegToe}" HorizontalOptions="Fill"/>
+            <Button Text="Bekijk Toegevoegde Manga's" Command="{Binding OpenBoekenPaginaCommand}" HorizontalOptions="Fill" BackgroundColor="#4CAF50" TextColor="White"/>
+
+        </VerticalStackLayout>
+       
+    </ScrollView>
+
+</ContentPage>

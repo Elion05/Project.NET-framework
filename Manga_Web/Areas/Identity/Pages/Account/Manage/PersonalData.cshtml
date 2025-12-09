@@ -1,0 +1,29 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _Localizer
+@model PersonalDataModel
+@{
+    ViewData["Title"] = _Localizer["Persoonlijke gegevens"];
+    ViewData["ActivePage"] = ManageNavPages.PersonalData;
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<div class="row">
+    <div class="col-md-6">
+        <p>@_Localizer["Uw account bevat persoonlijke gegevens die u ons heeft gegeven. Deze pagina stelt u in staat om die gegevens te downloaden of te verwijderen."]</p>
+        <p>
+            <strong>@_Localizer["Het verwijderen van deze gegevens verwijdert uw account permanent, en dit kan niet worden hersteld."]</strong>
+        </p>
+        <form id="download-data" asp-page="DownloadPersonalData" method="post">
+            <button class="btn btn-primary" type="submit">@_Localizer["Downloaden"]</button>
+        </form>
+        <p>
+            <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger">@_Localizer["Verwijderen"]</a>
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

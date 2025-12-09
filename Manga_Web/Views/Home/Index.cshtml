@@ -1,18 +1,18 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Localization;
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer _Localizer;
+
+@{
     ViewData["Title"] = "Home Page";
     var username = User.Identity?.Name;
 }
 
 <div class="text-center">
     <h1 class="display-4">
-        @if (!string.IsNullOrEmpty(username))
-        {
-            @($"Welcome {username}")
-        }
-        else
-        {
-            @("hello user")
-        }
+        @_Localizer["Welkom"], @(string.IsNullOrEmpty(username) ? _Localizer["Guest"] : username)!
     </h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <h1>@_Localizer["Hallo"]</h1>
+    <p>@_Localizer["Leer meer over"] <a href="https://learn.microsoft.com/aspnet/core">@_Localizer["Web-apps bouwen met ASP.NET Core"]</a>.</p>
 </div>

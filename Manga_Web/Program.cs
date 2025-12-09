@@ -1,36 +1,88 @@
 using MangaBook_Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection; // Add this using directive
+
+using Microsoft.OpenApi.Models;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Get the database connection string.
+//Get the database connection string.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? "Server=(localdb)\\mssqllocaldb;Database=MangaBookDB;Trusted_Connection=True;MultipleActiveResultSets=true";
 
-// 2. Add the DbContext for Entity Framework.
+//Add the DbContext for Entity Framework.
 builder.Services.AddDbContext<MangaBook_Models.MangaDbContext>();
 
 builder.Services.AddDefaultIdentity<MangaUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<MangaDbContext>();
 
+//toevoegen van userManager /SignInmanager voor Mangauser
+builder.Services.AddScoped(typeof(SignInManager<Microsoft.AspNetCore.Identity.IdentityUser>), 
+sp => sp.GetRequiredService<SignInManager<MangaUser>>());
 
 
-// 4. Add support for MVC controllers and Razor Pages (for the Identity UI).
+//Add support for MVC controllers and Razor Pages (for the Identity UI).
 builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+
+//Voor de configuratie van de resfull API's
+builder.Services.AddControllers();
+
+//voor het gebruik van swagger
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "MangaAPI", Version = "v1" });
+});
+
+//localisatie toevoegen voor meertaligheid
+builder.Services.AddLocalization(options => options.ResourcesPath = "Translations");
+builder.Services.AddMvc()
+    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization();
 
 var app = builder.Build();
 
+using(var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        MangaBook_Models.MangaDbContext context = services.GetRequiredService<MangaBook_Models.MangaDbContext>();
+        MangaBook_Models.MangaDbContext.Seeder(context);
+    }
+    catch(Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding the database.");
+    }
+}
+
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MangaAPI v1"));
+}
+
+//toevoegen van middleware voor localisatie
+var supportedCultures = new[] { "nl", "en", "fr"};
+var localizationOptions = new RequestLocalizationOptions()
+    .SetDefaultCulture(supportedCultures[0])
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
+app.UseRequestLocalization(localizationOptions);
+
+//Configure the HTTP request pipeline
+if(!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
+    //The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -46,6 +98,8 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages(); // This is crucial for the login pages to work.
+app.MapRazorPages(); //This is crucial for the login pages to work.
+
+app.MapControllers();
 
 app.Run();

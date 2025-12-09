@@ -84,6 +84,26 @@ namespace MangaBook_Models.Migrations
                     b.ToTable("Genres");
                 });
 
+            modelBuilder.Entity("MangaBook_Models.Language", b =>
+                {
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("IsActive")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsSystemLanguage")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Code");
+
+                    b.ToTable("Languages");
+                });
+
             modelBuilder.Entity("MangaBook_Models.MangaBook", b =>
                 {
                     b.Property<int>("Id")
@@ -150,6 +170,10 @@ namespace MangaBook_Models.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<string>("LanguageCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -189,6 +213,8 @@ namespace MangaBook_Models.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LanguageCode");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -386,6 +412,17 @@ namespace MangaBook_Models.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("Genre");
+                });
+
+            modelBuilder.Entity("MangaBook_Models.MangaUser", b =>
+                {
+                    b.HasOne("MangaBook_Models.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Language");
                 });
 
             modelBuilder.Entity("MangaBook_Models.Nieuws_Bericht", b =>

@@ -5,21 +5,20 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 
+
 namespace MangaBook_Models
 {
     public class MangaDbContext : IdentityDbContext<MangaUser>
     {
         //constructor zodat je opties kan doorgeven bij het aanmaken van de context in de Manga_Web project
-        public MangaDbContext(DbContextOptions<MangaDbContext> options)
-            : base(options)
-        {
-        }
+        
 
         //zodat je tabellen hebt in de database
         public DbSet<MangaBook> MangaBooks { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Nieuws_Bericht> Nieuws_Berichten { get; set; }
+        public DbSet<Language> Languages { get; set; }
 
         //Fallback optie voor het geval er geen opties worden doorgegeven
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -34,7 +33,9 @@ namespace MangaBook_Models
         //dit is voor de seeding van de database met dummy data
         public static async Task Seeder(MangaDbContext context)
         {
-            await MangaUser.Seeder(context);
+            Language.Seeder(context);
+
+            await MangaUser.Seeder();
 
             //3) Seeding van dummyData, direct bijgevuld in de database
             if (!context.Authors.Any())

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,11 @@ namespace MangaBook_Models
         [MaxLength(30)]
         public string LastName { get; set; } = string.Empty;
 
+        [ForeignKey("Language")]
+        public string LanguageCode { get; set; } = "nl";
+
+        public Language? Language { get; set; }
+
         public bool IsDeleted { get; set; } = false;
 
 
@@ -35,7 +41,8 @@ namespace MangaBook_Models
             NormalizedUserName = "DUMMY",
             Email = "dummy@manga.be",
             LockoutEnabled = true,
-            LockoutEnd = DateTimeOffset.MaxValue
+            LockoutEnd = DateTimeOffset.MaxValue,
+            LanguageCode = "-",
         };
 
         public override string ToString()
@@ -43,9 +50,14 @@ namespace MangaBook_Models
             return $"{FirstName} {LastName}";
         }
 
+
+
+
         //7) Rollen, 
-        public static async Task Seeder(MangaDbContext context)
+        public static async Task Seeder()
         {
+            MangaDbContext context = new MangaDbContext();
+
             if (!context.Roles.Any())
             {
                 context.Roles.AddRange(new List<IdentityRole>
@@ -84,15 +96,31 @@ namespace MangaBook_Models
                     null, null, null, null, null, null
                 );
 
-                await userManager.CreateAsync(admin, "Admin123!");
-                await userManager.CreateAsync(normaleUser, "User123!");
+                try
+                {
+                    await userManager.CreateAsync(admin, "Admin123!");
+                    await userManager.CreateAsync(normaleUser, "User123!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error creating users: {ex.Message}");
+                }
 
-                
+
+                while (context.Users.Count() < 2)
+                {
+                    await Task.Delay(100);
+                }
 
                 await userManager.AddToRoleAsync(admin, "Admin");
                 await userManager.AddToRoleAsync(normaleUser, "User");
 
             }
+
+            
+
+
+           
 
             Dummy = context.Users.First(u => u.UserName == "dummy");
         }

@@ -12,16 +12,94 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.4.0" />
   </ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\MangaBook_Models\MangaBook_Models.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Translations\Views\Home\Home.en.Designer.cs">
+	    <DependentUpon>Home.en.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="Translations\Views\Home\Home.fr.Designer.cs">
+	    <DependentUpon>Home.fr.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="Translations\Views\Home\Home.Designer.cs">
+	    <DependentUpon>Home.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="Translations\Views\Shared\_LoginPartial.en.Designer.cs">
+	    <DependentUpon>_LoginPartial.en.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="Translations\Views\Shared\_LoginPartial.fr.Designer.cs">
+	    <DependentUpon>_LoginPartial.fr.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="Translations\Views\Shared\_LoginPartial.Designer.cs">
+	    <DependentUpon>_LoginPartial.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="Translations\Views\Shared\_Layout.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>_Layout.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Translations\Views\Home\Home.en.resx">
+	    <LastGenOutput>Home.en.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Translations\Views\Home\Home.fr.resx">
+	    <LastGenOutput>Home.fr.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Translations\Views\Home\Home.resx">
+	    <LastGenOutput>Home.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Translations\Views\Shared\_LoginPartial.en.resx">
+	    <LastGenOutput>_LoginPartial.en.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Translations\Views\Shared\_LoginPartial.fr.resx">
+	    <LastGenOutput>_LoginPartial.fr.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Translations\Views\Shared\_LoginPartial.resx">
+	    <LastGenOutput>_LoginPartial.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Translations\Views\Shared\_Layout.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>_Layout.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Areas\Identity\Data\" />
 	</ItemGroup>
 
 </Project>

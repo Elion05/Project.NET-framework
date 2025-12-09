@@ -1,0 +1,74 @@
+﻿@page
+@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+@model TwoFactorAuthenticationModel
+@{
+    ViewData["Title"] = Localizer["Two-factor authentication (2FA)"];
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h3>@ViewData["Title"]</h3>
+@{
+    var consentFeature = HttpContext.Features.Get<ITrackingConsentFeature>();
+    @if (consentFeature?.CanTrack ?? true)
+    {
+        @if (Model.Is2faEnabled)
+        {
+            if (Model.RecoveryCodesLeft == 0)
+            {
+                <div class="alert alert-danger">
+                    <strong>@Localizer["U heeft geen herstelcodes meer over."]</strong>
+                    <p>@Localizer["U moet een nieuwe set herstelcodes genereren voordat u zich met een herstelcode kunt aanmelden."]</p>
+                </div>
+            }
+            else if (Model.RecoveryCodesLeft == 1)
+            {
+                <div class="alert alert-danger">
+                    <strong>@Localizer["U heeft 1 herstelcode over."]</strong>
+                    <p>@Localizer["U kunt een nieuwe set herstelcodes genereren."]</p>
+                </div>
+            }
+            else if (Model.RecoveryCodesLeft <= 3)
+            {
+                <div class="alert alert-warning">
+                    <strong>@Localizer["U heeft {0} herstelcodes over.", Model.RecoveryCodesLeft]</strong>
+                    <p>@Localizer["U moet een nieuwe set herstelcodes genereren."]</p>
+                </div>
+            }
+
+            if (Model.IsMachineRemembered)
+            {
+                <form method="post" style="display: inline-block">
+                    <button type="submit" class="btn btn-primary">@Localizer["Vergeet deze browser"]</button>
+                </form>
+            }
+            <a asp-page="./Disable2fa" class="btn btn-primary">@Localizer["Deactiveer 2FA"]</a>
+            <a asp-page="./GenerateRecoveryCodes" class="btn btn-primary">@Localizer["Reset herstelcodes"]</a>
+        }
+
+        <h4>Authenticator app</h4>
+        @if (!Model.HasAuthenticator)
+        {
+            <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">@Localizer["Voeg authenticator-app toe"]</a>
+        }
+        else
+        {
+            <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">@Localizer["Stel authenticator-app in"]</a>
+            <a id="reset-authenticator" asp-page="./ResetAuthenticator" class="btn btn-primary">@Localizer["Reset authenticator-app"]</a>
+        }
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            <strong>@Localizer["Privacy and cookie policy have not been accepted."]</strong>
+            <p>@Localizer["You must accept the policy before you can enable two factor authentication."]</p>
+        </div>
+    }
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

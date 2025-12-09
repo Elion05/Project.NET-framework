@@ -41,6 +41,8 @@ namespace MangaBook_Models
         //dummy data
         public static List<Author> SeedingData()
         {
+            
+
             var list = new List<Author>
             {
                 new Author { Name = "Masashi Kishimoto",geboorteDatum = "08/11/1974", description = "Masashi Kishimoto is een Japanse mangaka. Zijn bekendste reeks, Naruto, verscheen van 1999 tot 2014 in het weekblad Shonen Weekly Jump en boekte wereldwijd succes. Van Naruto zijn er wereldwijd meer dan 220 miljoen exemplaren verkocht.", Nationaliteit = "Japans", favoriteFood = "Ramen", FavorieteSport = "Basketbal" },

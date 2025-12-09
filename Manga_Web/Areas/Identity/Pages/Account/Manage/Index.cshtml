@@ -1,7 +1,11 @@
 ﻿@page
+@using Microsoft.AspNetCore.Localization;
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer _Localizer;
 @model IndexModel
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = _Localizer["Profiel"];
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
@@ -12,29 +16,42 @@
         <form id="profile-form" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
 
+            <!-- Username (read-only) -->
             <div class="form-floating mb-3">
-                <input asp-for="Username" class="form-control" placeholder="Please choose your username." />
-                <label asp-for="Username" class="form-label"></label>
+                <input asp-for="Username" class="form-control" readonly />
+                <label asp-for="Username" class="form-label">@_Localizer["Gebruikersnaam"]</label>
+            </div>
+
+            <!-- First Name -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Firstname" class="form-control" placeholder="@_Localizer["Type je voornaam"]"/>
+                <label asp-for="Input.Firstname" class="form-label">@_Localizer["Voornaam"]</label>
                 <span asp-validation-for="Input.Firstname" class="text-danger"></span>
             </div>
 
+            <!-- Last Name -->
             <div class="form-floating mb-3">
-                <input asp-for="Input.Lastname" class="form-control" placeholder="Please choose your Lastname." />
-                <label asp-for="Input.Lastname" class="form-label"></label>
+                <input asp-for="Input.Lastname" class="form-control" placeholder="@_Localizer["Type je achternaam"]" />
+                <label asp-for="Input.Lastname" class="form-label">@_Localizer["Achternaam"]</label>
                 <span asp-validation-for="Input.Lastname" class="text-danger"></span>
-             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Firstname" class="form-control" placeholder="Please choose your firstname." />
-                <label asp-for="Input.Firstname" class="form-label"></label>
-                <span asp-validation-for="Input.Firstname" class="text-danger"></span>
             </div>
 
+            <!-- Phone Number -->
             <div class="form-floating mb-3">
-                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number."/>
-                <label asp-for="Input.PhoneNumber" class="form-label"></label>
+                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="@_Localizer["Type je telefoonnummer"]" />
+                <label asp-for="Input.PhoneNumber" class="form-label">@_Localizer["Telefoonnummer"]</label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+
+            <!-- Language Dropdown -->
+            <div class="form-floating mb-3">
+                <select asp-for="Input.LanguageCode" class="form-control" asp-items="ViewBag.LanguageCodes"></select>
+                <label asp-for="Input.LanguageCode" class="form-label">@_Localizer["Taal"]</label>
+                <span asp-validation-for="Input.LanguageCode" class="text-danger"></span>
+            </div>
+
+            <!-- Save Button -->
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">@_Localizer["Opslaan"]</button>
         </form>
     </div>
 </div>

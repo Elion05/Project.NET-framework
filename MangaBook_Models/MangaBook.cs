@@ -6,6 +6,7 @@ namespace MangaBook_Models
 {
     public class MangaBook
     {
+        public DateTime Created;
 
         [Key]
         public int Id { get; set; }
