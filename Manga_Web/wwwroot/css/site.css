@@ -206,3 +206,273 @@ body {
     text-decoration: none;
     font-weight: normal;
 }
+
+
+
+/*ViewBook van de boeken css*/
+.manga-book-row {
+    display: block;
+    background-color: var(--white);
+    border: 1px solid var(--light-gray);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.manga-book-row td {
+    display: block;
+    width: 100%;
+    padding: 6px 0;
+    border: none;
+}
+
+.manga-title {
+    font-size: 1.75em;
+    font-weight: bold;
+    color: var(--yale-blue);
+    margin-bottom: 10px;
+}
+
+.manga-description {
+    font-size: 1em;
+    color: #333;
+    margin-bottom: 12px;
+    word-wrap: break-word;
+}
+
+.manga-release-date,
+.manga-author,
+.manga-genre {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.manga-release-date::before {
+    content: "Release Date: ";
+    font-weight: bold;
+    color: var(--prussian-blue);
+}
+
+.manga-author::before {
+    content: "Author: ";
+    font-weight: bold;
+    color: var(--prussian-blue);
+}
+
+.manga-genre::before {
+    content: "Genre: ";
+    font-weight: bold;
+    color: var(--prussian-blue);
+}
+
+/* EditBook van de boeken css */
+.edit-book-row {
+    display: block;
+    background-color: var(--lemon-chiffon);
+    border: 1px solid var(--ye-yellow);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.edit-book-row td {
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    border: none;
+}
+
+.edit-book-row td::before {
+    display: block;
+    font-weight: bold;
+    color: var(--prussian-blue);
+    margin-bottom: 4px;
+}
+
+.edit-title::before {
+    content: "Title";
+}
+
+.edit-description::before {
+    content: "Description";
+}
+
+.edit-release-date::before {
+    content: "Release Date";
+}
+
+.edit-author::before {
+    content: "Author";
+}
+
+.edit-genre::before {
+    content: "Genre";
+}
+
+.form-control-plaintext {
+    display: inline-block;
+    padding-top: .375rem;
+    padding-bottom: .375rem;
+    margin-bottom: 0;
+    line-height: 1.5;
+    background-color: transparent;
+    border: solid transparent;
+    border-width: 1px 0;
+}
+
+/*ViewBook voor de Author*/
+/* This rule hides the misaligned table headers on the Authors page */
+.thead-table-author {
+    display: none;
+}
+
+.author-view-row {
+    display: block;
+    background-color: var(--white);
+    border: 1px solid var(--light-gray);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.author-view-row td {
+    display: block;
+    width: 100%;
+    padding: 6px 0;
+    border: none;
+}
+
+.author-name {
+    font-size: 1.75em;
+    font-weight: bold;
+    color: var(--yale-blue);
+    margin-bottom: 10px;
+}
+
+.author-description {
+    font-size: 1em;
+    color: #333;
+    margin-bottom: 12px;
+    word-wrap: break-word;
+}
+
+.author-birth-date,
+.author-favorite-food,
+.author-nationality,
+.author-favorite-sport {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.author-birth-date::before {
+    content: "Birth Date: ";
+    font-weight: bold;
+    color: var(--prussian-blue);
+}
+    
+.author-favorite-food::before {
+    content: "Favorite Food: ";
+    font-weight: bold;
+    color: var(--prussian-blue);
+}
+
+.author-nationality::before {
+    content: "Nationality: ";
+    font-weight: bold;
+    color: var(--prussian-blue);
+}
+
+.author-favorite-sport::before {
+    content: "Favorite Sport: ";
+    font-weight: bold;
+    color: var(--prussian-blue);
+}
+
+/* EditAuthor van de boeken css */
+.edit-author-row {
+    display: block;
+    background-color: var(--lemon-chiffon);
+    border: 1px solid var(--ye-yellow);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.edit-author-row td {
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    border: none;
+}
+
+.edit-author-row td::before {
+    display: block;
+    font-weight: bold;
+    color: var(--prussian-blue);
+    margin-bottom: 4px;
+}
+
+.edit-author-name::before {
+    content: "Name";
+}
+
+.edit-author-birth-date::before {
+    content: "Birth Date";
+}
+
+.edit-author-description::before {
+    content: "Description";
+}
+
+.edit-author-favorite-food::before {
+    content: "Favorite Food";
+}
+
+.edit-author-nationality::before {
+    content: "Nationality";
+}
+
+.edit-author-favorite-sport::before {
+    content: "Favorite Sport";
+}
+
+/*ViewBook voor de Genre*/
+.genre-view-row {
+    display: block;
+    background-color: var(--white);
+    border: 1px solid var(--light-gray);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.genre-view-row td {
+    display: block;
+    width: 100%;
+    padding: 6px 0;
+    border: none;
+}
+
+.genre-name {
+    font-size: 1.75em;
+    font-weight: bold;
+    color: var(--yale-blue);
+    margin-bottom: 10px;
+}
+
+.genre-description {
+    font-size: 1em;
+    color: #333;
+    margin-bottom: 12px;
+    word-wrap: break-word;
+}
+
+/* This rule hides the misaligned table headers on the Genres page */
+.thead-table-genre {
+    display: none;
+}

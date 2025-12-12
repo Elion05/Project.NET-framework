@@ -1,0 +1,54 @@
+﻿@model MangaBook_Models.MangaBook
+@using AspNetCore.Unobtrusive.Ajax;
+@using Manga_Web.Services
+@using Microsoft.AspNetCore.Mvc.Localization
+
+
+@inject IHtmlLocalizer<SharedResource> _shared
+
+@{
+    Layout = null;
+}
+
+@using (Html.AjaxBeginForm("EditBook", "MangaBooks", new AjaxOptions {HttpMethod ="post", InsertionMode=InsertionMode.Replace, UpdateTargetId = Model.Id.ToString() }))
+{
+    @Html.AntiForgeryToken();
+  
+    <link asp-href-exclude="~/wwwroot/css/site.cs"/>
+
+    <tr id="@Model.Id.ToString()" class="edit-book-row">
+
+        <td class="edit-title">
+            <input type="hidden" asp-for="Id"/>
+            <input asp-for="Title" class="form-control" onchange="$(this.form).submit()"/>
+        </td>
+
+         <td class="edit-description">
+            <input asp-for="Description" class="form-control" onchange="$(this.form).submit()"/>
+        </td>
+
+        <td class="edit-release-date">
+            <input asp-for="ReleaseDate" class="form-control" onchange="$(this.form).submit()" />
+        </td>
+
+        <td class="edit-author">
+            <input type="hidden" asp-for="AuthorId"/>
+            <span class="form-control-plaintext">
+                @Model.Author.Name
+            </span>
+        </td>
+
+        <td class="edit-genre">
+            <input type="hidden" asp-for="GenreId" />
+            <span class="form-control-plaintext">
+                @Model.Genre.Name
+            </span>
+        </td>
+
+        <td>
+            <a class="action-link action-delete" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+        </td>
+    </tr>
+}
+
+

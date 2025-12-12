@@ -70,7 +70,7 @@ namespace Manga_Web.API_Controllers
         // POST: api/Nieuws_Bericht
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Nieuws_Bericht>> PostNieuws_Bericht(Nieuws_Bericht nieuws_Bericht)
+        public async Task<ActionResult<Nieuws_Bericht>> PostNieuws_Bericht([FromBody]Nieuws_Bericht nieuws_Bericht)
         {
             _context.Nieuws_Berichten.Add(nieuws_Bericht);
             await _context.SaveChangesAsync();

@@ -1,0 +1,32 @@
+﻿@model MangaBook_Models.Genre
+@using AspNetCore.Unobtrusive.Ajax;
+@using Manga_Web.Services
+@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IHtmlLocalizer<SharedResource> _shared
+
+@{
+    Layout = null;
+}
+
+@using (Html.AjaxBeginForm("EditGenre", "Genres", new AjaxOptions {HttpMethod = "post", InsertionMode= InsertionMode.Replace, UpdateTargetId = Model.Id.ToString() }))
+{
+    @Html.AntiForgeryToken();
+
+    <tr id="@Model.Id.ToString()">
+     
+        <td>
+            <input type="hidden" asp-for="Id" />
+            <input asp-for="Name" class="form-control" onchange="$(this.form).submit()" />
+        </td>
+      
+        <td>
+            <input asp-for="genreBeschrijving" class="form-control" onchange="$(this.form).submit()" />
+        </td>
+
+        <td>
+            <a class="action-link action-delete" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+        </td>
+    </tr>
+
+}

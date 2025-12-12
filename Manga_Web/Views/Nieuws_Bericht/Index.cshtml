@@ -7,9 +7,12 @@
 
 <h1 class="Nieuws-h1">Nieuws berichten</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Maak Nieuw Nieuws Bericht</a>
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Maak Nieuw Nieuws Bericht</a>
+    </p>
+}
 
 <button class="sorteren btn btn-secondary">Sorteer op datum (Nieuwste eerst)</button>
 
@@ -30,11 +33,11 @@
                 <div class="Nieuws-Gebruiker-view">
                     Gepost door: @(item.Gebruiker?.UserName ?? "Onbekend")
                 </div>
-                <div class="Nieuws-actions">
+                @* <div class="Nieuws-actions">
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </div>
+                </div> *@
             </div>
         </div>
     }

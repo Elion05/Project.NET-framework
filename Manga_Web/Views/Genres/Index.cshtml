@@ -1,16 +1,36 @@
 ﻿@model IEnumerable<MangaBook_Models.Genre>
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer _localizer
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>@_localizer["Genre"]</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p class="search-bar-author">
+            @_localizer["Zoeken op naam"]: <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="@_localizer["Zoeken"]" class="btn btn-default" /> |
+            <a asp-action="Index">@_localizer["Terug naar volledige lijst"]</a>
+        </p>
+    </div>
+</form>
+
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">@_localizer["Voeg nieuwe genre toe"]</a>
+    </p>
+}
+
+
 <table class="table">
-    <thead>
+    <thead class="thead-table-genre">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -23,19 +43,16 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.genreBeschrijving)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+        
+
+            @if(User.IsInRole("Admin"))
+            {
+                @await Html.PartialAsync("EditGenre", item)
+            }
+            else if (User.IsInRole("User"))
+            {
+                @await Html.PartialAsync("ViewBook", item)
+            }
 }
     </tbody>
 </table>

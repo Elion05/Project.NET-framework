@@ -2,10 +2,9 @@ using MangaBook_Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
-
 using Microsoft.OpenApi.Models;
-
-
+using AspNetCore.Unobtrusive.Ajax;
+using Manga_Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +24,11 @@ builder.Services.AddScoped(typeof(SignInManager<Microsoft.AspNetCore.Identity.Id
 sp => sp.GetRequiredService<SignInManager<MangaUser>>());
 
 
+
+builder.Logging.AddDbLogger(options => {
+    builder.Configuration.GetSection("Logging");
+});
+
 //Add support for MVC controllers and Razor Pages (for the Identity UI).
 builder.Services.AddControllersWithViews();
 
@@ -42,6 +46,12 @@ builder.Services.AddLocalization(options => options.ResourcesPath = "Translation
 builder.Services.AddMvc()
     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
     .AddDataAnnotationsLocalization();
+
+
+//registratie voor de Unobtrusive Ajax library
+builder.Services.AddUnobtrusiveAjax();
+
+
 
 var app = builder.Build();
 
@@ -86,6 +96,9 @@ if(!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+
+app.UseUnobtrusiveAjax();
 
 app.UseRouting();
 

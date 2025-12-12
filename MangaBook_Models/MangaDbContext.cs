@@ -19,6 +19,7 @@ namespace MangaBook_Models
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Nieuws_Bericht> Nieuws_Berichten { get; set; }
         public DbSet<Language> Languages { get; set; }
+        public DbSet<LogError> LogErrors { get; set; }
 
         //Fallback optie voor het geval er geen opties worden doorgegeven
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using MangaBook_Models;
+using Microsoft.Extensions.Localization;
 
 
 namespace Manga_Web.Areas.Identity.Pages.Account
@@ -23,11 +24,14 @@ namespace Manga_Web.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<MangaUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IStringLocalizer<LoginModel> _localizer;
 
-        public LoginModel(SignInManager<MangaUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<MangaUser> signInManager, ILogger<LoginModel> logger, IStringLocalizer<LoginModel> localizer)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _localizer = localizer;
+
         }
 
         /// <summary>
@@ -62,26 +66,14 @@ namespace Manga_Web.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
+            [Required(ErrorMessage = "De gebruikersnaam veld moet ingevuld zijn.")]
             [Display(Name = "Username")]
             public string Username { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
+            [Required(ErrorMessage = "De wachtwoord veld moet ingevuld zijn.")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
         }
@@ -128,10 +120,10 @@ namespace Manga_Web.Areas.Identity.Pages.Account
                     _logger.LogWarning("User account locked out.");
                     return RedirectToPage("./Lockout");
                 }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                else ModelState.AddModelError(string.Empty, _localizer["Slechte loginpoging."]);
                     return Page();
+                {
+                   
                 }
             }
 

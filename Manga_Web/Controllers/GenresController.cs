@@ -14,9 +14,22 @@ namespace Manga_Web
         }
 
         // GET: Genres
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Genres.ToListAsync());
+            ViewData["CurrentFilter"] = searchString;
+            var genres = from m in _context.Genres
+                          select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                genres = genres.Where(s => s.Name.Contains(searchString));
+            }
+            var results = await genres.AsNoTracking().ToListAsync();
+            if (results.Count == 0)
+            {
+                ViewData["Message"] = "No genres found.";
+            }
+            return View("Index", results);
         }
 
         // GET: Genres/Details/5
@@ -75,40 +88,70 @@ namespace Manga_Web
             return View(genre);
         }
 
-        // POST: Genres/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,genreBeschrijving")] Genre genre)
+
+        public async Task<IActionResult> EditGenre(int id, [Bind("Id,Name,genreBeschrijving")] Genre genre)
         {
             if (id != genre.Id)
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(genre);
+                    Genre existing = _context.Genres.First(at => at.Id == id);
+                    existing.Name = genre.Name;
+                    existing.genreBeschrijving = genre.genreBeschrijving;
+                    _context.Update(existing);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!GenreExists(genre.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                catch (DbUpdateConcurrencyException) { }
             }
-            return View(genre);
+            return PartialView("EditGenre", genre);
         }
+
+
+
+
+
+
+        //// POST: Genres/Edit/5
+        //// To protect from overposting attacks, enable the specific properties you want to bind to.
+        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("Id,Name,genreBeschrijving")] Genre genre)
+        //{
+        //    if (id != genre.Id)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(genre);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!GenreExists(genre.Id))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(genre);
+        //}
 
         // GET: Genres/Delete/5
         public async Task<IActionResult> Delete(int? id)

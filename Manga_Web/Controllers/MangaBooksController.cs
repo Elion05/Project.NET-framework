@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MangaBook_Models;
+using AspNetCore.Unobtrusive.Ajax;
+
 
 namespace Manga_Web
 {
@@ -71,6 +73,10 @@ namespace Manga_Web
 
         }
 
+
+
+
+
         // POST: MangaBooks/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -88,6 +94,8 @@ namespace Manga_Web
             ViewData["GenreId"] = new SelectList(_context.Genres, "Id", "Name", mangaBook.GenreId);
             return View(mangaBook);
         }
+
+
 
         // GET: MangaBooks/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -107,42 +115,75 @@ namespace Manga_Web
             return View(mangaBook);
         }
 
-        // POST: MangaBooks/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,IsDeleted,ReleaseDate,AuthorId,GenreId")] MangaBook mangaBook)
+        public async Task<IActionResult> EditBook(int id, [Bind("Id, Title, Description, IsDeleted, ReleaseDate, AuthorId, GenreId")] MangaBook mangaBook)
         {
-            if (id != mangaBook.Id)
-            {
-                return NotFound();
-            }
+          if(id != mangaBook.Id)
+          {
+            return NotFound();
+          }
 
-            if (ModelState.IsValid)
+          if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(mangaBook);
+                    MangaBook existing = _context.MangaBooks.First(at => at.Id == id);
+                    existing.Title = mangaBook.Title;
+                    existing.Description = mangaBook.Description;
+                    existing.IsDeleted = mangaBook.IsDeleted;
+                    existing.ReleaseDate = mangaBook.ReleaseDate;
+                    existing.AuthorId = mangaBook.AuthorId;
+                    existing.GenreId = mangaBook.GenreId;
+
+                    _context.Update(existing);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MangaBookExists(mangaBook.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                catch (DbUpdateConcurrencyException) { }
             }
-            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Name", mangaBook.AuthorId);
-            ViewData["GenreId"] = new SelectList(_context.Genres, "Id", "Name", mangaBook.GenreId);
-            return View(mangaBook);
+            return PartialView("EditBook", mangaBook);
+
         }
+
+        //// POST: MangaBooks/Edit/5
+        //// To protect from overposting attacks, enable the specific properties you want to bind to.
+        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,IsDeleted,ReleaseDate,AuthorId,GenreId")] MangaBook mangaBook)
+        //{
+        //    if (id != mangaBook.Id)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(mangaBook);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!MangaBookExists(mangaBook.Id))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Name", mangaBook.AuthorId);
+        //    ViewData["GenreId"] = new SelectList(_context.Genres, "Id", "Name", mangaBook.GenreId);
+        //    return View(mangaBook);
+        //}
+
+
 
         // GET: MangaBooks/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -182,8 +223,6 @@ namespace Manga_Web
         private bool MangaBookExists(int id)
         {
             return _context.MangaBooks.Any(e => e.Id == id);
-        }
-
-        
+        }   
     }
 }

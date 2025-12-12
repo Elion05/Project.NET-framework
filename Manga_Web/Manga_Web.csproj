@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.Unobtrusive.Ajax" Version="3.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" />
@@ -23,6 +24,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.4.0" />
+    <PackageReference Include="WebGrease" Version="1.6.0" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -30,6 +32,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Translations\Areas\Identity\Pages\Account\LoginModel.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>LoginModel.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Translations\Views\Home\Home.en.Designer.cs">
 	    <DependentUpon>Home.en.resx</DependentUpon>
 	    <DesignTime>True</DesignTime>
@@ -68,6 +75,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Update="Translations\Areas\Identity\Pages\Account\LoginModel+InputModel.resx">
+	    <Generator></Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Translations\Areas\Identity\Pages\Account\LoginModel.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>LoginModel.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Translations\Views\Home\Home.en.resx">
 	    <LastGenOutput>Home.en.Designer.cs</LastGenOutput>
 	    <Generator>PublicResXFileCodeGenerator</Generator>

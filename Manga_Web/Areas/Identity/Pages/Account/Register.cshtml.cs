@@ -20,6 +20,8 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using MangaBook_Models;
 
+
+
 namespace Manga_Web.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel

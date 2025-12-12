@@ -1,20 +1,31 @@
-﻿@model IEnumerable<MangaBook_Models.MangaBook>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@model IEnumerable<MangaBook_Models.MangaBook>
+@inject IViewLocalizer _localizer
 @{
     ViewData["Title"] = "Index";
 }
 <link a:href="/css/site.css"/>
-<h1 class="manga-boeken-title">Manga Boeken</h1>
+<h1 class="manga-boeken-title">@_localizer["Manga Boeken"]</h1>
             
 
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
         <p class="search-bar-mangaboek">
-            Find by name: <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" />
-            <input type="submit" value="Search" class="btn btn-default" /> |
-            <a asp-action="Index">Back to Full List</a>
+            @_localizer["Zoeken op naam"]: <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value= @_localizer["Zoeken"] class="btn btn-default" /> |
+            <a asp-action="Index">@_localizer["Terug naar volledige lijst"]</a>
         </p>
     </div>
 </form>
+
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
 
 @if (Model.Any())
 {
@@ -42,35 +53,16 @@
         </thead>
         <tbody>
     @foreach (var item in Model) {
-            <tr class="tr-mangaboek-item">
-                <td class="td-mangaboek td-mangaboek-title">
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td class="td-mangaboek td-mangaboek-description">
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-            
-                <td class="td-mangaboek td-mangaboek-release-date">
-                    @Html.DisplayFor(modelItem => item.ReleaseDate)
-                </td>
-                <!--Hyperlink voor de auteur en genres-->
-            <td class="td-mangaboek td-mangaboek-author">
-                    <span class="author-link-container">
-                        <a class="link-author" asp-action="Details" asp-controller="Authors" asp-route-id="@item.Author.Id"> @Html.DisplayFor(modelItem => item.Author.Name)</a>
-                    </span>
-            </td>
-                <td class="td-mangaboek td-mangaboek-genre">
-                    <span class="genre-link-container">
-                        <a class="link-genre" asp-action="Details" asp-controller="Genres" asp-route-id="@item.Genre.Id"> @Html.DisplayFor(modelItem => item.Genre.Name)</a>
-                    </span>
-                </td>
-                
-                <td class="td-mangaboek td-mangaboek-actions">
-                    <a class="action-link action-edit" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a class="action-link action-details" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a class="action-link action-delete" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+               
+
+                if (User.IsInRole("Admin"))
+                {
+                    <partial name="EditBook" model="item" />
+                }
+                else if(User.IsInRole("User"))
+                {
+                    <partial name="ViewBook" model="item" />
+                }
     }
         </tbody>
     </table>

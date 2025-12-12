@@ -117,19 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Email" xml:space="preserve">
+  <data name="E-mail" xml:space="preserve">
     <value>Email</value>
   </data>
   <data name="Externe logins" xml:space="preserve">
     <value>External logins</value>
   </data>
-  <data name="Persoonlijke data" xml:space="preserve">
+  <data name="Persoonlijke gegevens" xml:space="preserve">
     <value>Personal data</value>
   </data>
   <data name="Profiel" xml:space="preserve">
     <value>Profile</value>
   </data>
-  <data name="Tweestapverificatie" xml:space="preserve">
+  <data name="Twee-factor authenticatie" xml:space="preserve">
     <value>Two-step verification</value>
   </data>
   <data name="Wachtwoord" xml:space="preserve">

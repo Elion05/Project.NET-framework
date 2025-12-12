@@ -1,0 +1,31 @@
+﻿@model MangaBook_Models.MangaBook
+@using AspNetCore.Unobtrusive.Ajax;
+@using Manga_Web.Services
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@{
+    Layout = null;
+}
+
+@using (Html.AjaxBeginForm("ViewBook", "MangaBooks", new AjaxOptions {HttpMethod ="get", InsertionMode=InsertionMode.Replace, UpdateTargetId = Model.Id.ToString() }))
+{
+    //how to add css link?
+    <link asp-href-exclude="~/wwwroot/css/site.css" />
+    <tr id="@Model.Id.ToString()" class="manga-book-row">
+        <td class="manga-title">
+            @Model.Title
+        </td>
+         <td class="manga-description">
+            @Model.Description
+        </td>
+        <td class="manga-release-date">
+            @Model.ReleaseDate.ToShortDateString()
+        </td>
+        <td class="manga-author">
+            @Model.Author.Name
+        </td>
+        <td class="manga-genre">
+            @Model.Genre.Name
+        </td>
+    </tr>
+}

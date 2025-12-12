@@ -27,7 +27,7 @@ namespace Manga_Web.Controllers
         {
             var mangaDbContext = from MangaUser user in _context.Users
                                  where (user.UserName != "Dummy"
-                                 && (username == "" || user.UserName.Contains(username)))
+                                 && (username == "" || (user.UserName != null && user.UserName.Contains(username))))
                                  && (roleId == "?" || (from ur in _context.UserRoles
                                                        where ur.UserId == user.Id
                                                        select ur.RoleId).Contains(roleId))
@@ -35,9 +35,9 @@ namespace Manga_Web.Controllers
                                  select new UserViewModel
                                  {
                                      Id = user.Id,
-                                     UserName = user.UserName,
-                                     Email = user.Email,
-                                     Blocked = user.LockoutEnd.HasValue && user.LockoutEnd.Value.DateTime >= DateTime.MinValue,
+                                     UserName = user.UserName ?? string.Empty,
+                                     Email = user.Email ?? string.Empty,
+                                     Blocked = user.LockoutEnd.HasValue && user.LockoutEnd.Value > DateTimeOffset.UtcNow,
                                      Roles = (from ur in _context.UserRoles
                                               where ur.UserId == user.Id
                                               select ur.RoleId).ToList()
@@ -62,10 +62,10 @@ namespace Manga_Web.Controllers
             {
                 return NotFound();
             }
-            if (user.LockoutEnd.HasValue && user.LockoutEnd.Value.DateTime >= DateTime.MinValue)
+            if (user.LockoutEnd.HasValue && user.LockoutEnd.Value > DateTimeOffset.UtcNow)
             {
                 // Unblock user
-                user.LockoutEnd = DateTimeOffset.MinValue;
+                user.LockoutEnd = null;
             }
             else
             {
@@ -82,11 +82,15 @@ namespace Manga_Web.Controllers
             if (Id == null)
                 return RedirectToAction(nameof(Index));
             // Find the user by their ID.
-            MangaUser user = await _context.Users.FirstOrDefaultAsync(u => u.Id == Id);
+            MangaUser? user = await _context.Users.FirstOrDefaultAsync(u => u.Id == Id);
+            if (user == null)
+            {
+                return NotFound();
+            }
             // Create a view model to hold the user's name and their current roles.
             UserRolesViewModel roleViewModel = new UserRolesViewModel
             {
-                UserName = user.UserName,
+                UserName = user.UserName ?? string.Empty,
                 // Get a list of role IDs for the user.
                 Roles = await (from userRole in _context.UserRoles
                                where userRole.UserId == user.Id
@@ -104,7 +108,12 @@ namespace Manga_Web.Controllers
         public IActionResult Roles([Bind("UserName, Roles")] UserRolesViewModel _model)
         {
             // Find the user based on the username from the submitted model.
-            MangaUser user = _context.Users.FirstOrDefault(u => u.UserName == _model.UserName);
+            MangaUser? user = _context.Users.FirstOrDefault(u => u.UserName == _model.UserName);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
 
             // Get all existing roles for this user.
             List<IdentityUserRole<string>> roles = _context.UserRoles.Where(ur => ur.UserId == user.Id).ToList();
@@ -125,27 +134,27 @@ namespace Manga_Web.Controllers
 
     public class UserViewModel
     {
-        public string Id { get; set; }
+        public string Id { get; set; } = string.Empty;
 
         [Display(Name = "User")]
-        public string UserName { get; set; }
+        public string UserName { get; set; } = string.Empty;
 
         [Display(Name = "E-mail")]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         [Display(Name = "Block or unblock")]
         public bool Blocked { get; set; }
 
         [Display(Name = "Roles")]
-        public List<string> Roles { get; set; }
+        public List<string> Roles { get; set; } = new();
     }
 
     public class UserRolesViewModel
     {
         [Display(Name = "User")]
-        public string UserName { get; set; }
+        public string UserName { get; set; } = string.Empty;
 
         [Display(Name = "Roles")]
-        public List<string> Roles { get; set; }
+        public List<string> Roles { get; set; } = new();
     }
 }

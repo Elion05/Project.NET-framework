@@ -1,0 +1,52 @@
+﻿@model MangaBook_Models.Author
+@using AspNetCore.Unobtrusive.Ajax;
+@using Manga_Web.Services
+@using Microsoft.AspNetCore.Mvc.Localization
+
+
+@inject IHtmlLocalizer<SharedResource> _shared
+@{
+    Layout = null;
+}
+
+@using (Html.AjaxBeginForm ("EditAuthor", "Authors", new AjaxOptions {HttpMethod ="post", InsertionMode=InsertionMode.Replace, UpdateTargetId = Model.Id.ToString() }))
+{
+    @Html.AntiForgeryToken();
+
+
+    <tr id="@Model.Id.ToString()" class="edit-author-row">
+
+        <td class="edit-author-name">
+            <input type="hidden" asp-for="Id"/>
+            <input asp-for="Name" class="form-control" onchange="$(this.form).submit()"/>
+        </td>
+
+        <td class="edit-author-birth-date">
+            <input asp-for="geboorteDatum" class="form-control" onchange="$(this.form).submit()" />
+        </td>
+
+
+        <td class="edit-author-description">
+            <input asp-for="description" class="form-control" onchange="$(this.form).submit()" />
+        </td>
+
+        <td class="edit-author-favorite-food">
+            <input asp-for="favoriteFood" class="form-control" onchange="$(this.form).submit()" />
+        </td>
+
+        <td class="edit-author-nationality">
+            <input asp-for="Nationaliteit" class="form-control" onchange="$(this.form).submit()" />
+        </td>
+
+        <td class="edit-author-favorite-sport">
+            <input asp-for="FavorieteSport" class="form-control" onchange="$(this.form).submit()" />
+        </td>
+
+        <td>
+            <a class="action-link action-delete" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+        </td>
+
+
+    </tr>
+}
+

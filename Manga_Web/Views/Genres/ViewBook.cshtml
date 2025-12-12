@@ -1,0 +1,22 @@
+﻿@model MangaBook_Models.Genre
+@using Manga_Web.Services
+@using AspNetCore.Unobtrusive.Ajax;
+@using Microsoft.AspNetCore.Mvc.Localization;
+
+@{
+    Layout = null;
+}
+
+@using (Html.AjaxBeginForm("ViewBook", "Genres", new AjaxOptions {HttpMethod = "get", InsertionMode=InsertionMode.Replace, UpdateTargetId = Model.Id.ToString() }))
+{
+    <link asp-href-exclude="~/wwwroot/css/site.css"/>
+
+    <tr id="@Model.Id.ToString()" class="genre-view-row">
+        <td class="genre-name">
+            @Model.Name
+        </td>
+        <td class="genre-description">
+            @Model.genreBeschrijving
+        </td>
+    </tr>
+}

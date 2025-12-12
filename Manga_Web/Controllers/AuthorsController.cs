@@ -19,9 +19,22 @@ namespace Manga_Web
         }
 
         // GET: Authors
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Authors.ToListAsync());
+           ViewData["CurrentFilter"] = searchString;
+            var authors = from m in _context.Authors
+                          select m;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                authors = authors.Where(s => s.Name.Contains(searchString));
+            }
+
+            var result = await authors.AsNoTracking().ToListAsync();
+            if (result.Count == 0)
+            {
+                ViewData["Message"] = "No authors found.";
+            }
+            return View("Index", result);
         }
 
         // GET: Authors/Details/5
@@ -80,12 +93,9 @@ namespace Manga_Web
             return View(author);
         }
 
-        // POST: Authors/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,geboorteDatum,description,favoriteFood,Nationaliteit,FavorieteSport")] Author author)
+        public async Task<IActionResult> EditAuthor(int id, [Bind("Id,Name,geboorteDatum,description,favoriteFood,Nationaliteit,FavorieteSport")] Author author)
         {
             if (id != author.Id)
             {
@@ -96,24 +106,70 @@ namespace Manga_Web
             {
                 try
                 {
-                    _context.Update(author);
+                    Author existing = _context.Authors.First(at => at.Id == id);
+                    existing.Name = author.Name;
+                    existing.geboorteDatum = author.geboorteDatum;
+                    existing.description = author.description;
+                    existing.favoriteFood = author.favoriteFood;
+                    existing.Nationaliteit = author.Nationaliteit;
+                    existing.FavorieteSport = author.FavorieteSport;
+
+                    _context.Update(existing);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
-                {
+                catch (DbUpdateConcurrencyException){
                     if (!AuthorExists(author.Id))
                     {
                         return NotFound();
                     }
                     else
                     {
-                        throw;
+                        ModelState.AddModelError(string.Empty, "The author has been modified by another user. Please reload and try again.");
                     }
                 }
-                return RedirectToAction(nameof(Index));
+           
             }
-            return View(author);
+            return PartialView("EditAuthor", author);
         }
+
+
+
+
+
+        //// POST: Authors/Edit/5
+        //// To protect from overposting attacks, enable the specific properties you want to bind to.
+        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("Id,Name,geboorteDatum,description,favoriteFood,Nationaliteit,FavorieteSport")] Author author)
+        //{
+        //    if (id != author.Id)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(author);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!AuthorExists(author.Id))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(author);
+        //}
 
         // GET: Authors/Delete/5
         public async Task<IActionResult> Delete(int? id)

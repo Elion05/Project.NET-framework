@@ -117,43 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="artikel" xml:space="preserve">
-    <value>artical</value>
+  <data name="Genre" xml:space="preserve">
+    <value>Genre</value>
   </data>
-  <data name="Bevestigingsmail opnieuw verzenden" xml:space="preserve">
-    <value>Resend email confirmation</value>
+  <data name="Terug naar volledige lijst" xml:space="preserve">
+    <value>Retour à list complete</value>
   </data>
-  <data name="Er zijn geen externe authenticatiediensten geconfigureerd. Zie dit" xml:space="preserve">
-    <value>There are no external authentication services configured. </value>
+  <data name="Voeg nieuwe genre toe" xml:space="preserve">
+    <value>Ajouter nouveau genre</value>
   </data>
-  <data name="Gebruik een andere dienst om in te loggen." xml:space="preserve">
-    <value>Use another service to log in.</value>
+  <data name="Zoeken" xml:space="preserve">
+    <value>Chercher</value>
   </data>
-  <data name="Gebruik een lokaal account om in te loggen." xml:space="preserve">
-    <value>Use a local account to log in.</value>
-  </data>
-  <data name="Gebruikersnaam" xml:space="preserve">
-    <value>Username</value>
-  </data>
-  <data name="Inloggen" xml:space="preserve">
-    <value>Log in</value>
-  </data>
-  <data name="Onthoud mij?" xml:space="preserve">
-    <value>Remeber me?</value>
-  </data>
-  <data name="over het instellen van deze ASP.NET-toepassing om inloggen via externe services te ondersteunen." xml:space="preserve">
-    <value>about setting up this ASP.NET application to support login via external services.</value>
-  </data>
-  <data name="Registreer als een nieuwe gebruiker" xml:space="preserve">
-    <value>Register as a new user</value>
-  </data>
-  <data name="Slechte loginpoging." xml:space="preserve">
-    <value>Invalid login</value>
-  </data>
-  <data name="Wachtwoord" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="Wachtwoord vergeten?" xml:space="preserve">
-    <value>Forgot your password?</value>
+  <data name="Zoeken op naam" xml:space="preserve">
+    <value>Chercher à nom</value>
   </data>
 </root>

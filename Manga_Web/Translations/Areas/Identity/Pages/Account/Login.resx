@@ -147,6 +147,9 @@
   <data name="Registreer als een nieuwe gebruiker" xml:space="preserve">
     <value>Registreer als een nieuwe gebruiker</value>
   </data>
+  <data name="Slechte loginpoging." xml:space="preserve">
+    <value>Slechte loginpoging.</value>
+  </data>
   <data name="Wachtwoord" xml:space="preserve">
     <value>Wachtwoord</value>
   </data>
