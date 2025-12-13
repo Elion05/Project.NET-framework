@@ -12,7 +12,7 @@ namespace MangaBook_Models
         public string LogLevel { get; set; }
         public int ThreadId { get; set; }
         public int EventId { get; set; }
-        public string EventName { get; set; }
+        public string EventName { get; set; } = string.Empty;
 
         [DataType(DataType.MultilineText)]
         public string? ExceptionMessage { get; set; }

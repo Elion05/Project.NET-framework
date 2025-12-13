@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using AspNetCore.Unobtrusive.Ajax;
 using Manga_Web.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 //Get the database connection string.
@@ -114,5 +115,8 @@ app.MapControllerRoute(
 app.MapRazorPages(); //This is crucial for the login pages to work.
 
 app.MapControllers();
+
+// Assign the application instance to the static property.
+Manga_Web.Services.Globals.App = app; 
 
 app.Run();
