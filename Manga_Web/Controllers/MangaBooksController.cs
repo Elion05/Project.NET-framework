@@ -23,6 +23,10 @@ namespace Manga_Web
         // GET: MangaBooks
         public async Task<IActionResult> Index(string searchString)
         {
+
+            
+            ViewData["Authors"] = new SelectList(_context.Authors, "Id", "Name");
+            ViewData["Genres"] = new SelectList(_context.Genres, "Id", "Name");
             ViewData["CurrentFilter"] = searchString;
 
             var mangaBooks = from m in _context.MangaBooks.Include(m => m.Author).Include(m => m.Genre)
@@ -116,6 +120,10 @@ namespace Manga_Web
         }
 
 
+
+       
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditBook(int id, [Bind("Id, Title, Description, IsDeleted, ReleaseDate, AuthorId, GenreId")] MangaBook mangaBook)
@@ -129,7 +137,7 @@ namespace Manga_Web
             {
                 try
                 {
-                    MangaBook existing = _context.MangaBooks.First(at => at.Id == id);
+                    MangaBook existing = await _context.MangaBooks.FirstAsync(at => at.Id == id);
                     existing.Title = mangaBook.Title;
                     existing.Description = mangaBook.Description;
                     existing.IsDeleted = mangaBook.IsDeleted;
@@ -137,13 +145,25 @@ namespace Manga_Web
                     existing.AuthorId = mangaBook.AuthorId;
                     existing.GenreId = mangaBook.GenreId;
 
-                    _context.Update(existing);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException) { }
             }
-            return PartialView("EditBook", mangaBook);
 
+            var bookToReturn = await _context.MangaBooks
+                .Include(m => m.Author)
+                .Include(m => m.Genre)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.Id == mangaBook.Id);
+
+            if (bookToReturn == null)
+            {
+                return NotFound();
+            }
+            ViewData["Authors"] = new SelectList(_context.Authors, "Id", "Name", bookToReturn.AuthorId);
+            ViewData["Genres"] = new SelectList(_context.Genres, "Id", "Name", bookToReturn.GenreId);
+
+            return PartialView("EditBook" , bookToReturn);
         }
 
         //// POST: MangaBooks/Edit/5

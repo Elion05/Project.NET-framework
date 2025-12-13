@@ -1,7 +1,8 @@
 ﻿@model MangaBook_Models.MangaBook
-@using AspNetCore.Unobtrusive.Ajax;
+@using AspNetCore.Unobtrusive.Ajax
 @using Manga_Web.Services
 @using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.Rendering
 
 
 @inject IHtmlLocalizer<SharedResource> _shared
@@ -10,39 +11,29 @@
     Layout = null;
 }
 
-@using (Html.AjaxBeginForm("EditBook", "MangaBooks", new AjaxOptions {HttpMethod ="post", InsertionMode=InsertionMode.Replace, UpdateTargetId = Model.Id.ToString() }))
+@using (Html.AjaxBeginForm("EditBook", "MangaBooks", new { id = Model.Id }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = Model.Id.ToString() }, new { id = "form-" + Model.Id }))
 {
-    @Html.AntiForgeryToken();
-  
-    <link asp-href-exclude="~/wwwroot/css/site.cs"/>
-
     <tr id="@Model.Id.ToString()" class="edit-book-row">
-
+        @Html.AntiForgeryToken()
         <td class="edit-title">
-            <input type="hidden" asp-for="Id"/>
-            <input asp-for="Title" class="form-control" onchange="$(this.form).submit()"/>
+            <input type="hidden" asp-for="Id" />
+            <input asp-for="Title" class="form-control" onchange="$(this.form).submit()" />
         </td>
 
-         <td class="edit-description">
-            <input asp-for="Description" class="form-control" onchange="$(this.form).submit()"/>
+        <td class="edit-description">
+            <input asp-for="Description" class="form-control" onchange="$(this.form).submit()" />
         </td>
 
         <td class="edit-release-date">
-            <input asp-for="ReleaseDate" class="form-control" onchange="$(this.form).submit()" />
+            <input asp-for="ReleaseDate" type="date" value="@Model.ReleaseDate.ToString("yyyy-MM-dd")" class="form-control" onchange="$(this.form).submit()" />
         </td>
 
         <td class="edit-author">
-            <input type="hidden" asp-for="AuthorId"/>
-            <span class="form-control-plaintext">
-                @Model.Author.Name
-            </span>
+            <select asp-for="AuthorId" asp-items="@(ViewData["Authors"] as SelectList)" class="form-control" onchange="$(this.form).submit()"></select>
         </td>
 
         <td class="edit-genre">
-            <input type="hidden" asp-for="GenreId" />
-            <span class="form-control-plaintext">
-                @Model.Genre.Name
-            </span>
+            <select asp-for="GenreId" asp-items="@(ViewData["Genres"] as SelectList)" class="form-control" onchange="$(this.form).submit()"></select>
         </td>
 
         <td>

@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using MangaBook_Models;
+using Microsoft.Extensions.Localization;
 
 
 
@@ -32,13 +33,15 @@ namespace Manga_Web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<MangaUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IStringLocalizer<RegisterModel> _localizer;
 
         public RegisterModel(
             UserManager<MangaUser> userManager,
             IUserStore<MangaUser> userStore,
             SignInManager<MangaUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IStringLocalizer<RegisterModel> localizer)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -46,6 +49,7 @@ namespace Manga_Web.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _localizer = localizer;
         }
 
         /// <summary>
@@ -77,46 +81,40 @@ namespace Manga_Web.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
+            [Required(ErrorMessage = "Het veld E-mail is verplicht.")]
+            [EmailAddress(ErrorMessage = "Het veld E-mail is geen geldig e-mailadres.")]
+            [Display(Name = "E-mail")]
             public string Email { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            /// 
-
             //username
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Het veld Gebruikersnaam is verplicht.")]
+            [StringLength(100, ErrorMessage = "De Gebruikersnaam moet minstens 6 en maximaal 100 karakters lang zijn.", MinimumLength = 6)]
+            [Display(Name = "Gebruikersnaam")]
             public string UserName { get; set; }
 
             //firstname
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
+            [Required(ErrorMessage = "Het veld Voornaam is verplicht.")]
+            [StringLength(100, ErrorMessage = "De Voornaam moet minstens 1 en maximaal 100 karakters lang zijn.", MinimumLength = 1)]
+            [Display(Name = "Voornaam")]
             public string FirstName { get; set; }
 
             //lastname
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
+            [Required(ErrorMessage = "Het veld Achternaam is verplicht.")]
+            [StringLength(100, ErrorMessage = "De Achternaam moet minstens 1 en maximaal 100 karakters lang zijn.", MinimumLength = 1)]
+            [Display(Name = "Achternaam")]
             public string LastName { get; set; }
 
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Het veld Wachtwoord is verplicht.")]
+            [StringLength(100, ErrorMessage = "Het Wachtwoord moet minstens 6 en maximaal 100 karakters lang zijn.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Wachtwoord")]
             public string Password { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
+           
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Bevestig wachtwoord")]
+            [Compare("Password", ErrorMessage = "Het wachtwoord en bevestigingswachtwoord komen niet overeen.")]
             public string ConfirmPassword { get; set; }
         }
 

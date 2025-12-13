@@ -57,7 +57,7 @@
 
                 if (User.IsInRole("Admin"))
                 {
-                    <partial name="EditBook" model="item" />
+                    <partial name="EditBook" model="item" view-data="ViewData" />
                 }
                 else if(User.IsInRole("User"))
                 {
@@ -70,4 +70,9 @@
 else if (ViewData["Message"] != null)
 {
     <p>@ViewData["Message"]</p>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/lib/jquery-unobtrusive-ajax/jquery.unobtrusive-ajax.min.js"></script>
 }
