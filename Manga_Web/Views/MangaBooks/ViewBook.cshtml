@@ -9,8 +9,7 @@
 
 @using (Html.AjaxBeginForm("ViewBook", "MangaBooks", new AjaxOptions {HttpMethod ="get", InsertionMode=InsertionMode.Replace, UpdateTargetId = Model.Id.ToString() }))
 {
-    //how to add css link?
-    <link asp-href-exclude="~/wwwroot/css/site.css" />
+    <link rel="stylesheet" href="~/css/MangaBook.css" asp-append-version="true" />
     <tr id="@Model.Id.ToString()" class="manga-book-row">
         <td class="manga-title">
             @Model.Title
@@ -22,10 +21,14 @@
             @Model.ReleaseDate.ToShortDateString()
         </td>
         <td class="manga-author">
-            @Model.Author.Name
+            <a asp-controller="Authors" asp-action="Details" asp-route-id="@Model.AuthorId">@Model.Author.Name</a>
         </td>
         <td class="manga-genre">
-            @Model.Genre.Name
+            <a asp-controller="Genres" asp-action="Details" asp-route-id="@Model.GenreId">@Model.Genre.Name</a>
+        </td>
+
+        <td class="manga-AverageRating">
+            @Model.AverageRating.ToString("0.0")
         </td>
     </tr>
 }

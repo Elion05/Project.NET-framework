@@ -120,6 +120,9 @@
   <data name="Auteurs" xml:space="preserve">
     <value>Auteur</value>
   </data>
+  <data name="Geen auteurs gevonden" xml:space="preserve">
+    <value>Pas de author ici</value>
+  </data>
   <data name="Terug naar volledige lijst" xml:space="preserve">
     <value>Retour à list complete</value>
   </data>

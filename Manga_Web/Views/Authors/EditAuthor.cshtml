@@ -13,6 +13,12 @@
 {
     @Html.AntiForgeryToken();
 
+    @if (User.IsInRole("Admin") == false)
+    {
+        <script>
+            window.location.href = '/Identity/Account/AccessDenied';
+        </script>
+    }
 
     <tr id="@Model.Id.ToString()" class="edit-author-row">
 

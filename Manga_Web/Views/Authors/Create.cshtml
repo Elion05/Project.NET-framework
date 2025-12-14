@@ -4,6 +4,14 @@
     ViewData["Title"] = "Create";
 }
 
+
+@if (User.IsInRole("Admin") == false)
+{
+    <script>
+        window.location.href = '/Identity/Account/AccessDenied';
+    </script>
+}
+
 <h1>Create</h1>
 
 <h4>Author</h4>

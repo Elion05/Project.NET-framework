@@ -7,17 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MangaBook_Models;
 using AspNetCore.Unobtrusive.Ajax;
-
+using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.Extensions.Localization;
 
 namespace Manga_Web
 {
     public class MangaBooksController : Controller
     {
         private readonly MangaDbContext _context;
+        private readonly IStringLocalizer<MangaBooksController> _localizer;
 
-        public MangaBooksController(MangaDbContext context)
+        public MangaBooksController(MangaDbContext context, IStringLocalizer<MangaBooksController> localizer)
         {
             _context = context;
+            _localizer = localizer;
         }
 
         // GET: MangaBooks
@@ -41,7 +44,7 @@ namespace Manga_Web
 
             if (result.Count == 0)
             {
-                ViewData["Message"] = "We haven't found this book or it is not here yet.";
+                ViewData["ShowNoBooksMessage"] = true;
             }
 
             return View("Index", result);
@@ -126,7 +129,7 @@ namespace Manga_Web
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditBook(int id, [Bind("Id, Title, Description, IsDeleted, ReleaseDate, AuthorId, GenreId")] MangaBook mangaBook)
+        public async Task<IActionResult> EditBook(int id, [Bind("Id, Title, Description, IsDeleted, ReleaseDate, AuthorId, GenreId, AverageRating")] MangaBook mangaBook)
         {
           if(id != mangaBook.Id)
           {
@@ -144,6 +147,8 @@ namespace Manga_Web
                     existing.ReleaseDate = mangaBook.ReleaseDate;
                     existing.AuthorId = mangaBook.AuthorId;
                     existing.GenreId = mangaBook.GenreId;
+                    existing.AverageRating = mangaBook.AverageRating;
+                    
 
                     await _context.SaveChangesAsync();
                 }

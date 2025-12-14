@@ -9,10 +9,12 @@
 
 @{
     Layout = null;
+
 }
 
 @using (Html.AjaxBeginForm("EditBook", "MangaBooks", new { id = Model.Id }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = Model.Id.ToString() }, new { id = "form-" + Model.Id }))
 {
+
     <tr id="@Model.Id.ToString()" class="edit-book-row">
         @Html.AntiForgeryToken()
         <td class="edit-title">
@@ -36,10 +38,23 @@
             <select asp-for="GenreId" asp-items="@(ViewData["Genres"] as SelectList)" class="form-control" onchange="$(this.form).submit()"></select>
         </td>
 
+        <td class="edit-averageRating">
+            <input asp-for="AverageRating" class="form-control" onchange="$(this.form).submit()" />
+        </td>
+
         <td>
+        
             <a class="action-link action-delete" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
         </td>
     </tr>
 }
 
+<style>
+    .edit-averageRating::before {
+        content: "Rating";
+    }
+</style>
 
+@* @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} *@

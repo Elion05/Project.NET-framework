@@ -4,12 +4,11 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
-<div>
+<div class="manga-page-container">
+    <h1 class="manga-details-title">Details</h1>
     <h4>MangaBook</h4>
     <hr />
-    <dl class="row">
+    <dl class="row details-list">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
@@ -22,12 +21,7 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsDeleted)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsDeleted)
-        </dd>
+        
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ReleaseDate)
         </dt>
@@ -46,9 +40,15 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Genre.Name)
         </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AverageRating)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AverageRating)
+        </dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div class="manga-page-actions">
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
 </div>

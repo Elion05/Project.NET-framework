@@ -48,7 +48,6 @@ builder.Services.AddMvc()
     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
     .AddDataAnnotationsLocalization();
 
-
 //registratie voor de Unobtrusive Ajax library
 builder.Services.AddUnobtrusiveAjax();
 

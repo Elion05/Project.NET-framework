@@ -117,16 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Er is geen manga" xml:space="preserve">
+    <value>Il y a ne pas de manga</value>
+  </data>
   <data name="Hallo" xml:space="preserve">
     <value>Bonjour</value>
   </data>
   <data name="Leer meer over" xml:space="preserve">
     <value>En savoir plus sur</value>
   </data>
+  <data name="Log in om de top 10 best beoordeelde manga's te bekijken." xml:space="preserve">
+    <value>Connectez-vous pour consulter le top 10 des mangas les mieux notés.</value>
+  </data>
+  <data name="Top 10 best beoordeelde manga's" xml:space="preserve">
+    <value>Top 10 des mangas les mieux notés</value>
+  </data>
   <data name="Web-apps bouwen met ASP.NET Core" xml:space="preserve">
     <value>Création d'applications Web avec ASP.NET Core</value>
   </data>
   <data name="Welkom" xml:space="preserve">
     <value>Bienvenu</value>
+  </data>
+  <data name="Welkom bij MangaBookTracker!" xml:space="preserve">
+    <value>Bienvenu de MangaBookTracker!</value>
   </data>
 </root>

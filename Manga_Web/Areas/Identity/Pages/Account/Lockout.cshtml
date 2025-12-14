@@ -1,0 +1,22 @@
+﻿@page
+@model LockoutModel
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer _localizer
+@{
+    ViewData["Title"] = "Locked out";
+}
+
+<header>
+    <h1 class="text-danger">@_localizer["Geblokkeerd"]</h1>
+    <p class="text-danger">@_localizer["Dit account is geblokkeerd, probeer het later opnieuw."]</p>
+
+    <h3>@_localizer["Mogelijke redenen voor een blokkering zijn:"]</h3>
+    <ul>
+        <li>@_localizer["Te veel mislukte inlogpogingen."]</li>
+        <li>@_localizer["Tijdelijke blokkering door beveiligingsbeleid."]</li>
+        <li>@_localizer["Verdachte activiteit gedetecteerd op uw account."]</li>
+        <li>@_localizer["Handmatige blokkering door een beheerder om veiligheidsredenen."]</li>
+    </ul>
+    <p>@_localizer["Neem contact op met de ondersteuning als u denkt dat dit een fout is."]</p>
+</header>

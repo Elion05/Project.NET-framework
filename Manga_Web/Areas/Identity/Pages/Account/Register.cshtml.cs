@@ -138,6 +138,7 @@ namespace Manga_Web.Areas.Identity.Pages.Account
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
                 user.UserName = Input.UserName;
+                
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 

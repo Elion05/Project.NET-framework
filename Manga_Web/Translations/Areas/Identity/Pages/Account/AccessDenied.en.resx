@@ -117,19 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Manga Boeken" xml:space="preserve">
-    <value>Manga Boeken</value>
+  <data name="Geen Toegang" xml:space="preserve">
+    <value>Acces Denied</value>
   </data>
-  <data name="Terug naar volledige lijst" xml:space="preserve">
-    <value>Terug naar volledige lijst</value>
+  <data name="Je hebt geen toegang tot deze bron." xml:space="preserve">
+    <value>You have no access to this page</value>
   </data>
-  <data name="Geen boeken gevonden" xml:space="preserve">
-    <value>Geen boeken gevonden</value>
-  </data>
-  <data name="Zoeken" xml:space="preserve">
-    <value>Zoeken</value>
-  </data>
-  <data name="Zoeken op naam" xml:space="preserve">
-    <value>Zoeken op naam</value>
+  <data name="Terug naar homepagina" xml:space="preserve">
+    <value>Back to homepage</value>
   </data>
 </root>

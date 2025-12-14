@@ -5,7 +5,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-<link a:href="/css/site.css"/>
+<link a:href="/css/MangaBook.css"/>
 <h1 class="manga-boeken-title">@_localizer["Manga Boeken"]</h1>
             
 
@@ -67,9 +67,9 @@
         </tbody>
     </table>
 }
-else if (ViewData["Message"] != null)
+else if (ViewData["ShowNoBooksMessage"] as bool? == true)
 {
-    <p>@ViewData["Message"]</p>
+    <p>@_localizer["Geen boeken gevonden"]</p>
 }
 
 @section Scripts {

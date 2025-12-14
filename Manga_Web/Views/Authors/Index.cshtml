@@ -29,42 +29,54 @@
 }
 
 <link asp-href-exclude="~/wwwroot/css/site.css"/>
-<table class="table">
-    <thead class="thead-table-author">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.geboorteDatum)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.favoriteFood)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nationaliteit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FavorieteSport)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-            
-            @if (User.IsInRole("Admin"))
-            {
-                <partial name="EditAuthor" model="item" />
 
-            }
-            else if (User.IsInRole("User"))
+@if (Model.Any())
+{
+    <table class="table">
+        <thead class="thead-table-author">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.geboorteDatum)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.favoriteFood)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nationaliteit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FavorieteSport)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
             {
-                <partial name="ViewBook" model="item" />
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <partial name="EditAuthor" model="item" />
+
+                }
+                else if (User.IsInRole("User"))
+                {
+                    <partial name="ViewBook" model="item" />
+                }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+}
+else if (ViewData["ShowNoAuthorsMessage"] as bool? == true)
+{
+    <p>@_localizer["Geen auteurs gevonden"]</p>
+}
+
+
+

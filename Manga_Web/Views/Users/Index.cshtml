@@ -7,6 +7,14 @@
     string vertikaalStreepje = " | ";
 }
 
+
+@if (User.IsInRole("Admin") == false)
+{
+    <script>
+        window.location.href = '/Identity/Account/AccessDenied';
+    </script>
+}
+
 <h1>Index</h1>
 
 <table class="table">

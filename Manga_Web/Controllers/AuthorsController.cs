@@ -6,16 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MangaBook_Models;
+using Microsoft.Extensions.Localization;
 
 namespace Manga_Web
 {
     public class AuthorsController : Controller
     {
         private readonly MangaDbContext _context;
+        private readonly IStringLocalizer<AuthorsController> _localizer;
 
-        public AuthorsController(MangaDbContext context)
+        public AuthorsController(MangaDbContext context, IStringLocalizer<AuthorsController> localizer)
         {
             _context = context;
+            _localizer = localizer;
         }
 
         // GET: Authors
@@ -32,7 +35,7 @@ namespace Manga_Web
             var result = await authors.AsNoTracking().ToListAsync();
             if (result.Count == 0)
             {
-                ViewData["Message"] = "No authors found.";
+                ViewData["ShowNoAuthorsMessage"] = true;
             }
             return View("Index", result);
         }
@@ -77,21 +80,21 @@ namespace Manga_Web
             return View(author);
         }
 
-        // GET: Authors/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: Authors/Edit/5
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var author = await _context.Authors.FindAsync(id);
-            if (author == null)
-            {
-                return NotFound();
-            }
-            return View(author);
-        }
+        //    var author = await _context.Authors.FindAsync(id);
+        //    if (author == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(author);
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -118,14 +121,7 @@ namespace Manga_Web
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException){
-                    if (!AuthorExists(author.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, "The author has been modified by another user. Please reload and try again.");
-                    }
+                    
                 }
            
             }

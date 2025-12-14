@@ -1,4 +1,5 @@
 using Manga_Web.Models;
+using MangaBook_Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,15 +8,21 @@ namespace Manga_Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly MangaDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, MangaDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var mangaRatings = _context.MangaBooks
+                .OrderByDescending(m => m.AverageRating)
+                .Take(10)
+                .ToList();
+            return View(mangaRatings);
         }
 
         public IActionResult Privacy()

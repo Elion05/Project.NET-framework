@@ -117,19 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Manga Boeken" xml:space="preserve">
-    <value>Manga Boeken</value>
+  <data name="Dit account is geblokkeerd, probeer het later opnieuw." xml:space="preserve">
+    <value>Ce compte a été verrouillé, veuillez réessayer plus tard.</value>
   </data>
-  <data name="Terug naar volledige lijst" xml:space="preserve">
-    <value>Terug naar volledige lijst</value>
+  <data name="Geblokkeerd" xml:space="preserve">
+    <value>Verrouillé</value>
   </data>
-  <data name="Geen boeken gevonden" xml:space="preserve">
-    <value>Geen boeken gevonden</value>
+  <data name="Handmatige blokkering door een beheerder om veiligheidsredenen." xml:space="preserve">
+    <value>Verrouillage manuel par un administrateur pour des raisons de sécurité.</value>
   </data>
-  <data name="Zoeken" xml:space="preserve">
-    <value>Zoeken</value>
+  <data name="Mogelijke redenen voor een blokkering zijn:" xml:space="preserve">
+    <value>Les raisons possibles d'un verrouillage incluent :</value>
   </data>
-  <data name="Zoeken op naam" xml:space="preserve">
-    <value>Zoeken op naam</value>
+  <data name="Neem contact op met de ondersteuning als u denkt dat dit een fout is." xml:space="preserve">
+    <value>Veuillez contacter le support si vous pensez qu'il s'agit d'une erreur.</value>
+  </data>
+  <data name="Te veel mislukte inlogpogingen." xml:space="preserve">
+    <value>Trop de tentatives de connexion infructueuses.</value>
+  </data>
+  <data name="Tijdelijke blokkering door beveiligingsbeleid." xml:space="preserve">
+    <value>Verrouillage temporaire en raison de la politique de sécurité.</value>
+  </data>
+  <data name="Verdachte activiteit gedetecteerd op uw account." xml:space="preserve">
+    <value>Activité suspecte détectée sur votre compte.</value>
   </data>
 </root>

@@ -1,6 +1,13 @@
 ﻿@model UserRolesViewModel
 @using Manga_Web.Controllers;
 
+
+@if (User.IsInRole("Admin") == false)
+{
+    <script>
+        window.location.href = '/Identity/Account/AccessDenied';
+    </script>
+}
 <h1>@ViewData["Title"]</h1>
 <hr />
 

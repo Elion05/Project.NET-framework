@@ -123,6 +123,9 @@
   <data name="Terug naar volledige lijst" xml:space="preserve">
     <value>Back to full list</value>
   </data>
+  <data name="Geen boeken gevonden" xml:space="preserve">
+    <value>No book found</value>
+  </data>
   <data name="Zoeken" xml:space="preserve">
     <value>Searching</value>
   </data>
