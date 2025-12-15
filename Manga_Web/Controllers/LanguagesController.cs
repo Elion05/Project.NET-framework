@@ -1,9 +1,12 @@
 ﻿using MangaBook_Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Manga_Web.Controllers
 {
+
+    
     public class LanguagesController : Controller
     {
         private readonly MangaDbContext _context;

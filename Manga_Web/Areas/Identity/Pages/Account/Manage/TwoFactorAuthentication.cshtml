@@ -49,7 +49,7 @@
             <a asp-page="./GenerateRecoveryCodes" class="btn btn-primary">@Localizer["Reset herstelcodes"]</a>
         }
 
-        <h4>Authenticator app</h4>
+        <h4></h4>
         @if (!Model.HasAuthenticator)
         {
             <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">@Localizer["Voeg authenticator-app toe"]</a>

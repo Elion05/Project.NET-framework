@@ -20,6 +20,8 @@
 </form>
 
 
+
+
 @if (User.IsInRole("Admin"))
 {
     <p>
@@ -53,17 +55,20 @@
         </thead>
         <tbody>
     @foreach (var item in Model) {
-               
 
                 if (User.IsInRole("Admin"))
                 {
                     <partial name="EditBook" model="item" view-data="ViewData" />
                 }
-                else if(User.IsInRole("User"))
+                else if (User.IsInRole("User"))
                 {
                     <partial name="ViewBook" model="item" />
                 }
-    }
+                else if (User.IsInRole("System_Admin"))
+                {
+                    <partial name="ViewBook" model="item"/>
+                }
+            }
         </tbody>
     </table>
 }

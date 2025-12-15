@@ -124,6 +124,9 @@
     <value>Configurer l'application d'authentification</value>
   </data>
   <data name="Two-factor authentication (2FA)" xml:space="preserve">
-    <value>Authentification à deux facteurs (2FA</value>
+    <value>Authentification à deux facteurs (2FA)</value>
+  </data>
+  <data name="Voeg authenticator-app toe" xml:space="preserve">
+    <value>Ajouter une application d'authentification</value>
   </data>
 </root>

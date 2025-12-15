@@ -108,7 +108,7 @@ namespace Manga_Web.Controllers
         public IActionResult Roles([Bind("UserName, Roles")] UserRolesViewModel _model)
         {
             // Find the user based on the username from the submitted model.
-            MangaUser? user = (MangaUser?)_context.Users.FirstOrDefault(u => u.UserName == _model.UserName);
+            MangaUser? user = _context.Users.FirstOrDefault(u => u.UserName == _model.UserName);
 
             if (user == null)
             {

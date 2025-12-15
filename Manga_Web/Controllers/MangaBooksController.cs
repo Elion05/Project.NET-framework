@@ -1,19 +1,24 @@
-﻿using System;
+﻿using AspNetCore.Unobtrusive.Ajax;
+using Humanizer.Localisation;
+using MangaBook_Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Build.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using MangaBook_Models;
-using AspNetCore.Unobtrusive.Ajax;
-using Microsoft.AspNetCore.Mvc.Localization;
-using Microsoft.Extensions.Localization;
 
 namespace Manga_Web
 {
+   
     public class MangaBooksController : Controller
     {
+        
         private readonly MangaDbContext _context;
         private readonly IStringLocalizer<MangaBooksController> _localizer;
 

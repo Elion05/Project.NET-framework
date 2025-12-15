@@ -69,6 +69,10 @@
                 {
                     <partial name="ViewBook" model="item" />
                 }
+                else if (User.IsInRole("System_Admin"))
+                {
+                    <partial name="ViewBook" model="item" />
+                }
             }
         </tbody>
     </table>

@@ -476,3 +476,52 @@ body {
 .thead-table-genre {
     display: none;
 }
+
+/* EditGenre css */
+.edit-genre-row {
+    display: block;
+    background-color: var(--lemon-chiffon);
+    border: 1px solid var(--ye-yellow);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.edit-genre-row td {
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    border: none;
+}
+
+.edit-genre-row td::before {
+    display: block;
+    font-weight: bold;
+    color: var(--prussian-blue);
+    margin-bottom: 4px;
+}
+
+.edit-genre-name::before {
+    content: "Name";
+}
+
+.edit-genre-description::before {
+    content: "Description";
+}
+
+.edit-genre-row .action-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.edit-genre-row .action-delete {
+    color: #dc3545;
+}
+
+.edit-genre-row .action-delete:hover {
+    color: #a71d2a;
+    text-decoration: underline;
+}

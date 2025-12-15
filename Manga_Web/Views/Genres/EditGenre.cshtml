@@ -13,14 +13,14 @@
 {
     @Html.AntiForgeryToken();
 
-    <tr id="@Model.Id.ToString()">
+    <tr id="@Model.Id.ToString()" class="edit-genre-row">
      
-        <td>
+        <td class="edit-genre-name">
             <input type="hidden" asp-for="Id" />
             <input asp-for="Name" class="form-control" onchange="$(this.form).submit()" />
         </td>
       
-        <td>
+        <td class="edit-genre-description">
             <input asp-for="genreBeschrijving" class="form-control" onchange="$(this.form).submit()" />
         </td>
 

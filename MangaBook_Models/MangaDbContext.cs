@@ -9,7 +9,10 @@ using System.Collections.Generic;
 namespace MangaBook_Models
 {
     public class MangaDbContext : IdentityDbContext<MangaUser>
-    {   
+    {
+        //constructor zodat je opties kan doorgeven bij het aanmaken van de context in de Manga_Web project
+
+
         //zodat je tabellen hebt in de database
         public DbSet<MangaBook> MangaBooks { get; set; }
         public DbSet<Author> Authors { get; set; }
@@ -31,9 +34,9 @@ namespace MangaBook_Models
         //dit is voor de seeding van de database met dummy data
         public static async Task Seeder(MangaDbContext context)
         {
-            Language.Seeder(context);
+            Language.Seeder();
 
-            await MangaUser.Seeder();
+            MangaUser.Seeder();
 
             //3) Seeding van dummyData, direct bijgevuld in de database
             if (!context.Authors.Any())
@@ -56,7 +59,7 @@ namespace MangaBook_Models
             if (!context.Nieuws_Berichten.Any())
             {
                 context.Nieuws_Berichten.AddRange(new List<Nieuws_Bericht>
-                { 
+                {
                     new Nieuws_Bericht
                     {
                         Titel = "Welkom bij MangaBook!",
@@ -65,7 +68,7 @@ namespace MangaBook_Models
                         Datum = DateTime.Now,
                     }
                 });
-                 context.SaveChanges();
+                context.SaveChanges();
             }
         }
     }

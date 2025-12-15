@@ -120,6 +120,9 @@
   <data name="Beheer uw account" xml:space="preserve">
     <value>Beheer u account</value>
   </data>
+  <data name="Voeg authenticator-app toe" xml:space="preserve">
+    <value>Voeg authenticator-app toe</value>
+  </data>
   <data name="Wijzig uw accountinstellingen" xml:space="preserve">
     <value>Wijzig uw accountinstellingen</value>
   </data>

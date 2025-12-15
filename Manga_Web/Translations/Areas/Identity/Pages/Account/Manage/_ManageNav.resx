@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="E-mail" xml:space="preserve">
+  <data name="Email" xml:space="preserve">
     <value>E-mail</value>
   </data>
   <data name="Externe logins" xml:space="preserve">
@@ -130,7 +130,7 @@
     <value>Profiel</value>
   </data>
   <data name="Twee-factor authenticatie" xml:space="preserve">
-    <value>Twee-factor authenticatie</value>
+    <value>Twee-factor-authenticatie</value>
   </data>
   <data name="Wachtwoord" xml:space="preserve">
     <value>Wachtwoord</value>

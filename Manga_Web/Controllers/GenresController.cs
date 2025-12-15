@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MangaBook_Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MangaBook_Models;
 
 namespace Manga_Web
 {
+    
     public class GenresController : Controller
     {
         private readonly MangaDbContext _context;

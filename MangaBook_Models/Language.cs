@@ -14,8 +14,10 @@ namespace MangaBook_Models
         public bool IsSystemLanguage { get; set; }
         public DateTime IsActive { get; set; }
 
-        public static void Seeder(MangaDbContext context)
+        public static void Seeder()
         {
+            MangaDbContext context = new MangaDbContext();
+
             if (!context.Languages.Any())
             {
                 context.Languages.AddRange(

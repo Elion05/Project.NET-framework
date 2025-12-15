@@ -132,6 +132,9 @@
   <data name="Gebruik een lokaal account om in te loggen." xml:space="preserve">
     <value>Gebruik een lokaal account om in te loggen.</value>
   </data>
+  <data name="Gebruik een van de volgende accounts om in te loggen:" xml:space="preserve">
+    <value>Gebruik een van de volgende accounts om in te loggen:</value>
+  </data>
   <data name="Gebruikersnaam" xml:space="preserve">
     <value>Gebruikersnaam</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="Slechte loginpoging." xml:space="preserve">
     <value>Slechte loginpoging.</value>
+  </data>
+  <data name="Testgebruikers" xml:space="preserve">
+    <value>Testgebruikers</value>
   </data>
   <data name="Wachtwoord" xml:space="preserve">
     <value>Wachtwoord</value>

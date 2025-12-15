@@ -15,11 +15,11 @@ namespace MangaBook_Models
     {
 
         //5) Identity Framework: Je voorziet een eigen user-class met minstens één extra eigenschap voor je gebruikers
-        
+
         [Required]
         [MaxLength(30)]
         public string FirstName { get; set; } = string.Empty;
-        
+
         [Required]
         [MaxLength(30)]
         public string LastName { get; set; } = string.Empty;
@@ -50,20 +50,18 @@ namespace MangaBook_Models
             return $"{FirstName} {LastName}";
         }
 
-
-
-
         //7) Rollen, 
         public static async Task Seeder()
         {
-            MangaDbContext context = new MangaDbContext();
-
+         MangaDbContext context = new MangaDbContext();
+            
             if (!context.Roles.Any())
             {
                 context.Roles.AddRange(new List<IdentityRole>
                 {
                     new IdentityRole { Id = "Admin", Name = "Admin", NormalizedName = "ADMIN" },
                     new IdentityRole { Id = "User", Name = "User", NormalizedName = "USER" },
+                    new IdentityRole {Id = "System_Admin", Name = "System_Admin", NormalizedName = "SYSTEM_ADMIN" }
                 });
                 context.SaveChanges();
             }
@@ -90,6 +88,15 @@ namespace MangaBook_Models
                     EmailConfirmed = true,
                 };
 
+                var systeemAdmin = new MangaUser
+                {
+                    UserName = "system_admin",
+                    FirstName = "System",
+                    LastName = "Admin",
+                    Email = "system_admin@manga.be",
+                    EmailConfirmed = true,
+                };
+
                 var userManager = new UserManager<MangaUser>(
                     new UserStore<MangaUser>(context),
                     null, new PasswordHasher<MangaUser>(),
@@ -100,6 +107,7 @@ namespace MangaBook_Models
                 {
                     await userManager.CreateAsync(admin, "Admin123!");
                     await userManager.CreateAsync(normaleUser, "User123!");
+                    await userManager.CreateAsync(systeemAdmin, "SystemAdmin123!");
                 }
                 catch (Exception ex)
                 {
@@ -114,13 +122,9 @@ namespace MangaBook_Models
 
                 await userManager.AddToRoleAsync(admin, "Admin");
                 await userManager.AddToRoleAsync(normaleUser, "User");
-
+                await userManager.AddToRoleAsync(systeemAdmin, "System_Admin");
             }
 
-            
-
-
-           
 
             Dummy = context.Users.First(u => u.UserName == "dummy");
         }

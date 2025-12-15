@@ -53,6 +53,10 @@
             {
                 @await Html.PartialAsync("ViewBook", item)
             }
+            else if (User.IsInRole("System_Admin"))
+            {
+                <partial name="ViewBook" model="item" />
+            }
 }
     </tbody>
 </table>
