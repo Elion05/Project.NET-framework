@@ -16,7 +16,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 //Add the DbContext for Entity Framework.
 builder.Services.AddDbContext<MangaBook_Models.MangaDbContext>();
 
-builder.Services.AddDefaultIdentity<MangaUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<MangaUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<MangaDbContext>();
 

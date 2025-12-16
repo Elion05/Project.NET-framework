@@ -13,7 +13,7 @@
 {
     @Html.AntiForgeryToken();
 
-    @if (User.IsInRole("Admin") == false)
+    @if (User.IsInRole("Admin") == false && User.IsInRole("System_Admin") == false)
     {
         <script>
             window.location.href = '/Identity/Account/AccessDenied';

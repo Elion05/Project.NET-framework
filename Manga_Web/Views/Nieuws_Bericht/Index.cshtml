@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<MangaBook_Models.Nieuws_Bericht>
 
-<link a:href="/css/site.css" />
+<link rel="stylesheet" href="~/css/Nieuws_Bericht.css" />
 @{
     ViewData["Title"] = "Nieuws";
 }
 
 <h1 class="Nieuws-h1">Nieuws berichten</h1>
 
-@if (User.IsInRole("Admin"))
+@if (User.IsInRole("Admin") || User.IsInRole("System_Admin"))
 {
     <p>
         <a asp-action="Create" class="btn btn-primary">Maak Nieuw Nieuws Bericht</a>

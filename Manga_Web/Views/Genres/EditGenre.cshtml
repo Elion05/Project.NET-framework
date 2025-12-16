@@ -11,7 +11,15 @@
 
 @using (Html.AjaxBeginForm("EditGenre", "Genres", new AjaxOptions {HttpMethod = "post", InsertionMode= InsertionMode.Replace, UpdateTargetId = Model.Id.ToString() }))
 {
-    @Html.AntiForgeryToken();
+    @Html.AntiForgeryToken()
+    ;
+
+    @if (User.IsInRole("Admin") == false && User.IsInRole("System_Admin") == false)
+    {
+        <script>
+            window.location.href = '/Identity/Account/AccessDenied';
+        </script>
+    }
 
     <tr id="@Model.Id.ToString()" class="edit-genre-row">
      

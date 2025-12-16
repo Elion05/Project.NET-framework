@@ -45,7 +45,7 @@ body {
 /**/
 /*Dit is de style voor de NieuwsBericht Index*/
 /***/
-.Nieuws-container {
+/*.Nieuws-container {
     margin-top: 20px;
 }
 
@@ -100,7 +100,7 @@ body {
     font-weight: bold;
 }
 
-.Nieuws-actions a:hover {
+    .Nieuws-actions a:hover {
         text-decoration: underline;
     }
 
@@ -118,7 +118,7 @@ body {
     display: inline-block;
     margin-bottom: 20px;
     font-size: 1.1em;
-}
+}*/
 
 
 

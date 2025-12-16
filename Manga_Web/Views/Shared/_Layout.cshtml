@@ -71,8 +71,23 @@
                                     </ul>
                                 </li>
                             }
-                              
-                            
+
+                            @if (User.IsInRole("System_Admin"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Add new...
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="MangaBooks" asp-action="Create">Voeg boek toe</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Authors" asp-action="Create">voeg nieuwe auteurs</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Genres" asp-action="Create">voeg genre toe</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Nieuws_Bericht" asp-action="Create">Nieuws berichten toevoegen</a></li>
+                                    </ul>
+                                </li>
+                            }
+
+
                         }
 
                     </ul>
