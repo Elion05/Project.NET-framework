@@ -4,9 +4,10 @@ using System.Threading.Tasks;
 using System.Linq;
 using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.EnvironmentVariables;
 
-
-namespace MangaBook_Models.NewFolder
+namespace MangaBook_Models.Data
 {
     public class MangaDbContext : IdentityDbContext<MangaUser>
     {
@@ -24,9 +25,27 @@ namespace MangaBook_Models.NewFolder
         //Fallback optie voor het geval er geen opties worden doorgegeven
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //default connection string voor lokaal gebruik
+            string connectionString = "Server =(localdb)\\mssqllocaldb;Database=MangaDbContext;Trusted_Connection=true;MultipleActiveResultSets=true";
+
+
             if (!optionsBuilder.IsConfigured)
             {
-                string connectionString = "Server=(localdb)\\mssqllocaldb;Database=MangaDbContext;Trusted_Connection=true;MultipleActiveResultSets=true";
+                try
+                {
+                    var config = new ConfigurationBuilder()
+                        .SetBasePath(AppContext.BaseDirectory)
+                        .AddJsonFile("appsettings.json", optional: true)
+                        .AddUserSecrets<MangaDbContext>(optional: true)
+                        .AddEnvironmentVariables()
+                        .Build();
+
+                    string con = config.GetConnectionString("ServerConnection");
+                }
+                catch(Exception ex)
+                {
+                    optionsBuilder.UseSqlServer(connectionString);
+                }
                 optionsBuilder.UseSqlServer(connectionString);
             }
         }

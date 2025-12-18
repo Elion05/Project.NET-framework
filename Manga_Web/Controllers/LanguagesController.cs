@@ -1,4 +1,4 @@
-﻿using MangaBook_Models.NewFolder;
+﻿using MangaBook_Models.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;

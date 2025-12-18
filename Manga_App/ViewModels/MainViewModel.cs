@@ -3,6 +3,7 @@ using Manga_App.Pages;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace Manga_App.ViewModels
 {
@@ -12,7 +13,8 @@ namespace Manga_App.ViewModels
         public MainViewModel(LocalDbContext context)
         {
             _context = context;
-            mangaboeken = new ObservableCollection<MangaBook>();
+            // Load books from the database on startup
+            LoadBooks();
         }
 
         [ObservableProperty]
@@ -24,9 +26,14 @@ namespace Manga_App.ViewModels
         [ObservableProperty]
         string description = string.Empty;
 
+        private async void LoadBooks()
+        {
+            var books = await _context.MangaBooks.ToListAsync();
+            Mangaboeken = new ObservableCollection<MangaBook>(books);
+        }
 
         [RelayCommand]
-        void VoegToe()
+        async Task VoegToe()
         {
             if (string.IsNullOrWhiteSpace(Title) ||
                 string.IsNullOrWhiteSpace(Description))
@@ -38,10 +45,12 @@ namespace Manga_App.ViewModels
                 Description = Description,
                 Created = DateTime.Now,
                 ReleaseDate = DateTime.Now,
-                AuthorId = 1,
-                GenreId = 1
+                AuthorId = 1, // Placeholder
+                GenreId = 1   // Placeholder
             };
 
+            _context.MangaBooks.Add(boek);
+            await _context.SaveChangesAsync();
             Mangaboeken.Add(boek);
 
             Title = string.Empty;
@@ -65,6 +74,8 @@ namespace Manga_App.ViewModels
 
                 if (confirm)
                 {
+                    _context.MangaBooks.Remove(book);
+                    await _context.SaveChangesAsync();
                     Mangaboeken.Remove(book);
                 }
             }
@@ -80,7 +91,7 @@ namespace Manga_App.ViewModels
             {
                 await mainPage.Navigation.PushAsync(
                     new MangaBookPage(
-                        new MangaBookViewModel(book)
+                        new MangaBookViewModel(book, _context)
                     ));
             }
         }
@@ -91,7 +102,7 @@ namespace Manga_App.ViewModels
             if (Application.Current?.MainPage is Page mainPage)
             {
                 await mainPage.Navigation.PushAsync(
-                    new MangaBookPage(new MangaBookViewModel(new MangaBook()))
+                    new MangaBookPage(new MangaBookViewModel(new MangaBook(), _context))
                     );
             }
         }

@@ -1,6 +1,6 @@
 ﻿using MangaBook_Models;
 using MangaBook_Models.Migrations;
-using MangaBook_Models.NewFolder;
+using MangaBook_Models.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

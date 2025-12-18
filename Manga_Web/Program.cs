@@ -7,14 +7,11 @@ using AspNetCore.Unobtrusive.Ajax;
 using Manga_Web.Services;
 using NETCore.MailKit.Infrastructure.Internal;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using MangaBook_Models.NewFolder;
+using MangaBook_Models.Data;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Get the database connection string.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? "Server=(localdb)\\mssqllocaldb;Database=MangaBookDB;Trusted_Connection=True;MultipleActiveResultSets=true";
 
 //Add the DbContext for Entity Framework.
 builder.Services.AddDbContext<MangaDbContext>();
@@ -38,6 +35,7 @@ builder.Services.AddControllersWithViews();
 
 
 //Services voor de Email functionaliteit
+
 //builder.Services.AddTransient<IEmailSender, MailKitEmailSender>();
 builder.Services.Configure<MailKitOptions>(options =>
 {

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Manga_Web.Middleware;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
-using MangaBook_Models.NewFolder;
+using MangaBook_Models.Data;
 
 
 namespace Manga_Web
