@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace MangaBook_Models
+namespace MangaBook_Models.NewFolder
 {
     public class MangaDbContext : IdentityDbContext<MangaUser>
     {

@@ -72,8 +72,8 @@
 
 .edit-book-row {
     display: block;
-    background-color: var(--lemon-chiffon);
-    border: 1px solid var(--ye-yellow);
+    background-color: lightblue;
+    border: 1px solid black;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     padding: 20px;

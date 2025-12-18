@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MangaBook_Models;
+using MangaBook_Models.NewFolder;
 
 namespace Manga_Web.API_Controllers
 {

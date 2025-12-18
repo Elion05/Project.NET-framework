@@ -47,6 +47,13 @@
                     <label asp-for="GenreId" class="control-label"></label>
                     <select asp-for="GenreId" class ="form-control" asp-items="ViewBag.GenreId"></select>
                 </div>
+
+                <div class="form-group">
+                    <label asp-for="AverageRating" class="control-label"></label>
+                    <input asp-for="AverageRating" class="form-control" type="text" />
+                    <span asp-validation-for="AverageRating" class="text-danger"></span>
+                </div>
+
                 <div class="form-group manga-page-actions">
                     <input type="submit" value="Create" class="btn btn-primary" />
                     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
@@ -59,4 +66,10 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        // This script makes the client-side validation understand the comma as a decimal separator.
+        $.validator.methods.number = function (value, element) {
+            return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/.test(value);
+        };
+    </script>
 }

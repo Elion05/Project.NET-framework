@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using AspNetCore.Unobtrusive.Ajax;
 using Manga_Web.Services;
+using NETCore.MailKit.Infrastructure.Internal;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using MangaBook_Models.NewFolder;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +17,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
     ?? "Server=(localdb)\\mssqllocaldb;Database=MangaBookDB;Trusted_Connection=True;MultipleActiveResultSets=true";
 
 //Add the DbContext for Entity Framework.
-builder.Services.AddDbContext<MangaBook_Models.MangaDbContext>();
+builder.Services.AddDbContext<MangaDbContext>();
 
 builder.Services.AddDefaultIdentity<MangaUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
@@ -32,6 +35,23 @@ builder.Logging.AddDbLogger(options => {
 
 //Add support for MVC controllers and Razor Pages (for the Identity UI).
 builder.Services.AddControllersWithViews();
+
+
+//Services voor de Email functionaliteit
+//builder.Services.AddTransient<IEmailSender, MailKitEmailSender>();
+builder.Services.Configure<MailKitOptions>(options =>
+{
+    options.Server = builder.Configuration["ExternalProviders:MailKit:SMTP:Address"];
+    options.Port = Convert.ToInt32(builder.Configuration["ExternalProviders:MailKit:SMTP:Port"]);
+    options.Account = builder.Configuration["ExternalProviders:MailKit:SMTP:Account"];
+    options.Password = builder.Configuration["ExternalProviders:MailKit:SMTP:Password"];
+    options.SenderEmail = builder.Configuration["ExternalProviders:MailKit:SMTP:SenderEmail"];
+    options.SenderName = builder.Configuration["ExternalProviders:MailKit:SMTP:SenderName"];
+
+    //zet op TRUE op SLL of TLS , False voor geen encryptie
+    options.Security = false;
+
+});
 
 //Voor de configuratie van de resfull API's
 builder.Services.AddControllers();
@@ -60,8 +80,8 @@ using(var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     try
     {
-        MangaBook_Models.MangaDbContext context = services.GetRequiredService<MangaBook_Models.MangaDbContext>();
-        MangaBook_Models.MangaDbContext.Seeder(context);
+        MangaDbContext context = services.GetRequiredService<MangaDbContext>();
+        MangaDbContext.Seeder(context);
     }
     catch(Exception ex)
     {
@@ -102,16 +122,20 @@ app.UseUnobtrusiveAjax();
 
 app.UseRouting();
 
-// 5. Add Authentication and Authorization middleware.
+//5. Add Authentication and Authorization middleware.
 // This must be placed after UseRouting.
 app.UseAuthentication();
 app.UseAuthorization();
 
-// 6. Map the endpoints for MVC controllers and Razor Pages.
+//6. Map the endpoints for MVC controllers and Razor Pages.
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages(); //This is crucial for the login pages to work.
+
+
+//dit is de custom middleware voor het afhandelen van de gebruiker
+app.UseMiddleware<Manga_Web.Middleware.MijnGebruiker>();
 
 app.MapControllers();
 

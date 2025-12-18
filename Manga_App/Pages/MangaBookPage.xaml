@@ -4,9 +4,10 @@
              x:Class="Manga_App.Pages.MangaBookPage"
              Title="MangaBookPage">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="Toegevoegde Manga zie je hier"
+              VerticalOptions="Center"
+              HorizontalOptions="Center" /> 
+
+        
     </VerticalStackLayout>
 </ContentPage>

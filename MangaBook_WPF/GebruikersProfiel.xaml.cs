@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MangaBook_Models;
+using MangaBook_Models.NewFolder;
 using Microsoft.AspNetCore.Identity;
 
 namespace MangaBook_WPF

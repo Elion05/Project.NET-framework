@@ -2,11 +2,6 @@
 }
 
 
-.top-manga-list {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    border-radius: 0.5rem;
-    overflow: hidden;
-}
 
 .top-manga-list .list-group-item {
     border-left: none;

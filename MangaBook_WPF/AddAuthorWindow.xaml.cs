@@ -1,6 +1,7 @@
 ﻿using MangaBook_Models;
 using System.Windows;
 using System.Linq;
+using MangaBook_Models.NewFolder;
 
 
 namespace MangaBook_WPF

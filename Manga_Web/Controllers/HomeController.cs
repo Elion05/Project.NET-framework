@@ -1,5 +1,5 @@
 using Manga_Web.Models;
-using MangaBook_Models;
+using MangaBook_Models.NewFolder;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;

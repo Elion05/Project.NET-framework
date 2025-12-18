@@ -5,13 +5,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Build.Tasks;
+using Manga_Web.Middleware;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MangaBook_Models.NewFolder;
+
 
 namespace Manga_Web
 {
@@ -85,17 +83,17 @@ namespace Manga_Web
 
         }
 
-
-
-
-
         // POST: MangaBooks/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,IsDeleted,ReleaseDate,AuthorId,GenreId")] MangaBook mangaBook)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,IsDeleted,ReleaseDate,AuthorId,GenreId, AverageRating")] MangaBook mangaBook)
         {
+
+            //dit is hoe we de userId kunnen ophalen uit jouw eigen Middleware
+            string userId = (string)Request.HttpContext.Items["UserId"];
+
             if (ModelState.IsValid)
             {
                 _context.Add(mangaBook);
@@ -110,7 +108,7 @@ namespace Manga_Web
 
 
         // GET: MangaBooks/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
             {
@@ -122,14 +120,14 @@ namespace Manga_Web
             {
                 return NotFound();
             }
+
+            string userId = (string)Request.HttpContext.Items["UserId"];
+
             ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Name", mangaBook.AuthorId);
             ViewData["GenreId"] = new SelectList(_context.Genres, "Id", "Name", mangaBook.GenreId);
             return View(mangaBook);
         }
 
-
-
-       
 
 
         [HttpPost]
@@ -140,8 +138,10 @@ namespace Manga_Web
           {
             return NotFound();
           }
+          
+          string userId = (string)Request.HttpContext.Items["UserId"];
 
-          if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {

@@ -1,13 +1,13 @@
 ﻿using Manga_App.ViewModels;
+using MangaBook_Models;
 
-namespace Manga_App
+namespace Manga_App;
+
+public partial class MainPage : ContentPage
 {
-    public partial class MainPage : ContentPage
+    public MainPage(MainViewModel viewModel)
     {
-        public MainPage()
-        {
-            InitializeComponent();
-            BindingContext = new MainViewModel();
-        }        
+        InitializeComponent();
+        BindingContext = viewModel;
     }
 }

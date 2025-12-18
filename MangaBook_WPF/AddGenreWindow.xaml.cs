@@ -1,4 +1,5 @@
 ﻿using MangaBook_Models;
+using MangaBook_Models.NewFolder;
 using System.Linq;
 using System.Windows;
 

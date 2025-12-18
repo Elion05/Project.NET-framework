@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MangaBook_Models.NewFolder;
+using System.ComponentModel.DataAnnotations;
 
 namespace MangaBook_Models
 {

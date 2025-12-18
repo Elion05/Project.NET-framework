@@ -15,6 +15,8 @@
 @using (Html.AjaxBeginForm("EditBook", "MangaBooks", new { id = Model.Id }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = Model.Id.ToString() }, new { id = "form-" + Model.Id }))
 {
 
+    <link rel="stylesheet" href="~/css/MangaBook.css" asp-append-version="true" />
+
     <tr id="@Model.Id.ToString()" class="edit-book-row">
         @Html.AntiForgeryToken()
         <td class="edit-title">
@@ -27,7 +29,8 @@
         </td>
 
         <td class="edit-release-date">
-            <input asp-for="ReleaseDate" type="date" value="@Model.ReleaseDate.ToString("yyyy-MM-dd")" class="form-control" onchange="$(this.form).submit()" />
+            <input asp-for="ReleaseDate" type="date"  value="@Model.ReleaseDate.ToString("yyyy-MM-dd")" class="form-control" onchange="$(this.form).submit()" />
+
         </td>
 
         <td class="edit-author">
@@ -40,20 +43,16 @@
 
         <td class="edit-averageRating">
             <input asp-for="AverageRating" class="form-control" onchange="$(this.form).submit()" />
+
         </td>
 
         <td>
-        
             <a class="action-link action-delete" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
         </td>
     </tr>
 }
 
-<style>
-    .edit-averageRating::before {
-        content: "Rating";
-    }
-</style>
+
 
 @* @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

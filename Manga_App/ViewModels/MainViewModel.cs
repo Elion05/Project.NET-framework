@@ -1,7 +1,5 @@
 ﻿using MangaBook_Models;
-using Manga_App.ViewModels;
 using Manga_App.Pages;
-using CommunityToolkit.Mvvm;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
@@ -10,10 +8,11 @@ namespace Manga_App.ViewModels
 {
     public partial class MainViewModel : ObservableObject
     {
-        public MainViewModel()
+        readonly LocalDbContext _context;
+        public MainViewModel(LocalDbContext context)
         {
-            // Laad de seeding-data
-            Mangaboeken = new ObservableCollection<MangaBook>(MangaBook.SeedingData());
+            _context = context;
+            mangaboeken = new ObservableCollection<MangaBook>();
         }
 
         [ObservableProperty]
@@ -25,7 +24,7 @@ namespace Manga_App.ViewModels
         [ObservableProperty]
         string description = string.Empty;
 
-       
+
         [RelayCommand]
         void VoegToe()
         {
@@ -49,43 +48,62 @@ namespace Manga_App.ViewModels
             Description = string.Empty;
         }
 
-    
-   
+
+
         [RelayCommand]
         async Task Verwijder(MangaBook book)
         {
             if (book == null) return;
 
-            bool confirm = await Application.Current.MainPage.DisplayAlert(
-                "Verwijder Manga",
-                $"Ben je zeker dat je '{book.Title}' wil verwijderen?",
-                "Ja",
-                "Nee");
-
-            if (confirm)
+            if (Application.Current?.MainPage is Page mainPage)
             {
-                Mangaboeken.Remove(book);
+                bool confirm = await mainPage.DisplayAlert(
+                    "Verwijder Manga",
+                    $"Ben je zeker dat je '{book.Title}' wil verwijderen?",
+                    "Ja",
+                    "Nee");
+
+                if (confirm)
+                {
+                    Mangaboeken.Remove(book);
+                }
             }
         }
 
-        
+
         [RelayCommand]
         async Task Bewerk(MangaBook book)
         {
             if (book == null) return;
 
-            await Application.Current.MainPage.Navigation.PushAsync(
-                new MangaBookPage(
-                    new MangaBookViewModel(book)
-                ));
+            if (Application.Current?.MainPage is Page mainPage)
+            {
+                await mainPage.Navigation.PushAsync(
+                    new MangaBookPage(
+                        new MangaBookViewModel(book)
+                    ));
+            }
         }
 
         [RelayCommand]
         async Task OpenBoekenPagina()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(
-                new MangaBookPage(new MangaBookViewModel(new MangaBook()))
-                );
+            if (Application.Current?.MainPage is Page mainPage)
+            {
+                await mainPage.Navigation.PushAsync(
+                    new MangaBookPage(new MangaBookViewModel(new MangaBook()))
+                    );
+            }
+        }
+
+        [RelayCommand]
+        async Task GoToLogin()
+        {
+            if (Application.Current?.MainPage is Page mainPage)
+            {
+                await mainPage.Navigation.PushAsync(
+                    new LoginPage(new LoginViewModel(_context), _context));
+            }
         }
     }
 }

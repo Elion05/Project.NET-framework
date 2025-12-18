@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Manga_App.Pages;
+using MangaBook_Models;
+using Microsoft.Extensions.Logging;
 
 namespace Manga_App
 {
@@ -15,8 +17,18 @@ namespace Manga_App
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+           builder.Services.AddDbContext<LocalDbContext>();
+
+            builder.Services.AddSingleton<LoginPage>();
+            builder.Services.AddSingleton<ViewModels.LoginViewModel>();
+
+            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<ViewModels.MainViewModel>();
+
+            builder.Services.AddTransient<Pages.MangaBookPage>();
+            builder.Services.AddTransient<ViewModels.MangaBookViewModel>();
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
