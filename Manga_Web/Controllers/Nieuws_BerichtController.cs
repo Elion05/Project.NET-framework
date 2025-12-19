@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Manga_Web
@@ -52,7 +53,7 @@ namespace Manga_Web
         public IActionResult Create()
         {
             
-            ViewData["GebruikerId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["GebruikerId"] = new SelectList(_context.Users, "Id", "UserName");
             return View();
         }
 
@@ -61,15 +62,23 @@ namespace Manga_Web
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Titel,Inhoud,Datum,GebruikerId,isVerwijderd")] Nieuws_Bericht nieuws_Bericht)
+        public async Task<IActionResult> Create([Bind("Id,Titel,Inhoud,isVerwijderd")] Nieuws_Bericht nieuws_Bericht)
         {
             if (ModelState.IsValid)
             {
+                //dit is de code om aan automatisch de username van de ingelogde gebruiker te nemen wanneer hij een nieuwsbericht schrijft
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                nieuws_Bericht.GebruikerId = userId;
+
+
+                var dateOfMessage = DateTime.Now;
+                nieuws_Bericht.Datum = dateOfMessage;
+
                 _context.Add(nieuws_Bericht);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GebruikerId"] = new SelectList(_context.Users, "Id", "Id", nieuws_Bericht.GebruikerId);
+            
             return View(nieuws_Bericht);
         }
 

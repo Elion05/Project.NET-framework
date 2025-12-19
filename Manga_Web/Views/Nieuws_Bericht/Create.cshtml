@@ -1,4 +1,5 @@
 ﻿@model MangaBook_Models.Nieuws_Bericht
+@using MangaBook_Models
 
 @{
     ViewData["Title"] = "Create";
@@ -28,15 +29,18 @@
                 <input asp-for="Inhoud" class="form-control" />
                 <span asp-validation-for="Inhoud" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @* <div class="form-group">
                 <label asp-for="Datum" class="control-label"></label>
                 <input asp-for="Datum" class="form-control" />
                 <span asp-validation-for="Datum" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GebruikerId" class="control-label"></label>
+            </div> *@
+
+            @* <div class="form-group">
+                <label asp-for="GebruikerId" class="control-label">Username</label>
                 <select asp-for="GebruikerId" class ="form-control" asp-items="ViewBag.GebruikerId"></select>
-            </div>
+                <span asp-validation-for="GebruikerId" class="text-danger"></span>
+            </div> *@
+
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="isVerwijderd" /> @Html.DisplayNameFor(model => model.isVerwijderd)

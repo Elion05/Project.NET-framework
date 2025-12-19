@@ -40,7 +40,7 @@ namespace MangaBook_Models.Data
                         .AddEnvironmentVariables()
                         .Build();
 
-                    string con = config.GetConnectionString("ServerConnection");
+                    string con = config.GetConnectionString("MangaDbContextConnection");
                 }
                 catch(Exception ex)
                 {
