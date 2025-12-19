@@ -1,5 +1,5 @@
 ﻿using MangaBook_Models;
-using MangaBook_Models.NewFolder;
+using MangaBook_Models.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
