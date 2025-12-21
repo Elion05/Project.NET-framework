@@ -41,6 +41,7 @@ namespace MangaBook_Models.Data
                         .Build();
 
                     string con = config.GetConnectionString("MangaDbContextConnection");
+                    
                 }
                 catch(Exception ex)
                 {
