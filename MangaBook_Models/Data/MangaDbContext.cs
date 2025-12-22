@@ -41,13 +41,13 @@ namespace MangaBook_Models.Data
                         .Build();
 
                     string con = config.GetConnectionString("MangaDbContextConnection");
-                    
+                    optionsBuilder.UseSqlServer(connectionString);
                 }
                 catch(Exception ex)
                 {
                     optionsBuilder.UseSqlServer(connectionString);
                 }
-                optionsBuilder.UseSqlServer(connectionString);
+                
             }
         }
 

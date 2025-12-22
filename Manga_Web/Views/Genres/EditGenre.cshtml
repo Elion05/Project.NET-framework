@@ -9,6 +9,7 @@
     Layout = null;
 }
 
+@* Dit is een systematische manier om wijzigingen te maken in de backend via de EditGenre view (PartialView), zie GenreController in de Controllers voor de code *@
 @using (Html.AjaxBeginForm("EditGenre", "Genres", new AjaxOptions {HttpMethod = "post", InsertionMode= InsertionMode.Replace, UpdateTargetId = Model.Id.ToString() }))
 {
     @Html.AntiForgeryToken()

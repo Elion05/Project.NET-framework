@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Manga_Web.Middleware
 {
+
+    //dit is de Middlware klasse die de gebruiker afhandelt, zie Program.cs voor gebruik
     public class MijnGebruiker
     {
         //dit is nodig om request af te handelen

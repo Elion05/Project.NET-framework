@@ -1,0 +1,161 @@
+﻿/* Dit is de stylesheet voor de Logerrors die alleen de admin en system Admins kunnen zien. */
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f8f9fa;
+    color: #222;
+}
+
+h1 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    font-size: 0.92em;
+}
+
+.table th, .table td {
+    padding: 0.35rem 0.35rem;
+    border-bottom: 1px solid #e2e2e2;
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.2;
+    max-width: 220px;
+    word-break: break-word;
+}
+
+.table th {
+    background: #e9ecef;
+    font-weight: 600;
+    color: #444;
+}
+
+.table tr:hover {
+    background: #f1f3f6;
+}
+
+.table td a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 0.3em;
+    font-size: 0.95em;
+}
+
+.table td a:hover {
+    text-decoration: underline;
+}
+
+.stacktrace-container {
+    position: relative;
+    max-width: 200px;
+}
+
+.stacktrace-content {
+    max-height: 2em;
+    overflow: hidden;
+    transition: max-height 0.3s;
+    font-size: 0.9em;
+    background: #f8f9fa;
+    border: 1px solid #e2e2e2;
+    border-radius: 4px;
+    padding: 0.3em;
+    margin-bottom: 0.1em;
+    white-space: pre-line;
+}
+
+.stacktrace-content.expanded {
+    max-height: 400px;
+    overflow: auto;
+}
+
+.stacktrace-toggle {
+    display: inline-block;
+    cursor: pointer;
+    color: #007bff;
+    font-size: 0.85em;
+    margin-bottom: 0.1em;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+/* Details view styling for LogError */
+.details-container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 1.2em 1.5em;
+    max-width: 700px;
+    margin: 2em auto;
+}
+
+.details-container h4 {
+    margin-bottom: 0.7em;
+    color: #333;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.details-container dl.row {
+    margin-bottom: 0.5em;
+}
+
+.details-container dt {
+    font-weight: 500;
+    color: #555;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    width: 140px;
+    font-size: 0.97em;
+}
+
+.details-container dd {
+    margin-bottom: 0.2em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    font-size: 0.97em;
+    color: #222;
+    word-break: break-word;
+}
+
+.stacktrace-details-container {
+    position: relative;
+    max-width: 100%;
+}
+
+.stacktrace-details-content {
+    max-height: 2.2em;
+    overflow: hidden;
+    transition: max-height 0.3s;
+    font-size: 0.93em;
+    background: #f8f9fa;
+    border: 1px solid #e2e2e2;
+    border-radius: 4px;
+    padding: 0.4em;
+    margin-bottom: 0.2em;
+    white-space: pre-line;
+}
+
+.stacktrace-details-content.expanded {
+    max-height: 500px;
+    overflow: auto;
+}
+
+.stacktrace-details-toggle {
+    display: inline-block;
+    cursor: pointer;
+    color: #007bff;
+    font-size: 0.88em;
+    margin-bottom: 0.1em;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+
+

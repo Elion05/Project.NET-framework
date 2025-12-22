@@ -11,7 +11,7 @@
     Layout = null;
 
 }
-
+@* Dit is een systematische manier om wijzigingen te maken in de backend via de EditBook view (PartialView), zie MangaBookController in de Controllers voor de code *@
 @using (Html.AjaxBeginForm("EditBook", "MangaBooks", new { id = Model.Id }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = Model.Id.ToString() }, new { id = "form-" + Model.Id }))
 {
 
@@ -29,8 +29,8 @@
         </td>
 
         <td class="edit-release-date">
-            <input asp-for="ReleaseDate" type="date"  value="@Model.ReleaseDate.ToString("yyyy-MM-dd")" class="form-control" onchange="$(this.form).submit()" />
-
+            <input asp-for="ReleaseDate" type="date"  value="@Model.ReleaseDate.ToString("yyyy-MM-dd")" class="form-control" onchange="$(this.form).submit()"/>
+            
         </td>
 
         <td class="edit-author">
@@ -53,7 +53,3 @@
 }
 
 
-
-@* @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-} *@

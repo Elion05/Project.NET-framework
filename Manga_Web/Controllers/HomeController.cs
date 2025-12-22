@@ -26,7 +26,6 @@ namespace Manga_Web.Controllers
                 .Take(10)
                 .ToList();
             return View(mangaRatings);
-
         }
 
         public IActionResult Privacy()

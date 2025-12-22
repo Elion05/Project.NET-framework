@@ -129,6 +129,7 @@ namespace Manga_Web
         }
 
 
+        //Dit is een systematische manier om asychrone wijzingen te maken in de backend via de EditBook view (PartialView)
 
         [HttpPost]
         [ValidateAntiForgeryToken]
