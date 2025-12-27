@@ -68,7 +68,7 @@ namespace Manga_Web.Services
         }
 
 
-        //de eigenlijke logica om te loggen naar de database
+        //de eigenlijke logica om te loggen naar de database, dit krijg je te zien in de Log Error pagina in de admin sectie
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
             if (IsEnabled(logLevel))

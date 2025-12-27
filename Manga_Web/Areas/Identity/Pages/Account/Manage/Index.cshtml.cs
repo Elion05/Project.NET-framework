@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+
 namespace Manga_Web.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
@@ -41,15 +42,15 @@ namespace Manga_Web.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
-            [Display(Name = "First Name")]
+            [Required(ErrorMessage = "Voornaam is verplicht.")]
+            [Display(Name = "Voornaam")]
             public string Firstname { get; set; }
 
-            [Required]
-            [Display(Name = "Last Name")]
+            [Required(ErrorMessage = "Achternaam is verplicht.")]
+            [Display(Name = "Achternaam")]
             public string Lastname { get; set; }
 
-            [Phone]
+            [Phone(ErrorMessage = "Ongeldig telefoonnummer.")]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
 

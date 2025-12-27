@@ -1,0 +1,47 @@
+﻿
+
+@* Dit dit is een model dat ik nog zal gebruiken in de toekomst niet weg doen!!!*@
+
+@* @model MangaBook_Models.Nieuws_Bericht
+@using AspNetCore.Unobtrusive.Ajax
+@using Manga_Web.Services
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@inject IHtmlLocalizer<SharedResource> _shared
+
+@{
+    Layout = null;
+}
+
+    @using (Html.AjaxBeginForm("EditNews", "Nieuws_Bericht", new { id = Model.Id }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = Model.Id.ToString() }, new { id = "form-" + Model.Id }))
+    {
+        <link rel="stylesheet" href="~/css/Nieuws_Bericht.css" asp-append-version="true" />
+
+        <div class="Nieuws-card" data-date="@Model.Datum.ToString("o")">
+            @Html.AntiForgeryToken()
+            <div class="form-group Nieuws-title">
+                <input asp-for="Titel" class="form-control" placeholder="Titel" />
+                @Html.ValidationMessageFor(m => m.Titel, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group Nieuws-date">
+                <input asp-for="Datum" type="datetime-local" class="form-control" value="@Model.Datum.ToString("yyyy-MM-ddTHH:mm")" />
+                @Html.ValidationMessageFor(m => m.Datum, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group Nieuws-content">
+                <textarea asp-for="Inhoud" class="form-control" rows="4" placeholder="Inhoud"></textarea>
+                @Html.ValidationMessageFor(m => m.Inhoud, "", new { @class = "text-danger" })
+            </div>
+            <div class="Nieuws-footer">
+                <div class="Nieuws-Gebruiker-view">
+                    Gepost door: @(Model.Gebruiker?.UserName ?? "Onbekend")
+                </div>
+                <div class="Nieuws-actions">
+                    <input type="submit" value="Opslaan" class="btn btn-primary" />
+                    <a href="javascript:history.back()" class="btn btn-secondary" style="margin-left:10px;">Annuleren</a>
+                </div>
+            </div>
+        </div>
+}
+
+ *@

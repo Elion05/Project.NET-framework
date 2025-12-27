@@ -1,0 +1,27 @@
+﻿@model MangaBook_Models.Nieuws_Bericht
+
+<link rel="stylesheet" href="~/css/Nieuws_Bericht.css" asp-append-version="true" />
+
+<div class="Nieuws-card" data-date="@Model.Datum.ToString("o")">
+    <div class="news-title">
+        @Html.DisplayFor(model => model.Titel)
+    </div>
+    <div class="news-date">
+        @Model.Datum.ToString("dd MMM yyyy HH:mm")
+    </div>
+    <div class="news-content">
+        @Html.DisplayFor(model => model.Inhoud)
+    </div>
+    <div class="Nieuws-footer">
+        <div class="Nieuws-Gebruiker-view">
+            Gepost door: @(Model.Gebruiker?.UserName ?? "Onbekend")
+        </div>
+        @if (User.IsInRole("Admin") || User.IsInRole("System_Admin"))
+        {
+            <div class="Nieuws-actions">
+                
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger btn-sm" style="margin-left:10px;">Verwijderen</a>
+            </div>
+        }
+    </div>
+</div>

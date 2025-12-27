@@ -13,12 +13,13 @@ using System.Threading.Tasks;
 
 namespace Manga_Web.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,System_Admin")]
+    
 
     public class UsersController : Controller
     {
         private readonly MangaDbContext _context;
-
+        
         public UsersController(MangaDbContext context)
         {
             _context = context;

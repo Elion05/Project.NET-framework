@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<MangaBook_Models.Nieuws_Bericht>
 
 <link rel="stylesheet" href="~/css/Nieuws_Bericht.css" />
+<script src="~/js/site.js" asp-append-version="true"></script>
 @{
     ViewData["Title"] = "Nieuws";
 }
@@ -19,75 +20,19 @@
 <div class="Nieuws-container">
     @foreach (var item in Model)
     {
-        <div class="Nieuws-card" data-date="@item.Datum.ToString("o")">
-            <div class="news-title">
-                @Html.DisplayFor(modelItem => item.Titel)
-            </div>
-            <div class="news-date">
-                @item.Datum.ToString("dd MMM yyyy HH:mm")
-            </div>
-            <div class="news-content">
-                @Html.DisplayFor(modelItem => item.Inhoud)
-            </div>
-            <div class="Nieuws-footer">
-                <div class="Nieuws-Gebruiker-view">
-                    Gepost door: @(item.Gebruiker?.UserName ?? "Onbekend")
-                </div>
-                @* <div class="Nieuws-actions">
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </div> *@
-            </div>
-        </div>
+
+        <partial name="ViewNews" model="item" view-data="ViewData"/>
+
+       @*  if (User.IsInRole("Admin,System_Admin"))
+        {
+            <partial name="ViewNews" model="item" view-data="ViewData"/>
+        }
+        else if(User.IsInRole("User"))
+        {
+            <partial name="ViewNews" model="item" view-data="ViewData"/>
+        } *@
     }
 </div>
 
 
 
-<!--Javascript code-->
-@section Scripts{
-<script>
-        //dit is de functie om de nieuwsberichten te sorteren op datum
-    document.addEventListener('DOMContentLoaded', function () {
-        const sorteerKnop = document.querySelector('.sorteren');
-        const container = document.querySelector('.Nieuws-container');
-
-        let isDalend = true;
-
-        sorteerKnop.addEventListener('click', function () {
-
-            const cards = Array.from(container.querySelectorAll('.Nieuws-card'));
-
-           
-            cards.sort((cardA, cardB) => {
-                
-                
-                const dateA = new Date(cardA.dataset.date);
-                const dateB = new Date(cardB.dataset.date);
-
-                if (isDalend) {
-                    return dateB - dateA;
-                } else {
-
-                    return dateA - dateB;
-                }
-            });
-
-                //innerhtml is vervangen door de gesorteerde kaarten
-            container.innerHTML = '';
-            cards.forEach(card => {
-                container.appendChild(card);
-            });
-
-            isDalend = !isDalend;
-
-            if (isDalend) {
-                sorteerKnop.textContent = 'Sorteer op datum (Nieuwste eerst)';
-            } else {
-                sorteerKnop.textContent = 'Sorteer op datum (Oudste eerst)';
-            }
-        });
-    });
-</script>
-}

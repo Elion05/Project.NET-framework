@@ -117,10 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Auteurs" xml:space="preserve">
+    <value>Auteurs</value>
+  </data>
+  <data name="Error logs" xml:space="preserve">
+    <value>Journaux d'erreurs</value>
+  </data>
+  <data name="Gebruikers beheer" xml:space="preserve">
+    <value>Gestion des utilisateurs</value>
+  </data>
+  <data name="Genres" xml:space="preserve">
+    <value>Genre</value>
+  </data>
+  <data name="Manga Boeken" xml:space="preserve">
+    <value>Livre de Manga</value>
+  </data>
+  <data name="Nieuws" xml:space="preserve">
+    <value>Nouvelles</value>
+  </data>
   <data name="Privacy" xml:space="preserve">
     <value>Privacy</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Demarage</value>
+  </data>
+  <data name="Verkennen" xml:space="preserve">
+    <value>Explorer</value>
+  </data>
+  <data name="Admin toegankelijkheden" xml:space="preserve">
+    <value>Accessibilité de l'administrateur</value>
+  </data>
+  <data name="Voeg boek toe" xml:space="preserve">
+    <value>Ajoute un livre</value>
+  </data>
+  <data name="Voeg nieuwe..." xml:space="preserve">
+    <value>Ajoute nouveau...</value>
+  </data>
+  <data name="Voeg nieuwe auteurs toe" xml:space="preserve">
+    <value>Ajoute nouveau Auteur </value>
+  </data>
+  <data name="Voeg genre toe" xml:space="preserve">
+    <value>Ajoute nouveau genre</value>
+  </data>
+  <data name="Voeg nieuwsbericht toe" xml:space="preserve">
+    <value>Ajoute nouveau Nouvelles</value>
   </data>
 </root>

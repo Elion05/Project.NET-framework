@@ -40,6 +40,7 @@ namespace MangaBook_Models.Data
                         .AddEnvironmentVariables()
                         .Build();
 
+                    //dit haalt de connection string op van de user secrets
                     string con = config.GetConnectionString("MangaDbContextConnection");
                     optionsBuilder.UseSqlServer(connectionString);
                 }

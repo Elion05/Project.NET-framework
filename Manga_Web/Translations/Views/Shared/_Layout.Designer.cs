@@ -61,6 +61,69 @@ namespace Manga_Web.Translations.Views.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admin toegankelijkheden.
+        /// </summary>
+        public static string Admin_toegankelijkheden {
+            get {
+                return ResourceManager.GetString("Admin toegankelijkheden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auteurs.
+        /// </summary>
+        public static string Auteurs {
+            get {
+                return ResourceManager.GetString("Auteurs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error logs.
+        /// </summary>
+        public static string Error_logs {
+            get {
+                return ResourceManager.GetString("Error logs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gebruikers beheer.
+        /// </summary>
+        public static string Gebruikers_beheer {
+            get {
+                return ResourceManager.GetString("Gebruikers beheer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Genres.
+        /// </summary>
+        public static string Genres {
+            get {
+                return ResourceManager.GetString("Genres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manga Boeken.
+        /// </summary>
+        public static string Manga_Boeken {
+            get {
+                return ResourceManager.GetString("Manga Boeken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieuws.
+        /// </summary>
+        public static string Nieuws {
+            get {
+                return ResourceManager.GetString("Nieuws", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Privacy.
         /// </summary>
         public static string Privacy {
@@ -75,6 +138,60 @@ namespace Manga_Web.Translations.Views.Shared {
         public static string Start {
             get {
                 return ResourceManager.GetString("Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verkennen.
+        /// </summary>
+        public static string Verkennen {
+            get {
+                return ResourceManager.GetString("Verkennen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg boek toe.
+        /// </summary>
+        public static string Voeg_boek_toe {
+            get {
+                return ResourceManager.GetString("Voeg boek toe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg genre toe.
+        /// </summary>
+        public static string Voeg_genre_toe {
+            get {
+                return ResourceManager.GetString("Voeg genre toe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg nieuwe....
+        /// </summary>
+        public static string Voeg_nieuwe___ {
+            get {
+                return ResourceManager.GetString("Voeg nieuwe...", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg nieuwe auteurs toe.
+        /// </summary>
+        public static string Voeg_nieuwe_auteurs_toe {
+            get {
+                return ResourceManager.GetString("Voeg nieuwe auteurs toe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg nieuwsbericht toe.
+        /// </summary>
+        public static string Voeg_nieuwsbericht_toe {
+            get {
+                return ResourceManager.GetString("Voeg nieuwsbericht toe", resourceCulture);
             }
         }
     }

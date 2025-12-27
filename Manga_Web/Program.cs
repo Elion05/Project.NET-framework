@@ -11,6 +11,7 @@ using MangaBook_Models.Data;
 
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("MangaDbContextConnection") ?? throw new InvalidOperationException("Connection string 'MangaDbContextConnection' not found.");;
 
 
 //Add the DbContext for Entity Framework.

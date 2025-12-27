@@ -24,12 +24,12 @@
 
 //        public Task Execute(string to, string subject, string message)
 //        {
-//            //bericht aanmaken
+//            bericht aanmaken
 
 //            var email = new MimeMessage();
 //            email.Sender = MailboxAddress.Parse(Options.SenderEmail);
 
-//            if(!string.IsNullOrEmpty(Options.SenderName))
+//            if (!string.IsNullOrEmpty(Options.SenderName))
 //            {
 //                email.Sender.Name = Options.SenderName;
 //                email.From.Add(email.Sender);
