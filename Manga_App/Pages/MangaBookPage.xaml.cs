@@ -18,7 +18,6 @@ public partial class MangaBookPage : ContentPage
 		base.OnAppearing();
 
 		//Een call om de LoadMangaBooksCommand op te roepen
-
 		if (BindingContext is MangaBookViewModel vm)
 		{
 			await vm.LoadMangaBooksCommand.ExecuteAsync(null);

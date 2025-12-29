@@ -13,7 +13,8 @@ namespace Manga_App.ViewModels
         public MainViewModel(LocalDbContext context)
         {
             _context = context;
-            // Load books from the database on startup
+            
+            //boeken laden bij het opstarten
             LoadBooks();
         }
 
@@ -25,6 +26,8 @@ namespace Manga_App.ViewModels
 
         [ObservableProperty]
         string description = string.Empty;
+
+
 
         private async void LoadBooks()
         {
@@ -39,30 +42,30 @@ namespace Manga_App.ViewModels
                     await _context.MangaBooks.ToListAsync());
         }
 
-        [RelayCommand]
-        async Task VoegToe()
-        {
-            if (string.IsNullOrWhiteSpace(Title) ||
-                string.IsNullOrWhiteSpace(Description))
-                return;
+        //[RelayCommand]
+        //async Task VoegToe()
+        //{
+        //    if (string.IsNullOrWhiteSpace(Title) ||
+        //        string.IsNullOrWhiteSpace(Description))
+        //        return;
 
-            MangaBook boek = new MangaBook
-            {
-                Title = Title,
-                Description = Description,
-                Created = DateTime.Now,
-                ReleaseDate = DateTime.Now,
-                AuthorId = 1, // Placeholder
-                GenreId = 1   // Placeholder
-            };
+        //    MangaBook boek = new MangaBook
+        //    {
+        //        Title = Title,
+        //        Description = Description,
+        //        Created = DateTime.Now,
+        //        ReleaseDate = DateTime.Now,
+        //        AuthorId = 1, // Placeholder
+        //        GenreId = 1   // Placeholder
+        //    };
 
-            _context.MangaBooks.Add(boek);
-            await _context.SaveChangesAsync();
-            Mangaboeken.Add(boek);
+        //    _context.MangaBooks.Add(boek);
+        //    await _context.SaveChangesAsync();
+        //    Mangaboeken.Add(boek);
 
-            Title = string.Empty;
-            Description = string.Empty;
-        }
+        //    Title = string.Empty;
+        //    Description = string.Empty;
+        //}
 
 
 

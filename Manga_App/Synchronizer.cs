@@ -268,7 +268,7 @@ namespace Manga_App
             }
             catch (Exception ex)
             {
-                //
+               
             }
         }
 

@@ -25,7 +25,10 @@ namespace Manga_Web.API_Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MangaBook>>> GetMangaBooks()
         {
-            return await _context.MangaBooks.ToListAsync();
+            return await _context.MangaBooks
+                .Include(b => b.Author)
+                .Include(b => b.Genre)
+                .ToListAsync();
         }
 
         // GET: api/MangaBooks/5
