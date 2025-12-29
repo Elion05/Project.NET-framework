@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace Manga_App
 {
-    
+
 
     internal class Synchronizer
     {
@@ -102,10 +102,10 @@ namespace Manga_App
 
         internal async Task InitializeDb()
         {
-            
+
             await _context.Database.MigrateAsync();
 
-            
+
             if (!await _context.MangaUsers.AnyAsync())
             {
                 _context.Languages.Add(new Language { Code = "en", Name = "English" });
@@ -208,5 +208,70 @@ namespace Manga_App
                 await AllMangaBooks();
             }
         }
+
+
+
+        internal async Task<List<MangaBook>> GetMangaBooksFromApiAsync()
+        {
+            try
+            {
+                //if (!await IsAuthorized())
+                //    return new List<MangaBook>();
+
+                Uri uri = new Uri(General.ApiUrl + "MangaBooks");
+                HttpResponseMessage response = await client.GetAsync(uri);
+
+                if (!response.IsSuccessStatusCode)
+                    return new List<MangaBook>();
+
+                string responseBody = await response.Content.ReadAsStringAsync();
+
+                List<MangaBook>? boeken = JsonSerializer.Deserialize<List<MangaBook>>(responseBody, sOptions);
+
+
+                Console.WriteLine($"Aantal boeken opgehaald: {boeken?.Count ?? 0}"); //testen of de boeken wel worden opgehaalt
+
+                return boeken ?? new List<MangaBook>();
+            }
+            catch (Exception ex)
+            {
+                return new List<MangaBook>();
+            }
+        }
+
+
+
+
+        public async Task SyncMangaBooksFromApiAsync()
+        {
+            try
+            {
+                List<MangaBook> apiBoeken = await GetMangaBooksFromApiAsync();
+
+                if (apiBoeken.Count == 0)
+                    return;
+
+                foreach (var apiBook in apiBoeken)
+                {
+                    var existing = await _context.MangaBooks.FirstOrDefaultAsync(b => b.Id == apiBook.Id);
+                    if (existing != null)
+                    {
+                        _context.Entry(existing).CurrentValues.SetValues(apiBook);
+                    }
+                    else
+                    {
+                        _context.MangaBooks.Add(apiBook);
+                    }
+                }
+
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                //
+            }
+        }
+
+
     }
 }

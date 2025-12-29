@@ -1,6 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MangaBook_Models;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
+
 
 
 namespace Manga_App.ViewModels
@@ -8,16 +11,40 @@ namespace Manga_App.ViewModels
     public partial class MangaBookViewModel : ObservableObject
     {
         [ObservableProperty]
+        ObservableCollection<MangaBook> mangaBoeken = new(); 
         MangaBook mangaBook;
-
         readonly LocalDbContext _context;
+        readonly Synchronizer _synchronizer;
 
-        // Constructor updated to accept the context
+        //Constructor updated to accept the context
         public MangaBookViewModel(MangaBook book, LocalDbContext context)
         {
             mangaBook = book;
             _context = context;
+            _synchronizer = new Synchronizer(context);
         }
+
+
+        [RelayCommand]
+        public async Task LoadMangaBooks()
+        {
+            var boeken = await _synchronizer.GetMangaBooksFromApiAsync();
+
+            if (boeken.Any())
+            {
+                MangaBoeken.Clear();
+                foreach (var boek in boeken)
+                {
+                    MangaBoeken.Add(boek);
+                }
+            }
+               
+        }
+
+
+
+
+
 
         [RelayCommand]
         async Task Save()

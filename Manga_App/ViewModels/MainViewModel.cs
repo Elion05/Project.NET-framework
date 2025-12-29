@@ -28,8 +28,15 @@ namespace Manga_App.ViewModels
 
         private async void LoadBooks()
         {
-            var books = await _context.MangaBooks.ToListAsync();
-            Mangaboeken = new ObservableCollection<MangaBook>(books);
+            Synchronizer sync = new Synchronizer(_context);
+            var boeken = await sync.GetMangaBooksFromApiAsync();
+
+            if (boeken.Any())
+            
+                Mangaboeken = new ObservableCollection<MangaBook>(boeken);
+            else 
+                Mangaboeken = new ObservableCollection<MangaBook>(
+                    await _context.MangaBooks.ToListAsync());
         }
 
         [RelayCommand]
@@ -97,14 +104,11 @@ namespace Manga_App.ViewModels
         }
 
         [RelayCommand]
-        async Task OpenBoekenPagina()
+        public async Task OpenBoekenPagina()
         {
-            if (Application.Current?.MainPage is Page mainPage)
-            {
-                await mainPage.Navigation.PushAsync(
-                    new MangaBookPage(new MangaBookViewModel(new MangaBook(), _context))
-                    );
-            }
+            var context = new LocalDbContext();
+            var viewModel = new MangaBookViewModel(new MangaBook(), context);
+            await Shell.Current.Navigation.PushAsync(new MangaBookPage(viewModel));
         }
 
         [RelayCommand]
