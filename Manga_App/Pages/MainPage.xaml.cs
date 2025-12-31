@@ -19,4 +19,11 @@ public partial class MainPage : ContentPage
         var viewModel = new MangaBookViewModel(new MangaBook(), context);
         await Navigation.PushAsync(new MangaBookPage(viewModel));
     }
+
+    private async void AuthorsButton_Clicked(object sender, EventArgs e)
+    {
+        var context = new LocalDbContext();
+        var viewModel = new AuthorViewModel(new Author(), context);
+        await Navigation.PushAsync(new AuthorPage(viewModel));
+    }
 }

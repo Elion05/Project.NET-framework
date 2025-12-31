@@ -29,53 +29,53 @@ namespace Manga_App
         }
 
 
-        async Task AllMangaBooks()
-        {
-            // Synchronize local changes to API: Not yet implemented!
-            foreach (MangaBook book in _context.MangaBooks)
-            {
-                if (book.Id < 0)  // Modified or new book
-                {
-                }
-            }
+        //async Task AllMangaBooks()
+        //{
+        //    // Synchronize local changes to API: Not yet implemented!
+        //    foreach (MangaBook book in _context.MangaBooks)
+        //    {
+        //        if (book.Id < 0)  // Modified or new book
+        //        {
+        //        }
+        //    }
 
-            // Synchronize from API to local
-            if (await IsAuthorized())
-            {
-                Uri uri = new Uri(General.ApiUrl + "MangaBooks");
-                try
-                {
-                    HttpResponseMessage response = await client.GetAsync(uri);
-                    response.EnsureSuccessStatusCode();
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    List<MangaBook>? books = JsonSerializer.Deserialize<List<MangaBook>>(responseBody, sOptions);
-                    if (books != null && books.Count > 0)
-                    {
-                        // This logic is complex and might need review based on desired sync behavior.
-                        // For now, it attempts to update existing or add new books.
-                        foreach (MangaBook book in books)
-                        {
-                            MangaBook? existingBook = await _context.MangaBooks.FirstOrDefaultAsync(b => b.Id == book.Id);
-                            if (existingBook != null)
-                            {
-                                // Update existing book
-                                _context.Entry(existingBook).CurrentValues.SetValues(book);
-                            }
-                            else
-                            {
-                                // Add new book
-                                _context.MangaBooks.Add(book);
-                            }
-                        }
-                        await _context.SaveChangesAsync();
-                    }
-                }
-                catch (Exception)
-                {
-                    // TODO: Log exception
-                }
-            }
-        }
+        //    // Synchronize from API to local
+        //    if (await IsAuthorized())
+        //    {
+        //        Uri uri = new Uri(General.ApiUrl + "MangaBooks");
+        //        try
+        //        {
+        //            HttpResponseMessage response = await client.GetAsync(uri);
+        //            response.EnsureSuccessStatusCode();
+        //            string responseBody = await response.Content.ReadAsStringAsync();
+        //            List<MangaBook>? books = JsonSerializer.Deserialize<List<MangaBook>>(responseBody, sOptions);
+        //            if (books != null && books.Count > 0)
+        //            {
+        //                // This logic is complex and might need review based on desired sync behavior.
+        //                // For now, it attempts to update existing or add new books.
+        //                foreach (MangaBook book in books)
+        //                {
+        //                    MangaBook? existingBook = await _context.MangaBooks.FirstOrDefaultAsync(b => b.Id == book.Id);
+        //                    if (existingBook != null)
+        //                    {
+        //                        // Update existing book
+        //                        _context.Entry(existingBook).CurrentValues.SetValues(book);
+        //                    }
+        //                    else
+        //                    {
+        //                        // Add new book
+        //                        _context.MangaBooks.Add(book);
+        //                    }
+        //                }
+        //                await _context.SaveChangesAsync();
+        //            }
+        //        }
+        //        catch (Exception)
+        //        {
+        //            // TODO: Log exception
+        //        }
+        //    }
+        //}
 
 
         internal async Task<bool> IsAuthorized()
@@ -199,25 +199,23 @@ namespace Manga_App
             }
         }
 
-        internal async Task SynchronizeAll()
-        {
-            await LoginToAPI();
+        //internal async Task SynchronizeAll()
+        //{
+        //    await LoginToAPI();
 
-            if (!string.IsNullOrEmpty(General.UserId) && General.UserId.Length > 10)
-            {
-                await AllMangaBooks();
-            }
-        }
+        //    if (!string.IsNullOrEmpty(General.UserId) && General.UserId.Length > 10)
+        //    {
+        //        await AllMangaBooks();
+        //    }
+        //}
 
 
 
+        //MangaBooks ophalen vanuit de API
         internal async Task<List<MangaBook>> GetMangaBooksFromApiAsync()
         {
             try
             {
-                //if (!await IsAuthorized())
-                //    return new List<MangaBook>();
-
                 Uri uri = new Uri(General.ApiUrl + "MangaBooks");
                 HttpResponseMessage response = await client.GetAsync(uri);
 
@@ -240,7 +238,60 @@ namespace Manga_App
         }
 
 
+        //Auteurs ophalen vanuit de API
+        internal async Task<List<Author>> GetAuthorsFromApiAsync()
+        {
+            try
+            {
+                Uri uri = new Uri(General.ApiUrl + "Authors");
+                HttpResponseMessage response = await client.GetAsync(uri);
 
+                if (!response.IsSuccessStatusCode)
+                    return new List<Author>();
+
+                string responseBody = await response.Content.ReadAsStringAsync();
+                List<Author>? auteurs = JsonSerializer.Deserialize<List<Author>>(responseBody, sOptions);
+
+                Console.WriteLine($"Aantal auteurs opgehaald: {auteurs?.Count ?? 0}"); //testen of de auteurs wel worden opgehaald
+
+                return auteurs ?? new List<Author>();
+            }
+            catch (Exception)
+            {
+                return new List<Author>();
+            }
+        } 
+
+
+
+        public async Task SyncAuthorsFromApiAsync()
+        {
+            try
+            {
+                List<Author> apiAuteurs = await GetAuthorsFromApiAsync();
+
+                if (apiAuteurs.Count == 0)
+                    return;
+                foreach (var apiAuthor in apiAuteurs)
+                {
+                    var existing = await _context.Authors.FirstOrDefaultAsync(a => a.Id == apiAuthor.Id);
+                    if (existing != null)
+                    {
+                        _context.Entry(existing).CurrentValues.SetValues(apiAuthor);
+                    }
+                    else
+                    {
+                        _context.Authors.Add(apiAuthor);
+                    }
+                }
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+               Console.WriteLine($"Error synchronizing Authors: {ex.Message}");
+
+            }
+        }
 
         public async Task SyncMangaBooksFromApiAsync()
         {
@@ -268,7 +319,8 @@ namespace Manga_App
             }
             catch (Exception ex)
             {
-               
+                
+               Console.WriteLine($"Error synchronizing MangaBooks: {ex.Message}");
             }
         }
 

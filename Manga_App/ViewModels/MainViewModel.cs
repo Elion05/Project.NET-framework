@@ -13,13 +13,15 @@ namespace Manga_App.ViewModels
         public MainViewModel(LocalDbContext context)
         {
             _context = context;
-            
-            //boeken laden bij het opstarten
             LoadBooks();
+            LoadAuthors();
         }
 
         [ObservableProperty]
         ObservableCollection<MangaBook> mangaboeken;
+
+        [ObservableProperty]
+        ObservableCollection<Author> authors;
 
         [ObservableProperty]
         string title = string.Empty;
@@ -27,91 +29,20 @@ namespace Manga_App.ViewModels
         [ObservableProperty]
         string description = string.Empty;
 
-
-
-        private async void LoadBooks()
+        // Command voor navigatie naar boekenpagina
+        [RelayCommand]
+        async Task OpenBoekenPagina()
         {
-            Synchronizer sync = new Synchronizer(_context);
-            var boeken = await sync.GetMangaBooksFromApiAsync();
-
-            if (boeken.Any())
-            
-                Mangaboeken = new ObservableCollection<MangaBook>(boeken);
-            else 
-                Mangaboeken = new ObservableCollection<MangaBook>(
-                    await _context.MangaBooks.ToListAsync());
+            var vm = new MangaBookViewModel(new MangaBook(), _context);
+            await Shell.Current.Navigation.PushAsync(new MangaBookPage(vm));
         }
 
-        //[RelayCommand]
-        //async Task VoegToe()
-        //{
-        //    if (string.IsNullOrWhiteSpace(Title) ||
-        //        string.IsNullOrWhiteSpace(Description))
-        //        return;
-
-        //    MangaBook boek = new MangaBook
-        //    {
-        //        Title = Title,
-        //        Description = Description,
-        //        Created = DateTime.Now,
-        //        ReleaseDate = DateTime.Now,
-        //        AuthorId = 1, // Placeholder
-        //        GenreId = 1   // Placeholder
-        //    };
-
-        //    _context.MangaBooks.Add(boek);
-        //    await _context.SaveChangesAsync();
-        //    Mangaboeken.Add(boek);
-
-        //    Title = string.Empty;
-        //    Description = string.Empty;
-        //}
-
-
-
+        // Command voor navigatie naar auteurs pagina
         [RelayCommand]
-        async Task Verwijder(MangaBook book)
+        async Task OpenAuteursPagina()
         {
-            if (book == null) return;
-
-            if (Application.Current?.MainPage is Page mainPage)
-            {
-                bool confirm = await mainPage.DisplayAlert(
-                    "Verwijder Manga",
-                    $"Ben je zeker dat je '{book.Title}' wil verwijderen?",
-                    "Ja",
-                    "Nee");
-
-                if (confirm)
-                {
-                    _context.MangaBooks.Remove(book);
-                    await _context.SaveChangesAsync();
-                    Mangaboeken.Remove(book);
-                }
-            }
-        }
-
-
-        [RelayCommand]
-        async Task Bewerk(MangaBook book)
-        {
-            if (book == null) return;
-
-            if (Application.Current?.MainPage is Page mainPage)
-            {
-                await mainPage.Navigation.PushAsync(
-                    new MangaBookPage(
-                        new MangaBookViewModel(book, _context)
-                    ));
-            }
-        }
-
-        [RelayCommand]
-        public async Task OpenBoekenPagina()
-        {
-            var context = new LocalDbContext();
-            var viewModel = new MangaBookViewModel(new MangaBook(), context);
-            await Shell.Current.Navigation.PushAsync(new MangaBookPage(viewModel));
+            var vm = new AuthorViewModel(new Author(), _context);
+            await Shell.Current.Navigation.PushAsync(new AuthorPage(vm));
         }
 
         [RelayCommand]
@@ -122,6 +53,31 @@ namespace Manga_App.ViewModels
                 await mainPage.Navigation.PushAsync(
                     new LoginPage(new LoginViewModel(_context), _context));
             }
+        }
+
+        private async void LoadBooks()
+        {
+            Synchronizer sync = new Synchronizer(_context);
+            var boeken = await sync.GetMangaBooksFromApiAsync();
+
+            if (boeken.Any())
+                Mangaboeken = new ObservableCollection<MangaBook>(boeken);
+            else
+                Mangaboeken = new ObservableCollection<MangaBook>(
+                    await _context.MangaBooks.ToListAsync());
+        }
+
+        
+        private async void LoadAuthors()
+        {
+            Synchronizer sync = new Synchronizer(_context);
+            var auteurs = await sync.GetAuthorsFromApiAsync();
+
+            if (auteurs.Any())
+                Authors = new ObservableCollection<Author>(auteurs);
+            else
+                Authors = new ObservableCollection<Author>(
+                    await _context.Authors.ToListAsync());
         }
     }
 }

@@ -24,6 +24,7 @@ public partial class MangaBookPage : ContentPage
 		}
 	}
 
+
 	private void MijnBoekenButton_Clicked(object sender, EventArgs e)
 	{
 		

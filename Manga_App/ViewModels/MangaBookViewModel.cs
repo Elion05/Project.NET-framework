@@ -25,6 +25,8 @@ namespace Manga_App.ViewModels
         }
 
 
+
+        //dit is de command om de manga boeken te laden vanuit de API die in de Manga_Web zit
         [RelayCommand]
         public async Task LoadMangaBooks()
         {
@@ -43,9 +45,7 @@ namespace Manga_App.ViewModels
 
 
 
-
-
-
+        //dit is de command om een manga boek op te slaan in de lokale database
         [RelayCommand]
         async Task Save()
         {
