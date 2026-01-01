@@ -79,6 +79,9 @@
 		<MauiXaml Update="Pages\AuthorPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Pages\GenrePage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Pages\MangaBookPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

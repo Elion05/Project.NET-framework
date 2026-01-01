@@ -26,4 +26,12 @@ public partial class MainPage : ContentPage
         var viewModel = new AuthorViewModel(new Author(), context);
         await Navigation.PushAsync(new AuthorPage(viewModel));
     }
+
+    private async void GenreButton_Clicked(object sender, EventArgs e)
+    {
+        var context = new LocalDbContext();
+        var viewModel = new GenreViewModel(new Genre(), context);
+        await Navigation.PushAsync(new GenrePage(viewModel));
+    }
+
 }

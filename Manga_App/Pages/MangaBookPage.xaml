@@ -35,7 +35,7 @@
                                        TextColor="#888" />
                                 <Label Text="{Binding Author.Name, StringFormat='Auteur: {0}'}"
                                        FontSize="12"
-                                       TextColor="#888" />
+                                       TextColor="#888"/>
                                 <Label Text="{Binding Genre.Name, StringFormat='Genre: {0}'}"
                                        FontSize="12"
                                        TextColor="#888" />

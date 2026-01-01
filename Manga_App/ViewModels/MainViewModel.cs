@@ -15,6 +15,7 @@ namespace Manga_App.ViewModels
             _context = context;
             LoadBooks();
             LoadAuthors();
+            LoadGenres();
         }
 
         [ObservableProperty]
@@ -22,6 +23,9 @@ namespace Manga_App.ViewModels
 
         [ObservableProperty]
         ObservableCollection<Author> authors;
+
+        [ObservableProperty]
+        ObservableCollection<Genre> genres; 
 
         [ObservableProperty]
         string title = string.Empty;
@@ -43,6 +47,14 @@ namespace Manga_App.ViewModels
         {
             var vm = new AuthorViewModel(new Author(), _context);
             await Shell.Current.Navigation.PushAsync(new AuthorPage(vm));
+        }
+
+
+        [RelayCommand]
+        async Task OpenGenresPagina()
+        {
+            var vm = new GenreViewModel(new Genre(), _context);
+            await Shell.Current.Navigation.PushAsync(new GenrePage(vm));
         }
 
         [RelayCommand]
@@ -78,6 +90,19 @@ namespace Manga_App.ViewModels
             else
                 Authors = new ObservableCollection<Author>(
                     await _context.Authors.ToListAsync());
+        }
+
+
+
+       private async void LoadGenres()
+        {
+            Synchronizer sync = new Synchronizer(_context);
+            var genres = await sync.GetGenresFromApiAsync();
+            if (genres.Any())
+                Genres = new ObservableCollection<Genre>(genres);
+            else
+                Genres = new ObservableCollection<Genre>(
+                    await _context.Genres.ToListAsync());
         }
     }
 }

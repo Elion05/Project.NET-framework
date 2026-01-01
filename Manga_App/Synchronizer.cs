@@ -264,6 +264,35 @@ namespace Manga_App
 
 
 
+        internal async Task<List<Genre>> GetGenresFromApiAsync()
+        {
+            try
+            {
+                Uri uri = new Uri(General.ApiUrl + "Genres");
+                HttpResponseMessage response = await client.GetAsync(uri);
+
+                //controlleer of de response succesvol is
+                if (!response.IsSuccessStatusCode)
+                    return new List<Genre>();
+
+
+                string responseBody = await response.Content.ReadAsStringAsync();
+                List<Genre>? genres = JsonSerializer.Deserialize<List<Genre>>(responseBody, sOptions);
+
+                Console.WriteLine($"Aantal genres opgehaald: {genres?.Count ?? 0}"); //testen of de genres wel worden opgehaald
+
+                return genres ?? new List<Genre>();
+            }
+
+            // Als er een fout optreedt, retourneer een lege lijst
+            catch (Exception)
+            {
+                return new List<Genre>();
+            }
+        }
+
+
+
         public async Task SyncAuthorsFromApiAsync()
         {
             try
