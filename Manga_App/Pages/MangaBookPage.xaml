@@ -22,23 +22,23 @@
                                 <Label Text="{Binding Title}"
                                        FontSize="18"
                                        FontAttributes="Bold"
-                                       TextColor="#222" />
+                                       TextColor="White" />
                                 <Label Text="{Binding Description}"
                                        FontSize="14"
-                                       TextColor="#555"
+                                       TextColor="White"
                                        LineBreakMode="WordWrap" />
                                 <Label Text="{Binding ReleaseDate, StringFormat='Publicatiedatum: {0:dd-MM-yyyy}'}"
                                        FontSize="12"
-                                       TextColor="#888" />
+                                       TextColor="White" />
                                 <Label Text="{Binding AverageRating, StringFormat='Rating: {0:F1}'}"
                                        FontSize="12"
-                                       TextColor="#888" />
+                                       TextColor="White" />
                                 <Label Text="{Binding Author.Name, StringFormat='Auteur: {0}'}"
                                        FontSize="12"
-                                       TextColor="#888"/>
+                                       TextColor="White"/>
                                 <Label Text="{Binding Genre.Name, StringFormat='Genre: {0}'}"
                                        FontSize="12"
-                                       TextColor="#888" />
+                                       TextColor="White" />
                             </VerticalStackLayout>
                         </Frame>
                     </DataTemplate>

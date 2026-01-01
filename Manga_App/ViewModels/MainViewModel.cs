@@ -16,6 +16,7 @@ namespace Manga_App.ViewModels
             LoadBooks();
             LoadAuthors();
             LoadGenres();
+            LoadNieuwsBerichten();
         }
 
         [ObservableProperty]
@@ -25,7 +26,11 @@ namespace Manga_App.ViewModels
         ObservableCollection<Author> authors;
 
         [ObservableProperty]
-        ObservableCollection<Genre> genres; 
+        ObservableCollection<Genre> genres;
+
+
+        [ObservableProperty]
+        ObservableCollection<Nieuws_Bericht> nieuwsBericht;
 
         [ObservableProperty]
         string title = string.Empty;
@@ -58,6 +63,13 @@ namespace Manga_App.ViewModels
         }
 
         [RelayCommand]
+        async Task OpenNieuwsBerichtenPagina()
+        {
+            var vm = new Nieuws_BerichtViewModel(new Nieuws_Bericht(), _context);
+            await Shell.Current.Navigation.PushAsync(new Nieuws_BerichtPage(vm));
+        }
+
+        [RelayCommand]
         async Task GoToLogin()
         {
             if (Application.Current?.MainPage is Page mainPage)
@@ -79,7 +91,7 @@ namespace Manga_App.ViewModels
                     await _context.MangaBooks.ToListAsync());
         }
 
-        
+
         private async void LoadAuthors()
         {
             Synchronizer sync = new Synchronizer(_context);
@@ -94,7 +106,7 @@ namespace Manga_App.ViewModels
 
 
 
-       private async void LoadGenres()
+        private async void LoadGenres()
         {
             Synchronizer sync = new Synchronizer(_context);
             var genres = await sync.GetGenresFromApiAsync();
@@ -103,6 +115,20 @@ namespace Manga_App.ViewModels
             else
                 Genres = new ObservableCollection<Genre>(
                     await _context.Genres.ToListAsync());
+        }
+
+
+
+
+        private async void LoadNieuwsBerichten()
+        {
+            Synchronizer sync = new Synchronizer(_context);
+            var berichten = await sync.GetNieuwsBerichtenFromApiAsync();
+            if (berichten.Any())
+                NieuwsBericht = new ObservableCollection<Nieuws_Bericht>(berichten);
+            else
+                NieuwsBericht = new ObservableCollection<Nieuws_Bericht>(
+                    await _context.Nieuws_Berichten.ToListAsync());
         }
     }
 }

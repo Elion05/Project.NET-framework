@@ -260,7 +260,7 @@ namespace Manga_App
             {
                 return new List<Author>();
             }
-        } 
+        }
 
 
 
@@ -291,6 +291,29 @@ namespace Manga_App
             }
         }
 
+        internal async Task<List<Nieuws_Bericht>> GetNieuwsBerichtenFromApiAsync()
+        {
+            try
+            {
+                Uri uri = new Uri(General.ApiUrl + "Nieuws_Bericht");
+                HttpResponseMessage response = await client.GetAsync(uri);
+
+                if (!response.IsSuccessStatusCode)
+                    return new List<Nieuws_Bericht>();
+
+                string responseBody = await response.Content.ReadAsStringAsync();
+                List<Nieuws_Bericht>? berichten = JsonSerializer.Deserialize<List<Nieuws_Bericht>>(responseBody, sOptions);
+
+                Console.WriteLine($"Aantal nieuwsberichten opgehaald: {berichten?.Count ?? 0}");
+
+                return berichten ?? new List<Nieuws_Bericht>();
+            }
+            catch (Exception)
+            {
+                return new List<Nieuws_Bericht>();
+            }
+        }
+
 
 
         public async Task SyncAuthorsFromApiAsync()
@@ -317,7 +340,7 @@ namespace Manga_App
             }
             catch (Exception ex)
             {
-               Console.WriteLine($"Error synchronizing Authors: {ex.Message}");
+                Console.WriteLine($"Error synchronizing Authors: {ex.Message}");
 
             }
         }
@@ -348,11 +371,69 @@ namespace Manga_App
             }
             catch (Exception ex)
             {
-                
-               Console.WriteLine($"Error synchronizing MangaBooks: {ex.Message}");
+
+                Console.WriteLine($"Error synchronizing MangaBooks: {ex.Message}");
             }
         }
 
 
+        public async Task SyncGenresFromApiAsync()
+        {
+            try
+            {
+                List<Genre> apiGenres = await GetGenresFromApiAsync();
+                if (apiGenres.Count == 0)
+                    return;
+                foreach (var apiGenre in apiGenres)
+                {
+                    var existing = await _context.Genres.FirstOrDefaultAsync(g => g.Id == apiGenre.Id);
+                    if (existing != null)
+                    {
+                        _context.Entry(existing).CurrentValues.SetValues(apiGenre);
+                    }
+                    else
+                    {
+                        _context.Genres.Add(apiGenre);
+                    }
+                }
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error synchronizing Genres: {ex.Message}");
+            }
+        }
+
+
+
+        public async Task SyncNieuwsBerichten()
+        {
+            try
+            {
+                List<Nieuws_Bericht> apiBerichten = await GetNieuwsBerichtenFromApiAsync();
+                if (apiBerichten.Count == 0)
+                    return;
+
+                foreach (var apiBericht in apiBerichten)
+                {
+                    var existing = await _context.Nieuws_Berichten.FirstOrDefaultAsync(b => b.Id == apiBericht.Id);
+
+                    if (existing != null)
+                    {
+                        _context.Entry(existing).CurrentValues.SetValues(apiBericht);
+                    }
+                    else
+                    {
+                        _context.Nieuws_Berichten.Add(apiBericht);
+                    }
+                }
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error synchronizing Nieuws_Berichten: {ex.Message}");
+            }
+        }
     }
 }
+

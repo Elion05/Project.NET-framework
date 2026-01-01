@@ -21,7 +21,7 @@
                            HasShadow="True">
                             <VerticalStackLayout>
                                 <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" />
-                                <Label Text="{Binding GeboorteDatum, StringFormat='Geboortedatum: {0}'}" FontSize="14" />
+                                <Label Text="{Binding geboorteDatum, StringFormat='Geboortedatum: {0}'}" FontSize="14" />
                                 <Label Text="{Binding Nationaliteit, StringFormat='Nationaliteit: {0}'}" FontSize="14" />
                                 <Label Text="{Binding favoriteFood, StringFormat='Favoriet eten: {0}'}" FontSize="14" />
                                 <Label Text="{Binding FavorieteSport, StringFormat='Favoriete sport: {0}'}" FontSize="14" />

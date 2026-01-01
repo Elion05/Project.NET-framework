@@ -34,4 +34,11 @@ public partial class MainPage : ContentPage
         await Navigation.PushAsync(new GenrePage(viewModel));
     }
 
+    private async void NieuwsBerichtButton_Clicked(object sender, EventArgs e)
+    {
+        var context = new LocalDbContext();
+        var viewModel = new Nieuws_BerichtViewModel(new Nieuws_Bericht(), context);
+        await Navigation.PushAsync(new Nieuws_BerichtPage(viewModel));
+    }
+
 }

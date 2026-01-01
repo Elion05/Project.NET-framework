@@ -16,6 +16,8 @@ namespace MangaBook_Models
 
         public DbSet<LoginModel> LoginModels { get; set; }
 
+        public DbSet<Nieuws_Bericht> Nieuws_Berichten { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
