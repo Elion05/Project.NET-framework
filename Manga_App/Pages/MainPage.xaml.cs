@@ -10,35 +10,32 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         BindingContext = viewModel;
-
     }
 
-    private async void MijnBoekenButton_Clicked(object sender, EventArgs e)
+    private async void HomeButton_Clicked(object sender, EventArgs e)
     {
         var context = new LocalDbContext();
-        var viewModel = new MangaBookViewModel(new MangaBook(), context);
-        await Navigation.PushAsync(new MangaBookPage(viewModel));
+        var vm = new HomeViewModel(context);
+        await Navigation.PushAsync(new HomePage(vm));
     }
 
-    private async void AuthorsButton_Clicked(object sender, EventArgs e)
+    private async void OnLoginPageRequested(object sender, EventArgs e)
     {
         var context = new LocalDbContext();
-        var viewModel = new AuthorViewModel(new Author(), context);
-        await Navigation.PushAsync(new AuthorPage(viewModel));
-    }
+        var loginViewModel = new LoginViewModel(context);
+        var loginPage = new LoginPage(loginViewModel, context);
 
-    private async void GenreButton_Clicked(object sender, EventArgs e)
-    {
-        var context = new LocalDbContext();
-        var viewModel = new GenreViewModel(new Genre(), context);
-        await Navigation.PushAsync(new GenrePage(viewModel));
-    }
+        // Abonneer op het LoginSucceeded event
+        loginViewModel.LoginSucceeded += async (s, args) =>
+        {
+            
+            await Navigation.PopAsync();
 
-    private async void NieuwsBerichtButton_Clicked(object sender, EventArgs e)
-    {
-        var context = new LocalDbContext();
-        var viewModel = new Nieuws_BerichtViewModel(new Nieuws_Bericht(), context);
-        await Navigation.PushAsync(new Nieuws_BerichtPage(viewModel));
-    }
+            
+            var homeVm = new HomeViewModel(context);
+            await Navigation.PushAsync(new HomePage(homeVm));
+        };
 
+        await Navigation.PushAsync(loginPage);
+    }
 }

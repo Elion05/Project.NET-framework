@@ -76,10 +76,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\ProfielPage.xaml.cs">
+	    <DependentUpon>ProfielPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 		<MauiXaml Update="Pages\AuthorPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Pages\GenrePage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Pages\HomePage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Pages\MangaBookPage.xaml">
@@ -91,6 +100,10 @@
 		</MauiXaml>
 		
 		<MauiXaml Update="Pages\Nieuws_BerichtPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		
+		<MauiXaml Update="Pages\ProfielPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 	</ItemGroup>

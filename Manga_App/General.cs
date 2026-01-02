@@ -11,8 +11,11 @@ namespace Manga_App
     {
 
         public static  string ApiUrl = "https://localhost:7280/api/";
-        public static MangaUser? User;
-        public static string? UserId;
+
+        internal static MangaUser User = null;
+        internal static string UserId = "";
+
+
         public static long LocalIdCounter = -1;
 
     }

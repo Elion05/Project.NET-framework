@@ -26,7 +26,13 @@ namespace Manga_Web.API_Controllers
 
             if (result.Succeeded)
             {
-                return Ok();
+                // Haal de user op uit de database
+                var user = await _signInManager.UserManager.FindByNameAsync(model.Username);
+                if (user != null)
+                {
+                    return Ok(user); // Stuur het user-object terug
+                }
+                return NotFound();
             }
             return Unauthorized();
         }

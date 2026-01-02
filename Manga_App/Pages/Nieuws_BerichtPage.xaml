@@ -11,6 +11,9 @@
                    FontSize="24"
                    FontAttributes="Bold"
                    HorizontalOptions="Center" />
+
+          
+
             <CollectionView ItemsSource="{Binding NieuwsBerichten}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -38,4 +41,4 @@
             </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
-</ContentPage>p 
+</ContentPage>

@@ -32,6 +32,8 @@ namespace Manga_App.ViewModels
         [ObservableProperty]
         bool isMessageVisible = false;
 
+        public event EventHandler? LoginSucceeded;
+
         [RelayCommand]
         async Task Login()
         {
@@ -46,17 +48,18 @@ namespace Manga_App.ViewModels
             bool result = await synchronizer.Login(loginModel);
             if (result)
             {
-                if (Application.Current?.MainPage?.Navigation != null)
-                {
-                    await Application.Current.MainPage.Navigation.PopAsync();
-                }
+                LoginSucceeded?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 isMessageVisible = true;
                 Message = "Slechte login, probeer opnieuw of registreer je.";
-            }
 
+                if (Application.Current?.MainPage is Page mainPage)
+                {
+                    await mainPage.DisplayAlert("Login mislukt", "Je kon niet inloggen. Probeer opnieuw of registreer je.", "OK");
+                }
+            }
         }
     }
 }

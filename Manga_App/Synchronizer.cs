@@ -89,8 +89,8 @@ namespace Manga_App
                 HttpResponseMessage response = await client.GetAsync(uri);
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
-                General.User = JsonSerializer.Deserialize<MangaUser>(responseBody, sOptions);
-                General.UserId = General.User?.Id;
+                General.User = JsonSerializer.Deserialize<MangaUser>(responseBody, sOptions) ?? MangaUser.Dummy;
+                General.UserId = General.User.Id ?? MangaUser.Dummy.Id;
                 return !string.IsNullOrEmpty(General.UserId) && General.UserId.Length > 10;
             }
             catch (Exception)
@@ -146,8 +146,8 @@ namespace Manga_App
 
                 HttpResponseMessage response = await client.PostAsync(uri, content);
                 string responseBody = await response.Content.ReadAsStringAsync();
-                General.User = JsonSerializer.Deserialize<MangaUser>(responseBody, sOptions);
-                General.UserId = General.User?.Id;
+                General.User = JsonSerializer.Deserialize<MangaUser>(responseBody, sOptions) ?? MangaUser.Dummy;
+                General.UserId = General.User.Id ?? MangaUser.Dummy.Id;
 
                 if (!string.IsNullOrEmpty(General.UserId) && General.UserId.Length > 10)
                 {
@@ -199,15 +199,15 @@ namespace Manga_App
             }
         }
 
-        //internal async Task SynchronizeAll()
-        //{
-        //    await LoginToAPI();
+        internal async Task SynchronizeAll()
+        {
+            await LoginToAPI();
 
-        //    if (!string.IsNullOrEmpty(General.UserId) && General.UserId.Length > 10)
-        //    {
-        //        await AllMangaBooks();
-        //    }
-        //}
+            if (!string.IsNullOrEmpty(General.UserId) && General.UserId.Length > 10)
+            {
+                
+            }
+        }
 
 
 
