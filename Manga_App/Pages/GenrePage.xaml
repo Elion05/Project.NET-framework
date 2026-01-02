@@ -4,25 +4,37 @@
              x:Class="Manga_App.Pages.GenrePage"
              xmlns:viewmodel="clr-namespace:Manga_App.ViewModels">
 
-
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="10">
+        <VerticalStackLayout Padding="20" Spacing="0">
             <Label Text="Genres"
-                   FontSize="24"
+                   FontSize="28"
                    FontAttributes="Bold"
-                   HorizontalOptions="Center" />
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,20" />
             <CollectionView ItemsSource="{Binding Genres}">
+                
+                <!--Dit toegevoegd zodat de data niet tegen elkaar blijft plakken-->
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="24"/>
+                </CollectionView.ItemsLayout>
+                
+                
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame Margin="5"
-                               Padding="10"
+                        <Frame Padding="18"
                                BorderColor="#ccc"
-                               CornerRadius="10"
-                               HasShadow="True">
+                               CornerRadius="18"
+                               HasShadow="True"
+                               BackgroundColor="#F5F5F5">
                             <VerticalStackLayout>
-                                <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" />
-                                <Label Text="."/>
-                                <Label Text="{Binding genreBeschrijving}" FontSize="14" LineBreakMode="WordWrap" />
+                                <Label Text="{Binding Name}"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="#222" />
+                                <Label Text="{Binding genreBeschrijving}"
+                                       FontSize="15"
+                                       TextColor="#444"
+                                       LineBreakMode="WordWrap" />
                             </VerticalStackLayout>
                         </Frame>
                     </DataTemplate>
@@ -30,8 +42,4 @@
             </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
-
-
-
-
 </ContentPage>

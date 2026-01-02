@@ -24,6 +24,7 @@ namespace Manga_Web.API_Controllers
         {
             var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, isPersistent: false, lockoutOnFailure: false);
 
+
             if (result.Succeeded)
             {
                 // Haal de user op uit de database

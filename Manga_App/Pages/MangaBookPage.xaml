@@ -4,40 +4,49 @@
              x:Class="Manga_App.Pages.MangaBookPage">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="10">
+        <VerticalStackLayout Padding="20,20,20,40" Spacing="0">
             <Label Text="Manga Boeken"
-                   FontSize="24"
+                   FontSize="32"
                    FontAttributes="Bold"
-                   HorizontalOptions="Center" />
-
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,20"/>
+            
+            <!--Zoekbalk om de boeken op te zoeken-->
             <CollectionView ItemsSource="{Binding MangaBoeken}">
+                
+                <!--Dit toegevoegd zodat de data niet tegen elkaar blijft plakken-->
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="24"/>
+                </CollectionView.ItemsLayout>
+                
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame Margin="5"
-                               Padding="10"
+                        <Frame Margin="0,0,0,24"
+                               Padding="18"
                                BorderColor="#ccc"
-                               CornerRadius="10"
-                               HasShadow="True">
+                               CornerRadius="18"
+                               HasShadow="True"
+                               BackgroundColor="Black">
                             <VerticalStackLayout>
                                 <Label Text="{Binding Title}"
-                                       FontSize="18"
+                                       FontSize="24"
                                        FontAttributes="Bold"
                                        TextColor="White" />
                                 <Label Text="{Binding Description}"
-                                       FontSize="14"
+                                       FontSize="18"
                                        TextColor="White"
                                        LineBreakMode="WordWrap" />
                                 <Label Text="{Binding ReleaseDate, StringFormat='Publicatiedatum: {0:dd-MM-yyyy}'}"
-                                       FontSize="12"
+                                       FontSize="16"
                                        TextColor="White" />
                                 <Label Text="{Binding AverageRating, StringFormat='Rating: {0:F1}'}"
-                                       FontSize="12"
+                                       FontSize="16"
                                        TextColor="White" />
                                 <Label Text="{Binding Author.Name, StringFormat='Auteur: {0}'}"
-                                       FontSize="12"
+                                       FontSize="16"
                                        TextColor="White"/>
                                 <Label Text="{Binding Genre.Name, StringFormat='Genre: {0}'}"
-                                       FontSize="12"
+                                       FontSize="16"
                                        TextColor="White" />
                             </VerticalStackLayout>
                         </Frame>

@@ -2,6 +2,7 @@ using Manga_App.Pages;
 using MangaBook_Models;
 using Manga_App.ViewModels;
 
+
 namespace Manga_App.Pages;
 
 public partial class HomePage : ContentPage
@@ -15,7 +16,7 @@ public partial class HomePage : ContentPage
 
 
 
-	 private async void MijnBoekenButton_Clicked(object sender, EventArgs e)
+	private async void MijnBoekenButton_Clicked(object sender, EventArgs e)
     {
         var context = new LocalDbContext();
         var viewModel = new MangaBookViewModel(new MangaBook(), context);
@@ -54,4 +55,6 @@ public partial class HomePage : ContentPage
             await DisplayAlert("Niet ingelogd", "Je moet ingelogd zijn om je profiel te bekijken.", "OK");
         }
     }
+
+   
 }

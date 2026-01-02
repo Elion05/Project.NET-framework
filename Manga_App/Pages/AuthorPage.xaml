@@ -12,6 +12,12 @@
                HorizontalOptions="Center" />
 
             <CollectionView ItemsSource="{Binding Authors}">
+
+                <!--Dit toegevoegd zodat de data niet tegen elkaar blijft plakken-->
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="24"/>
+                </CollectionView.ItemsLayout>
+                
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame Margin="5"

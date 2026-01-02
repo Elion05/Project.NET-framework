@@ -2,9 +2,17 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Manga_App.Pages.HomePage">
-    
-    <VerticalStackLayout Grid.Row="1" Spacing="10" Margin="10,0" VerticalOptions="End">
-        <Button Text="Mijn Boeken" 
+    <ScrollView>
+        <VerticalStackLayout Spacing="10" Margin="10,0" VerticalOptions="End">
+
+            <Image Source="shonen_jump.png"
+               HeightRequest="230"
+               WidthRequest="580"
+               Aspect="AspectFit"
+               HorizontalOptions="Center"
+               Margin="0,40,0,20"/>
+
+            <Button Text="Bekijk onze boeken" 
                 Command="{Binding OpenBoekenPaginaCommand}"
                 HorizontalOptions="Fill"
                 BackgroundColor="#2B3A55"
@@ -12,8 +20,7 @@
                 FontAttributes="Bold"
                 HeightRequest="50"/>
 
-
-        <Button Text="Auteurs"
+            <Button Text="Onze auteurs"
                 Command="{Binding OpenAuteursPaginaCommand}"
                 HorizontalOptions="Fill"
                 BackgroundColor="#2B3A55"
@@ -21,7 +28,7 @@
                 FontAttributes="Bold"
                 HeightRequest="50"/>
 
-        <Button Text="Genres"
+            <Button Text="Onze genres"
                 Command="{Binding OpenGenresPaginaCommand}"
                 HorizontalOptions="Fill"
                 BackgroundColor="#2B3A55"
@@ -29,19 +36,21 @@
                 FontAttributes="Bold"
                 HeightRequest="50"/>
 
-        <Button Text="Nieuwsberichten" Command="{Binding OpenNieuwsBerichtenPaginaCommand}"
+            <Button Text="Nieuws van vandaag" Command="{Binding OpenNieuwsBerichtenPaginaCommand}"
                 HorizontalOptions="Fill"
                 BackgroundColor="#2B3A55"
                 TextColor="White"
                 FontAttributes="Bold"
                 HeightRequest="50"/>
 
-        <Button Text="Profiel"
+            <Button Text="Profiel"
                 Clicked="ProfielButton_Clicked"
                 HorizontalOptions="Fill"
                 BackgroundColor="#2B3A55"
                 TextColor="White"
                 FontAttributes="Bold"
                 HeightRequest="50"/>
-    </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

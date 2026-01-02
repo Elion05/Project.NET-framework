@@ -2,17 +2,56 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Manga_App.Pages.ProfielPage"
-             xmlns:viewmodel="clr-namespace:Manga_App.ViewModels">
+             xmlns:viewmodel="clr-namespace:Manga_App.ViewModels"
+             BackgroundColor="#F5F5F5">
 
-    <VerticalStackLayout Padding="20" Spacing="10">
-        <Label Text="Profielpagina" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
-        <Label Text="Voornaam:" FontAttributes="Bold"/>
-        <Label Text="{Binding FirstName}" />
-        <Label Text="Achternaam:" FontAttributes="Bold"/>
-        <Label Text="{Binding LastName}" />
-        <Label Text="Gebruikersnaam:" FontAttributes="Bold"/>
-        <Label Text="{Binding Username}" />
-        <Label Text="Email:" FontAttributes="Bold"/>
-        <Label Text="{Binding Email}" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="30,40" Spacing="24" HorizontalOptions="Center">
+            
+            <Label Text="Profiel
+                   
+                   "
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="#333"
+                   HorizontalOptions="Center" />
+
+            <Frame Padding="20" CornerRadius="16" BackgroundColor="White" HasShadow="True" WidthRequest="320">
+                <Grid RowSpacing="16" ColumnSpacing="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Text="Voornaam:" FontAttributes="Bold" TextColor="#666"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding FirstName}" TextColor="#222"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" Text="Achternaam:" FontAttributes="Bold" TextColor="#666"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding LastName}" TextColor="#222"/>
+
+                    <Label Grid.Row="2" Grid.Column="0" Text="Gebruikersnaam:" FontAttributes="Bold" TextColor="#666"/>
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding Username}" TextColor="#222"/>
+
+                    <Label Grid.Row="3" Grid.Column="0" Text="Email:" FontAttributes="Bold" TextColor="#666"/>
+                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding Email}" TextColor="#222"/>
+                </Grid>
+            </Frame>
+
+            <Button Text="Home"
+                    Clicked="HomeButton_Clicked"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="#2B3A55"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    HeightRequest="50"/>
+        </VerticalStackLayout>
+    </ScrollView>
+    
+    
 </ContentPage>

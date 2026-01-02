@@ -1,6 +1,7 @@
 ﻿using MangaBook_Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Storage;
 
 
 namespace Manga_App.ViewModels
@@ -8,6 +9,7 @@ namespace Manga_App.ViewModels
     public partial class LoginViewModel : ObservableObject
     {
         LocalDbContext _context;
+
 
         public LoginViewModel(LocalDbContext context)
         {
@@ -48,6 +50,17 @@ namespace Manga_App.ViewModels
             bool result = await synchronizer.Login(loginModel);
             if (result)
             {
+                if (RememberMe)
+                {
+                    Preferences.Set("username", UserName);
+                    Preferences.Set("rememberMe", true);
+                    // eventueel ook een token opslaan
+                }
+                else
+                {
+                    Preferences.Remove("username");
+                    Preferences.Set("rememberMe", false);
+                }
                 LoginSucceeded?.Invoke(this, EventArgs.Empty);
             }
             else
