@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MangaBook_Models;
 using Microsoft.EntityFrameworkCore;
@@ -13,8 +14,17 @@ namespace Manga_App.ViewModels
         [ObservableProperty]
         ObservableCollection<MangaBook> mangaBoeken = new(); 
         MangaBook mangaBook;
+
+
+        ObservableCollection<MangaBook> alleMangaBoeken;
+
         readonly LocalDbContext _context;
         readonly Synchronizer _synchronizer;
+
+        [ObservableProperty]
+        string searchText;
+
+     
 
         //Constructor updated to accept the context
         public MangaBookViewModel(MangaBook book, LocalDbContext context)
@@ -22,6 +32,11 @@ namespace Manga_App.ViewModels
             mangaBook = book;
             _context = context;
             _synchronizer = new Synchronizer(context);
+
+
+            //boeken halen uit de lokale database dankzij Synchronizer
+            alleMangaBoeken = new ObservableCollection<MangaBook>(context.MangaBooks.ToList());
+            MangaBoeken = new ObservableCollection<MangaBook>(alleMangaBoeken);
         }
 
 
@@ -34,48 +49,39 @@ namespace Manga_App.ViewModels
 
             if (boeken.Any())
             {
-                MangaBoeken.Clear();
+                alleMangaBoeken.Clear();
                 foreach (var boek in boeken)
                 {
-                    MangaBoeken.Add(boek);
+                    alleMangaBoeken.Add(boek);
                 }
+
+                MangaBoeken = new ObservableCollection<MangaBook>(alleMangaBoeken);
             }
                
         }
 
-
-
-        //dit is de command om een manga boek op te slaan in de lokale database
+        
         [RelayCommand]
-        async Task Save()
+        void Search(string query)
         {
-            if (mangaBook == null || string.IsNullOrWhiteSpace(mangaBook.Title))
+            if (string.IsNullOrWhiteSpace(query))
             {
-                // TODO: Show an alert to the user
-                return;
-            }
-
-            if (mangaBook.Id == 0)
-            {
-                // New book
-                _context.MangaBooks.Add(mangaBook);
+                MangaBoeken = new ObservableCollection<MangaBook>(alleMangaBoeken);
             }
             else
             {
-                // Existing book
-                _context.MangaBooks.Update(mangaBook);
+               //Boeken filteren op titel
+                MangaBoeken = new ObservableCollection<MangaBook>(
+                    alleMangaBoeken.Where(b => b.Title.Contains(query, StringComparison.OrdinalIgnoreCase))
+                );
             }
-
-            await _context.SaveChangesAsync();
-
-            // Navigate back
-            if (Application.Current?.Windows[0].Page is Page mainPage)
-            {
-                await mainPage.Navigation.PopAsync();
-            }
+            
+          
         }
     }
 }
+
+
 
 
 

@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MangaBook_Models;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 
 namespace Manga_App.ViewModels
@@ -10,18 +9,29 @@ namespace Manga_App.ViewModels
     {
         [ObservableProperty]
         ObservableCollection<Author> authors = new();
-
         Author author;
-        readonly LocalDbContext _context;
+
+        //readonly LocalDbContext _context;
         readonly Synchronizer _synchronizer;
 
-        
+        ObservableCollection<Author> alleAuteurs;
 
-        public AuthorViewModel(Author author, LocalDbContext context)
+
+        [ObservableProperty]
+        string searchaa;
+
+
+
+        public AuthorViewModel(Author authors, LocalDbContext context)
         {
-            this.author = author;
-            _context = context;
+            authors = authors;
+            //_context = context;
             _synchronizer = new Synchronizer(context);
+
+            alleAuteurs = new ObservableCollection<Author>(context.Authors.ToList());
+            Authors = new ObservableCollection<Author>(alleAuteurs);
+
+
         }
 
        
@@ -31,11 +41,36 @@ namespace Manga_App.ViewModels
         public async Task LoadAuthors()
         {
             var auteurs = await _synchronizer.GetAuthorsFromApiAsync();
-            Authors.Clear();
-            foreach (var auteur in auteurs)
+
+
+            if (auteurs.Any())
             {
-                Authors.Add(auteur);
+                alleAuteurs.Clear();
+                foreach(var auteur in auteurs)
+                {
+                    alleAuteurs.Add(auteur);
+                }
+
+                Authors = new ObservableCollection<Author>(alleAuteurs);
             }
         }
+
+        [RelayCommand]
+        void Search(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                Authors = new ObservableCollection<Author>(alleAuteurs);
+            }
+            else
+            {
+                Authors = new ObservableCollection<Author>
+                    (alleAuteurs.Where(a => a.Name.Contains(query, StringComparison.OrdinalIgnoreCase)));
+            }
+        }
+
+
     }
 }
+
+   

@@ -117,22 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Genre" xml:space="preserve">
-    <value>Genre</value>
+  <data name="Naam" xml:space="preserve">
+    <value>Naam</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Nom</value>
-  </data>
-  <data name="Terug naar volledige lijst" xml:space="preserve">
-    <value>Retour à list complete</value>
-  </data>
-  <data name="Voeg nieuwe genre toe" xml:space="preserve">
-    <value>Ajouter nouveau genre</value>
-  </data>
-  <data name="Zoeken" xml:space="preserve">
-    <value>Chercher</value>
-  </data>
-  <data name="Zoeken op naam" xml:space="preserve">
-    <value>Chercher à nom</value>
+  <data name="Verwijderen" xml:space="preserve">
+    <value>Verwijderen</value>
   </data>
 </root>

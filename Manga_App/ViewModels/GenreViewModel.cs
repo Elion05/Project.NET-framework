@@ -11,18 +11,26 @@ namespace Manga_App.ViewModels
 
         [ObservableProperty]
         ObservableCollection<Genre> genres = new();
-
-
         Genre genre;
-        readonly LocalDbContext _context;
+
+        ObservableCollection<Genre> alleGenres;
+
+        //readonly LocalDbContext _context;
         readonly Synchronizer _synchronizer;
 
+        [ObservableProperty]
+        string searchtt;
+
         //constructor om een genre te initialiseren vanuit de database en de synchronizer te gebruiken
-        public GenreViewModel(Genre genre, LocalDbContext context)
+        public GenreViewModel(Genre genres, LocalDbContext context)
         {
-            this.genre = genre;
-            _context = context;
+            genres = genres;
+            //_context = context;
             _synchronizer = new Synchronizer(context);
+            
+
+            alleGenres = new ObservableCollection<Genre>(context.Genres.ToList());
+            Genres = new ObservableCollection<Genre>(alleGenres);
         }
 
 
@@ -31,10 +39,32 @@ namespace Manga_App.ViewModels
         public async Task LoadGenres()
         {
             var genresFromApi = await _synchronizer.GetGenresFromApiAsync();
-            Genres.Clear();
-            foreach (var genre in genresFromApi)
+
+
+            if (genresFromApi.Any())
             {
-                Genres.Add(genre);
+                alleGenres.Clear();
+                foreach(var genre in genresFromApi)
+                {
+                    alleGenres.Add(genre);
+                }
+                Genres = new ObservableCollection<Genre>(alleGenres);
+            }
+        }
+
+
+        [RelayCommand]
+        void Search(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                Genres = new ObservableCollection<Genre>(alleGenres);
+            }
+            else
+            {
+                //filteren van genres op basis van de naam
+                Genres = new ObservableCollection<Genre>
+                    (alleGenres.Where(g => g.Name.Contains(query, StringComparison.OrdinalIgnoreCase)));
             }
         }
 

@@ -12,6 +12,17 @@
                    Margin="0,0,0,20"/>
             
             <!--Zoekbalk om de boeken op te zoeken-->
+            <SearchBar Placeholder="Zoek op naam"
+                       Text="{Binding SearchText, Mode=TwoWay}"
+                       SearchCommand="{Binding SearchCommand}"
+                       SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}"
+                       Margin="0,0,0,20"/>
+            
+            
+
+           
+
+
             <CollectionView ItemsSource="{Binding MangaBoeken}">
                 
                 <!--Dit toegevoegd zodat de data niet tegen elkaar blijft plakken-->
@@ -19,6 +30,7 @@
                     <LinearItemsLayout Orientation="Vertical" ItemSpacing="24"/>
                 </CollectionView.ItemsLayout>
                 
+                <!--Data van mangaboeken-->
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame Margin="0,0,0,24"

@@ -29,53 +29,7 @@ namespace Manga_App
         }
 
 
-        //async Task AllMangaBooks()
-        //{
-        //    // Synchronize local changes to API: Not yet implemented!
-        //    foreach (MangaBook book in _context.MangaBooks)
-        //    {
-        //        if (book.Id < 0)  // Modified or new book
-        //        {
-        //        }
-        //    }
-
-        //    // Synchronize from API to local
-        //    if (await IsAuthorized())
-        //    {
-        //        Uri uri = new Uri(General.ApiUrl + "MangaBooks");
-        //        try
-        //        {
-        //            HttpResponseMessage response = await client.GetAsync(uri);
-        //            response.EnsureSuccessStatusCode();
-        //            string responseBody = await response.Content.ReadAsStringAsync();
-        //            List<MangaBook>? books = JsonSerializer.Deserialize<List<MangaBook>>(responseBody, sOptions);
-        //            if (books != null && books.Count > 0)
-        //            {
-        //                // This logic is complex and might need review based on desired sync behavior.
-        //                // For now, it attempts to update existing or add new books.
-        //                foreach (MangaBook book in books)
-        //                {
-        //                    MangaBook? existingBook = await _context.MangaBooks.FirstOrDefaultAsync(b => b.Id == book.Id);
-        //                    if (existingBook != null)
-        //                    {
-        //                        // Update existing book
-        //                        _context.Entry(existingBook).CurrentValues.SetValues(book);
-        //                    }
-        //                    else
-        //                    {
-        //                        // Add new book
-        //                        _context.MangaBooks.Add(book);
-        //                    }
-        //                }
-        //                await _context.SaveChangesAsync();
-        //            }
-        //        }
-        //        catch (Exception)
-        //        {
-        //            // TODO: Log exception
-        //        }
-        //    }
-        //}
+        
 
 
         internal async Task<bool> IsAuthorized()
@@ -100,36 +54,36 @@ namespace Manga_App
             }
         }
 
-        internal async Task InitializeDb()
-        {
+        //internal async Task InitializeDb()
+        //{
 
-            await _context.Database.MigrateAsync();
+        //    await _context.Database.MigrateAsync();
 
 
-            if (!await _context.MangaUsers.AnyAsync())
-            {
-                _context.Languages.Add(new Language { Code = "en", Name = "English" });
-                _context.Languages.Add(new Language { Code = "fr", Name = "français" });
-                _context.Languages.Add(new Language { Code = "nl", Name = "Nederlands" });
-                MangaUser user = new MangaUser { UserName = "-", Email = "(local)", FirstName = "Local", LastName = "User", LanguageCode = "nl" };
-                _context.MangaUsers.Add(user);
-                await _context.SaveChangesAsync();
-                _context.Genres.Add(new Genre { Name = "?" });
-                await _context.SaveChangesAsync();
-            }
+        //    if (!await _context.MangaUsers.AnyAsync())
+        //    {
+        //        _context.Languages.Add(new Language { Code = "en", Name = "English" });
+        //        _context.Languages.Add(new Language { Code = "fr", Name = "français" });
+        //        _context.Languages.Add(new Language { Code = "nl", Name = "Nederlands" });
+        //        MangaUser user = new MangaUser { UserName = "-", Email = "(local)", FirstName = "Local", LastName = "User", LanguageCode = "nl" };
+        //        _context.MangaUsers.Add(user);
+        //        await _context.SaveChangesAsync();
+        //        _context.Genres.Add(new Genre { Name = "?" });
+        //        await _context.SaveChangesAsync();
+        //    }
 
-            // Set the counter for local IDs to a safe negative value
-            if (await _context.MangaBooks.AnyAsync())
-            {
-                long minId = await _context.MangaBooks.MinAsync(a => a.Id);
-                if (minId < 0)
-                {
-                    General.LocalIdCounter = minId - 1;
-                }
-            }
+        //    // Set the counter for local IDs to a safe negative value
+        //    if (await _context.MangaBooks.AnyAsync())
+        //    {
+        //        long minId = await _context.MangaBooks.MinAsync(a => a.Id);
+        //        if (minId < 0)
+        //        {
+        //            General.LocalIdCounter = minId - 1;
+        //        }
+        //    }
 
-            dbExists = true;
-        }
+        //    dbExists = true;
+        //}
 
         internal async Task<bool> Login(LoginModel loginModel)
         {

@@ -44,13 +44,13 @@
                     FontAttributes="Bold"
                     HeightRequest="50"/>
 
-            <Button Text="Home"
+            <!--<Button Text="Home"
                 Clicked="HomeButton_Clicked"
         HorizontalOptions="Fill"
         BackgroundColor="#2B3A55"
         TextColor="White"
         FontAttributes="Bold"
-        HeightRequest="50"/>
+        HeightRequest="50"/>-->
 
         </VerticalStackLayout>
     </Grid>

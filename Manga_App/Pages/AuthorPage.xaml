@@ -11,6 +11,12 @@
                FontAttributes="Bold"
                HorizontalOptions="Center" />
 
+            <SearchBar Placeholder="Zoek op naam"
+                       Text="{Binding Searchaa, Mode=TwoWay}"
+                       SearchCommand="{Binding SearchCommand}"
+                       SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}"
+                       Margin="0,0,0,20"/>
+
             <CollectionView ItemsSource="{Binding Authors}">
 
                 <!--Dit toegevoegd zodat de data niet tegen elkaar blijft plakken-->

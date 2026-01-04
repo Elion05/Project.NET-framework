@@ -4,6 +4,7 @@
 @using Microsoft.AspNetCore.Mvc.Localization;
 
 @inject IHtmlLocalizer<SharedResource> _shared
+@inject IViewLocalizer _localizer
 
 @{
     Layout = null;
@@ -34,7 +35,7 @@
         </td>
 
         <td>
-            <a class="action-link action-delete" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+            <a class="action-link action-delete" asp-action="Delete" asp-route-id="@Model.Id">@_localizer["Verwijderen"]</a>
         </td>
     </tr>
 

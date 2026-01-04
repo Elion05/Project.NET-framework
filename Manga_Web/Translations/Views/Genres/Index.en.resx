@@ -120,6 +120,9 @@
   <data name="Genre" xml:space="preserve">
     <value>Genre</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
   <data name="Terug naar volledige lijst" xml:space="preserve">
     <value>Back to full list</value>
   </data>

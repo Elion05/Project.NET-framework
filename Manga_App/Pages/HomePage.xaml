@@ -7,7 +7,7 @@
 
             <Image Source="shonen_jump.png"
                HeightRequest="230"
-               WidthRequest="580"
+               WidthRequest="400"
                Aspect="AspectFit"
                HorizontalOptions="Center"
                Margin="0,40,0,20"/>
