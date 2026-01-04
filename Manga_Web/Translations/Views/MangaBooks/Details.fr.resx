@@ -117,7 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Title" xml:space="preserve">
-    <value>Title</value>
+  <data name="Details" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="MangaBoek" xml:space="preserve">
+    <value>Livre de Manga</value>
+  </data>
+  <data name="Thuis scherm" xml:space="preserve">
+    <value>Ecran la maison</value>
+  </data>
+  <data name="Volledige lijst" xml:space="preserve">
+    <value>List Complete</value>
   </data>
 </root>

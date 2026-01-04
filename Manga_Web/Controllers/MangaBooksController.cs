@@ -1,11 +1,6 @@
-﻿using AspNetCore.Unobtrusive.Ajax;
-using Humanizer.Localisation;
-using MangaBook_Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using MangaBook_Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Manga_Web.Middleware;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using MangaBook_Models.Data;
@@ -27,15 +22,17 @@ namespace Manga_Web
         }
 
         // GET: MangaBooks
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, int? genreId, string sorteren)
         {
 
             
             ViewData["Authors"] = new SelectList(_context.Authors, "Id", "Name");
             ViewData["Genres"] = new SelectList(_context.Genres, "Id", "Name");
             ViewData["CurrentFilter"] = searchString;
+            ViewData["CurrentGenre"] = genreId;
+            ViewData["Sorteren"] = sorteren;
 
-            var mangaBooks = from m in _context.MangaBooks.Include(m => m.Author).Include(m => m.Genre)
+            var mangaBooks =   from m in _context.MangaBooks.Include(m => m.Author).Include(m => m.Genre)
                              select m;
 
             if (!String.IsNullOrEmpty(searchString))
@@ -43,7 +40,39 @@ namespace Manga_Web
                 mangaBooks = mangaBooks.Where(s => s.Title.Contains(searchString));
             }
 
-            var result = await mangaBooks.AsNoTracking().ToListAsync();
+            //dit is om de boek te sorteren op genre. als er geen is zie je een error message
+            if(genreId.HasValue && genreId.Value != 0)
+            {
+              mangaBooks = mangaBooks.Where(m => m.GenreId == genreId.Value);
+            }
+            //dit is om te sorteren op datum en titel
+            if (!string.IsNullOrEmpty(sorteren))
+            {
+                switch (sorteren)
+                {
+                    case "title":
+                        mangaBooks = mangaBooks.OrderBy(m => m.Title);
+                        break;
+                    case "title_desc":
+                        mangaBooks = mangaBooks.OrderByDescending(m => m.Title);
+                        break;
+                    case "date":
+                        mangaBooks = mangaBooks.OrderBy(m => m.ReleaseDate);
+                        break;
+                    case "date_desc":
+                        mangaBooks = mangaBooks.OrderByDescending(m => m.ReleaseDate);
+                        break;
+                    default:
+                        mangaBooks = mangaBooks.OrderBy(m => m.Title);
+                        break;
+                }
+            }
+            else
+            {
+                mangaBooks = mangaBooks.OrderBy(m => m.Title);
+            }
+
+                var result = await mangaBooks.AsNoTracking().ToListAsync();
 
             if (result.Count == 0)
             {
@@ -251,9 +280,6 @@ namespace Manga_Web
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MangaBookExists(int id)
-        {
-            return _context.MangaBooks.Any(e => e.Id == id);
-        }   
+        
     }
 }

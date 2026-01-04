@@ -13,13 +13,32 @@
 
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
-        <p class="search-bar-mangaboek">
-            @_localizer["Zoeken op naam"]: <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" />
-            <input type="submit" value= @_localizer["Zoeken"] class="btn btn-default" /> |
+        <section id="filter" style="display: flex; gap: 1rem; align-items: center;">
+            <label for="searchString">@_localizer["Zoeken op naam"]:</label>
+            <input type="text" id="searchString" name="searchString" value="@ViewData["CurrentFilter"]" />
+
+            <!--filteren op genre-->
+            <label for="genreId">@_localizer["Filteren op genre"]:</label>
+            <select id="genreId" name="genreId" asp-items="@(ViewData["Genres"] as SelectList)">
+                <option value="0">@_localizer["Alle genres"]</option>
+            </select>
+
+            <!--sorteren op title ABC en datum -->
+            <label for="sorteren">@_localizer["Sorteren op"]:</label>
+            <select id="sorteren" name="sorteren">
+                <option value="title">@_localizer["Titel (A-Z)"]</option>
+                <option value="title_desc">@_localizer["Titel (Z-A)"]</option>
+                <option value="date">@_localizer["Jaar (oud-nieuw)"]</option>
+                <option value="date_desc">@_localizer["Jaar (nieuw-oud)"]</option>
+            </select>
+
+            <input type="submit" value=@_localizer["Zoeken"] class="btn btn-default" />
             <a asp-action="Index">@_localizer["Terug naar volledige lijst"]</a>
-        </p>
+        </section>
     </div>
 </form>
+
+
 
 
 @if (Model.Any())
@@ -67,7 +86,7 @@
 }
 else if (ViewData["ShowNoBooksMessage"] as bool? == true)
 {
-    <p>@_localizer["Geen boeken gevonden"]</p>
+    <p style="color: red;">@_localizer["Geen boeken gevonden"]</p>
 }
 
 @section Scripts {

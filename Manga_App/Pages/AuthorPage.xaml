@@ -16,6 +16,7 @@
                        SearchCommand="{Binding SearchCommand}"
                        SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}"
                        Margin="0,0,0,20"/>
+            
 
             <CollectionView ItemsSource="{Binding Authors}">
 

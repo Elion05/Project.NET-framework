@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 
+
 namespace MangaBook_Models
 {
     public class MangaBook
@@ -12,7 +13,7 @@ namespace MangaBook_Models
         public int Id { get; set; }
 
         [Required, MaxLength(40)]
-        [Display(Name = "Title")]
+        [Display(Name = "Titel")]
         public string Title { get; set; } = string.Empty;
 
         [Required, MaxLength(130)]
@@ -28,7 +29,7 @@ namespace MangaBook_Models
         [DataType(DataType.Date)]
         public DateTime ReleaseDate { get; set; } = DateTime.Now;
 
-        [Display(Name = "Rating")]
+        [Display(Name = "Beoordeling")]
         public double AverageRating { get; set; }
 
 
@@ -38,7 +39,7 @@ namespace MangaBook_Models
         [ForeignKey("Author")]
         public int AuthorId { get; set; }
         public Author? Author { get; set; }
-        //1) 
+         
         [Required]
         [Display(Name = "Genre")]
         [ForeignKey("Genre")]

@@ -9,7 +9,6 @@
 
 <h1>@_localizer["Genre"]</h1>
 
-
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
         <p class="search-bar-author">
@@ -20,27 +19,23 @@
     </div>
 </form>
 
-
-
-
-
-<table class="table">
-    <thead class="thead-table-genre">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.genreBeschrijving)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        
-
-            @if(User.IsInRole("Admin"))
+@if (Model.Any())
+{
+    <table class="table">
+        <thead class="thead-table-genre">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.genreBeschrijving)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model) {
+            if(User.IsInRole("Admin"))
             {
                 @await Html.PartialAsync("EditGenre", item)
             }
@@ -52,6 +47,11 @@
             {
                 <partial name="EditGenre" model="item" />
             }
+        }
+        </tbody>
+    </table>
 }
-    </tbody>
-</table>
+else if (ViewData["ShowNoGenreMessage"] as bool? == true)
+{
+    <p style="color:red">@_localizer["Geen genres gevonden"]</p>
+}

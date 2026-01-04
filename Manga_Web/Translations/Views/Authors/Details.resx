@@ -117,49 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Manga Boeken" xml:space="preserve">
-    <value>Livre de manga</value>
+  <data name="Autheur" xml:space="preserve">
+    <value>Author</value>
   </data>
-  <data name="Terug naar volledige lijst" xml:space="preserve">
-    <value>Retour à list complete</value>
+  <data name="Terug naar Lijst" xml:space="preserve">
+    <value>Terug naar Lijst</value>
   </data>
-  <data name="Geen boeken gevonden" xml:space="preserve">
-    <value>On ne pas trouvé cette livre ici</value>
-  </data>
-  <data name="Zoeken" xml:space="preserve">
-    <value>Chercher</value>
-  </data>
-  <data name="Zoeken op naam" xml:space="preserve">
-    <value>Rechercher a nom</value>
-  </data>
-  <data name="Sorteren op" xml:space="preserve">
-    <value>Trie de</value>
-  </data>
-  <data name="oud-nieuw" xml:space="preserve">
-    <value>ancien-nouveau</value>
-  </data>
-  <data name="nieuw-oud" xml:space="preserve">
-    <value>ancien-nouveau</value>
-  </data>
-  <data name="Sorteren" xml:space="preserve">
-    <value>Trier</value>
-  </data>
-  <data name="Alle genres" xml:space="preserve">
-    <value>Tout le genre</value>
-  </data>
-  <data name="Titel (A-Z)" xml:space="preserve">
-    <value>Titre (A-Z)</value>
-  </data>
-  <data name="Titel (Z-A)" xml:space="preserve">
-    <value>Titre (Z-A)</value>
-  </data>
-  <data name="Jaar (oud-nieuw)" xml:space="preserve">
-    <value>Année (ancien-nouveau)</value>
-  </data>
-  <data name="Jaar (nieuw-oud)" xml:space="preserve">
-    <value>Année(nouveau-ancien)</value>
-  </data>
-  <data name="Filteren op genre" xml:space="preserve">
-    <value>Filtre de genre</value>
+  <data name="Terug naar Manga lijst" xml:space="preserve">
+    <value>Terug naar Manga lijst</value>
   </data>
 </root>

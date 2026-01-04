@@ -121,7 +121,19 @@
     <value>Auteur</value>
   </data>
   <data name="Geen auteurs gevonden" xml:space="preserve">
-    <value>Pas de author ici</value>
+    <value>Autheur pas trouve</value>
+  </data>
+  <data name="nieuw-oud" xml:space="preserve">
+    <value>Nouveau-ancien</value>
+  </data>
+  <data name="oud-nieuw" xml:space="preserve">
+    <value>ancien-nouveau</value>
+  </data>
+  <data name="Sorteren" xml:space="preserve">
+    <value>Sorte</value>
+  </data>
+  <data name="Sorteren op" xml:space="preserve">
+    <value>Sorte de</value>
   </data>
   <data name="Terug naar volledige lijst" xml:space="preserve">
     <value>Retour à list complete</value>

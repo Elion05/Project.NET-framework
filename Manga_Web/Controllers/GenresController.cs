@@ -30,7 +30,7 @@ namespace Manga_Web
             var results = await genres.AsNoTracking().ToListAsync();
             if (results.Count == 0)
             {
-                ViewData["Message"] = "No genres found.";
+                ViewData["ShowNoGenreMessage"] = true;
             }
             return View("Index", results);
         }

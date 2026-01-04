@@ -23,9 +23,21 @@ namespace Manga_Web.Controllers
         }
 
         // GET: LogErrors
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View(await _context.LogErrors.ToListAsync());
+            var logErrors = _context.LogErrors.AsQueryable();
+
+            switch (sortOrder)
+            {
+                case "date_desc":
+                    logErrors = logErrors.OrderByDescending(l => l.TimeStamp);
+                    break;
+                default:
+                    logErrors = logErrors.OrderBy(l => l.TimeStamp);
+                    break;
+            }
+
+            return View(await logErrors.ToListAsync());
         }
 
         // GET: LogErrors/Details/5

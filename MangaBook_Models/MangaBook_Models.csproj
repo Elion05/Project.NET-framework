@@ -29,19 +29,4 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="9.0.10" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Resources\MangaBooks.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>MangaBooks.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\MangaBooks.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MangaBooks.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-
 </Project>

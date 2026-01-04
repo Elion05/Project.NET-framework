@@ -132,4 +132,34 @@
   <data name="Zoeken op naam" xml:space="preserve">
     <value>Zoeken op naam</value>
   </data>
+  <data name="Sorteren op" xml:space="preserve">
+    <value>Sorteren op</value>
+  </data>
+  <data name="oud-nieuw" xml:space="preserve">
+    <value>oud-nieuw</value>
+  </data>
+  <data name="nieuw-oud" xml:space="preserve">
+    <value>nieuw-oud</value>
+  </data>
+  <data name="Sorteren" xml:space="preserve">
+    <value>Sorteren</value>
+  </data>
+  <data name="Alle genres" xml:space="preserve">
+    <value>Alle genres</value>
+  </data>
+  <data name="Titel (A-Z)" xml:space="preserve">
+    <value>Titel (A-Z)</value>
+  </data>
+  <data name="Titel (Z-A)" xml:space="preserve">
+    <value>Titel (Z-A)</value>
+  </data>
+  <data name="Jaar (oud-nieuw)" xml:space="preserve">
+    <value>Jaar (oud-nieuw)</value>
+  </data>
+  <data name="Jaar (nieuw-oud)" xml:space="preserve">
+    <value>Jaar (nieuw-oud)</value>
+  </data>
+  <data name="Filteren op genre" xml:space="preserve">
+    <value>Filteren op genre</value>
+  </data>
 </root>

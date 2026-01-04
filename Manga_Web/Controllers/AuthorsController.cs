@@ -25,14 +25,29 @@ namespace Manga_Web
         }
 
         // GET: Authors
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, string sorteerAuteur)
         {
-           ViewData["CurrentFilter"] = searchString;
+            ViewData["CurrentFilter"] = searchString;
+            ViewData["CurrentSort"] = sorteerAuteur;
+
             var authors = from m in _context.Authors
                           select m;
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 authors = authors.Where(s => s.Name.Contains(searchString));
+            }
+
+            //Sorteer op geboortedatum
+            switch (sorteerAuteur)
+            {
+                case "date_desc":
+                    authors = authors.OrderByDescending(a => a.geboorteDatum);
+                    break;
+                case "date":
+                default:
+                    authors = authors.OrderBy(a => a.geboorteDatum);
+                    break;
             }
 
             var result = await authors.AsNoTracking().ToListAsync();

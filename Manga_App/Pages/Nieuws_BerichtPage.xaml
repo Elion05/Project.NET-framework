@@ -13,6 +13,8 @@
                    Margin="0,0,0,20" />
             <Label Text="Bekijk hier alle nieuwsberichten van de MangaBooktracker😊!" FontSize="19" FontAttributes="Bold" Margin="0,0,0,20" HorizontalOptions="Center"/>
 
+            <Button Text="Druk om te sorteren beginned oudste/nieuwste" Command="{Binding SorterenCommand}"/>
+
             <CollectionView ItemsSource="{Binding NieuwsBerichten}">
 
                 <!--Dit toegevoegd zodat de data niet tegen elkaar blijft plakken-->

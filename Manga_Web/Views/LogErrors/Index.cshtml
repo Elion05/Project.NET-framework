@@ -1,10 +1,13 @@
 ﻿@model IEnumerable<MangaBook_Models.LogError>
+@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IViewLocalizer _localizer
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Log Errors</h1>
+<h1>@_localizer["Log Errors"]</h1>
 
 
 @if (User.IsInRole("Admin") == false && User.IsInRole("System_Admin") == false)
@@ -15,6 +18,15 @@
 }
 
 <link rel="stylesheet" href="~/css/LogErrors.css" asp-append-version="true" />
+<!--Sorteren knop zoals in de mangaboeken-->
+<form asp-action="Index" method="get">
+    <label for="sortOrder">@_localizer["Sorteren op"]:</label>
+    <select id="sortOrder" name="sortOrder">
+        <option value="date">@_localizer["oud-nieuw"]</option>
+        <option value="date_desc">@_localizer["nieuw-oud"]</option>
+    </select>
+    <input type="submit" value="@_localizer["Sorteren"]" />
+</form>
 
 <table class="table">
     <thead>

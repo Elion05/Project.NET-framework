@@ -1,12 +1,15 @@
-﻿@model MangaBook_Models.MangaBook
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model MangaBook_Models.MangaBook
 
+
+@inject IViewLocalizer _localizer
 @{
     ViewData["Title"] = "Details";
 }
 
 <div class="manga-page-container">
-    <h1 class="manga-details-title">Details</h1>
-    <h4>MangaBook</h4>
+    <h1 class="manga-details-title">@_localizer["Details"]</h1>
+    <h4>@_localizer["MangaBoek"]</h4>
     <hr />
     <dl class="row details-list">
         <dt class = "col-sm-2">
@@ -49,6 +52,9 @@
         </dd>
     </dl>
     <div class="manga-page-actions">
-        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        <a asp-action="Index" class="btn btn-secondary">@_localizer["Volledige lijst"]</a>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">
+            @_localizer["Thuis scherm"]
+        </a>
     </div>
 </div>
