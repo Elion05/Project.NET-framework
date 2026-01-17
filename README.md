@@ -9,8 +9,8 @@ Voor dit project heb ik een applicatie gemaakt waar lezers boeken kunnen opzoeke
 ### Backend & Data ##
 *   **Framework**: .NET 9.0 (ASP.NET Core MVC).
 *   **Database**: Entity Framework Core met SQL Server.
-*   **Architectuur**: Ik heb een gescheiden Class Library (`MangaBook_Models`) gebruikt voor de domein-modellen en database-context.
-*   **Asynchrone Verwerking**: Ik heb systematisch gebruik gemaakt van `async/await` in de controllers.
+*   **Architectuur**: Ik heb een gescheiden Class Library (`MangaBook_Models`) gebruikt voor de modellen en database context.
+*   **Asynchrone Verwerking**: Ik heb systematisch gebruik gemaakt van async/await in de controllers.
 *   **Middleware**: Ik heb mijn eigen custom middleware (`MijnGebruiker`) geschreven voor request handling/gebruikersbeheer.
 *   **Seeding**: Bij het opstarten wordt de database automatisch gevuld met dummy data (Users, Roles, Books, Authors, Genres).
 
