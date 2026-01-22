@@ -9,33 +9,34 @@ namespace MangaBook_Models
         [Key]
         public int Id { get; set; }
 
+        // Vereiste: systematisch (data-) annotatie om de nodige controles uit te voeren
         [Required]
         [MaxLength(30)]
-        [Display(Name = "Auteur naam")]
+        [Display(Name = "Name", ResourceType = typeof(Resources.Models.Author))]
         public string Name { get; set; } = "";
 
         [Required]
-        [Display(Name = "Geboorte datum")]
+        [Display(Name = "geboorteDatum", ResourceType = typeof(Resources.Models.Author))]
         [DataType(DataType.Date)]
         public string geboorteDatum { get; set; } = "";
 
         [Required]
         [MaxLength(240)]
-        [Display(Name = "Beschrijving")]
+        [Display(Name = "description", ResourceType = typeof(Resources.Models.Author))]
         [DataType(DataType.MultilineText)]
         public string description { get; set; } = "";
 
         //favoriete eten 
         [MaxLength(30)]
-        [Display(Name = "Favoriet eten")]
+        [Display(Name = "favoriteFood", ResourceType = typeof(Resources.Models.Author))]
         public string? favoriteFood { get; set; }
 
         [MaxLength(30)]
-        [Display(Name = "Nationaliteit")]
+        [Display(Name = "Nationaliteit", ResourceType = typeof(Resources.Models.Author))]
         public string? Nationaliteit { get; set; }
 
         [MaxLength(30)]
-        [Display(Name = "Favoriete Sport")]
+        [Display(Name = "FavorieteSport", ResourceType = typeof(Resources.Models.Author))]
         public string? FavorieteSport { get; set; }
 
         //dummy data

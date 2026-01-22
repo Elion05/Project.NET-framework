@@ -16,13 +16,13 @@ namespace MangaBook_Models
 
         [Required]
         [MaxLength(20)]
-        [Display(Name = "Genre naam")]
+        [Display(Name = "Name", ResourceType = typeof(Resources.Models.Genre))]
         public string Name { get; set; } = string.Empty;
 
 
         [Required]
         [MaxLength(250)]
-        [Display(Name = "Beschrijving")]
+        [Display(Name = "genreBeschrijving", ResourceType = typeof(Resources.Models.Genre))]
         public string genreBeschrijving { get; set; } = string.Empty;
 
         //dummy data

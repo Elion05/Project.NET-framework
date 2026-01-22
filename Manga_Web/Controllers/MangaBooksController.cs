@@ -21,6 +21,8 @@ namespace Manga_Web
             _localizer = localizer;
         }
 
+        // Vereiste: systematisch gebruik van asynchrone verwerking in de backend
+        // OPDRACHT: Asynchrone verwerking in de backend wordt hier systematisch toegepast (async/await).
         // GET: MangaBooks
         public async Task<IActionResult> Index(string searchString, int? genreId, string sorteren)
         {
@@ -35,6 +37,8 @@ namespace Manga_Web
             var mangaBooks =   from m in _context.MangaBooks.Include(m => m.Author).Include(m => m.Genre)
                              select m;
 
+            // Vereiste: selectie- (filter-) en/of sorteringsvelden in je index-pagina's
+            // OPDRACHT: Selectie- (filter-) en sorteringsvelden in de index-pagina.
             if (!String.IsNullOrEmpty(searchString))
             {
                 mangaBooks = mangaBooks.Where(s => s.Title.Contains(searchString));
@@ -150,6 +154,7 @@ namespace Manga_Web
                 return NotFound();
             }
 
+            // Vereiste: Je gebruikt een eigen middleware om de userId te bepalen
             string userId = (string)Request.HttpContext.Items["UserId"];
 
             ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Name", mangaBook.AuthorId);
@@ -159,7 +164,8 @@ namespace Manga_Web
 
 
         //Dit is een systematische manier om asychrone wijzingen te maken in de backend via de EditBook view (PartialView)
-
+        // Vereiste: asynchrone (Ajax) implementatie voor minstens één View
+        // OPDRACHT: Asynchrone (Ajax) implementatie voor minstens één View.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditBook(int id, [Bind("Id, Title, Description, IsDeleted, ReleaseDate, AuthorId, GenreId, AverageRating")] MangaBook mangaBook)

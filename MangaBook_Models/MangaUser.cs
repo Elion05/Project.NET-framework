@@ -12,11 +12,11 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MangaBook_Models
 {
+    // Vereiste: eigen Identity User Class die extra eigenschappen bevat
     public class MangaUser : IdentityUser
     {
 
-        //5) Identity Framework: Je voorziet een eigen user-class met minstens één extra eigenschap voor je gebruikers
-
+        // OPDRACHT: Eigen Identity User Class die extra eigenschappen bevat.
         [Required]
         [MaxLength(30)]
         public string FirstName { get; set; } = string.Empty;
@@ -58,6 +58,7 @@ namespace MangaBook_Models
             
             if (!context.Roles.Any())
             {
+            // Vereiste: 3 actieve rollen
                 context.Roles.AddRange(new List<IdentityRole>
                 {
                     new IdentityRole { Id = "Admin", Name = "Admin", NormalizedName = "ADMIN" },
@@ -122,6 +123,7 @@ namespace MangaBook_Models
                 }
 
                 await userManager.AddToRoleAsync(admin, "Admin");
+                // Vereiste: waarbij één rol automatisch bij de registratie toegekend wordt aan een gebruiker
                 await userManager.AddToRoleAsync(normaleUser, "User");
                 await userManager.AddToRoleAsync(systeemAdmin, "System_Admin");
             }

@@ -17,7 +17,9 @@ var connectionString = builder.Configuration.GetConnectionString("MangaDbContext
 //Add the DbContext for Entity Framework.
 builder.Services.AddDbContext<MangaDbContext>();
 
-builder.Services.AddDefaultIdentity<MangaUser>(options => options.SignIn.RequireConfirmedAccount = false)
+// Vereiste: Identity Framework implementatie
+    // Vereiste: gebruikmakend van IF
+    builder.Services.AddDefaultIdentity<MangaUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<MangaDbContext>();
 
@@ -27,6 +29,7 @@ sp => sp.GetRequiredService<SignInManager<MangaUser>>());
 
 
 
+// Vereiste: Je gebruikt logging om fouten te kunnen detecteren en identificeren
 builder.Logging.AddDbLogger(options => {
     builder.Configuration.GetSection("Logging");
 });
@@ -53,6 +56,7 @@ builder.Services.Configure<MailKitOptions>(options =>
 });
 
 //Voor de configuratie van de resfull API's
+// Vereiste: Je voorziet alle Restfull API-methoden die je nodig hebt voor het MAUI werkstuk
 builder.Services.AddControllers();
 
 //voor het gebruik van swagger
@@ -62,6 +66,8 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 //localisatie toevoegen voor meertaligheid
+// OPDRACHT: VOLLEDIGE meertaligheid met minstens 3 beschikbare talen.
+// Vereiste: Je voorziet VOLLEDIGE meertaligheid met minstens 3 beschikbare talen
 builder.Services.AddLocalization(options => options.ResourcesPath = "Translations");
 builder.Services.AddMvc()
     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
@@ -134,6 +140,8 @@ app.MapRazorPages(); //This is crucial for the login pages to work.
 
 
 //dit is de custom middleware voor het afhandelen van de gebruiker
+// OPDRACHT: Voorzie eigen middleware.
+// Vereiste: Je voorziet eigen middelware (om bijvoorbeeld cookies te beheren/verwerken, ...)
 app.UseMiddleware<Manga_Web.Middleware.MijnGebruiker>();
 
 app.MapControllers();

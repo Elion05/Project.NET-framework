@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 
 namespace Manga_Web.Controllers
 {
+    // Vereiste: gebruikers alleen kunnen zien / gebruiken waar ze rechten toe hebben (Autorisatie)
+    // OPDRACHT: Gebruikers kunnen alleen zien/gebruiken waar ze rechten toe hebben (Autorisatie).
     [Authorize(Roles = "Admin,System_Admin")]
     
 
@@ -54,6 +56,8 @@ namespace Manga_Web.Controllers
             return View(await mangaDbContext.ToListAsync());
         }
 
+        // Vereiste: gebruikers geblokkeerd of gedeblokkeerd kunnen worden
+        // OPDRACHT: Gebruikers kunnen geblokkeerd of gedeblokkeerd worden.
         public async Task<IActionResult> BlockUnblock(string? id)
         {
             if (id == null)
@@ -80,6 +84,8 @@ namespace Manga_Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Vereiste: rollen toegekend kunnen worden aan gebruikers
+        // OPDRACHT: Rollen kunnen toegekend worden aan gebruikers.
         public async Task<IActionResult> Roles(string? Id)
         {
             if (Id == null)

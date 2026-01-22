@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Manga_App.ViewModels
 {
+    // Vereiste: je maakt systematisch gebruik van de MVVM structuur met gebruik van de daarvoor voorziene "toolkit"
     public partial class MainViewModel : ObservableObject
     {
         readonly LocalDbContext _context;
@@ -39,6 +40,7 @@ namespace Manga_App.ViewModels
         string description = string.Empty;
 
         // Command voor navigatie naar boekenpagina
+        // Vereiste: werkt bijgevolg volledig asynchroon
         [RelayCommand]
         async Task OpenBoekenPagina()
         {

@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Manga_Web</title>
     <script type="importmap"></script>
+    <!-- Vereiste: een ergonomisch verantwoorde frontend gebaseerd op Bootstrap -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Manga_Web.styles.css" asp-append-version="true" />
@@ -19,6 +20,7 @@
     <header>
         
 
+        <!-- Vereiste: een relevante menu- of tabbladenstructuur -->
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Manga_Web</a>
@@ -50,6 +52,7 @@
 
                             @if (User.IsInRole("Admin") == true || User.IsInRole("System_Admin") == true)
                             {
+                                <!-- Vereiste: gebruikers alleen kunnen zien / gebruiken waar ze rechten toe hebben (menu-structuur) -->
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         @Localizer["Admin toegankelijkheden"]

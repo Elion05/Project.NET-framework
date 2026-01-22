@@ -20,6 +20,7 @@ namespace Manga_App
         {
             _context = context;
 
+            // Vereiste: consumeert de RESTFull API die je geproduceerd hebt
             client = new HttpClient();
             sOptions = new JsonSerializerOptions
             {
@@ -139,6 +140,7 @@ namespace Manga_App
                 LoginModel? lm = await _context.LoginModels.FirstOrDefaultAsync(l => l.ValidTill > DateTime.Now || l.RememberMe);
                 if (lm != null)
                 {
+                    // Vereiste: her-aanmelden na afloop van je sessie gebeurt automatisch
                     if (await Login(lm))
                         return;
                 }
@@ -155,6 +157,7 @@ namespace Manga_App
 
         internal async Task SynchronizeAll()
         {
+            // Vereiste: werkt online / offline, met automatische synchronisatie
             await LoginToAPI();
 
             if (!string.IsNullOrEmpty(General.UserId) && General.UserId.Length > 10)

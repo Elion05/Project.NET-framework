@@ -13,11 +13,11 @@ namespace MangaBook_Models
         public int Id { get; set; }
 
         [Required, MaxLength(40)]
-        [Display(Name = "Titel")]
+        [Display(Name = "Title", ResourceType = typeof(Resources.Models.MangaBook))]
         public string Title { get; set; } = string.Empty;
 
         [Required, MaxLength(130)]
-        [Display(Name = "Beschrijving")]
+        [Display(Name = "Description", ResourceType = typeof(Resources.Models.MangaBook))]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; } = string.Empty;
 
@@ -25,23 +25,23 @@ namespace MangaBook_Models
        public bool IsDeleted { get; set; } = false;
 
         [Required]
-        [Display(Name = "Publicatiedatum")]
+        [Display(Name = "ReleaseDate", ResourceType = typeof(Resources.Models.MangaBook))]
         [DataType(DataType.Date)]
         public DateTime ReleaseDate { get; set; } = DateTime.Now;
 
-        [Display(Name = "Beoordeling")]
+        [Display(Name = "AverageRating", ResourceType = typeof(Resources.Models.MangaBook))]
         public double AverageRating { get; set; }
 
 
         //1)relaties
         [Required]
-        [Display(Name = "Auteur")]
+        [Display(Name = "Author", ResourceType = typeof(Resources.Models.MangaBook))]
         [ForeignKey("Author")]
         public int AuthorId { get; set; }
         public Author? Author { get; set; }
          
         [Required]
-        [Display(Name = "Genre")]
+        [Display(Name = "Genre", ResourceType = typeof(Resources.Models.MangaBook))]
         [ForeignKey("Genre")]
         public int GenreId { get; set; }
 

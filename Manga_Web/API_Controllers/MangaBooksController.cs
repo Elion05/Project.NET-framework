@@ -12,6 +12,8 @@ namespace Manga_Web.API_Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    // Vereiste: Je voorziet alle Restfull API-methoden die je nodig hebt voor het MAUI werkstuk
+    // OPDRACHT: Voorzie alle RESTful API-methoden die je nodig hebt.
     public class MangaBooksController : ControllerBase
     {
         private readonly MangaDbContext _context;

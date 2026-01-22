@@ -9,12 +9,14 @@ using Microsoft.Extensions.Configuration.EnvironmentVariables;
 
 namespace MangaBook_Models.Data
 {
+    // Vereiste: de EF dbContext gebaseerd op een IF-context
     public class MangaDbContext : IdentityDbContext<MangaUser>
     {
         //constructor zodat je opties kan doorgeven bij het aanmaken van de context in de Manga_Web project
 
 
         //zodat je tabellen hebt in de database
+        // Vereiste: de modelstructuur (minstens gerelateerde 3 tabellen)
         public DbSet<MangaBook> MangaBooks { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Genre> Genres { get; set; }
@@ -57,8 +59,10 @@ namespace MangaBook_Models.Data
         {
             Language.Seeder();
 
+            // Vereiste: een uitgebreide seeding bij het opstarten van een (gedeeltelijk) lege databank
             MangaUser.Seeder();
 
+            // OPDRACHT: Uitgebreide seeding bij het opstarten van een (gedeeltelijk) lege databank.
             //3) Seeding van dummyData, direct bijgevuld in de database
             if (!context.Authors.Any())
             {

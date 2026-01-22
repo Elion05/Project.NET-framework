@@ -17,6 +17,7 @@ namespace Manga_App
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+           // Vereiste: slaat (selecte) gegevens lokaal op (via SQLLite)
            builder.Services.AddDbContext<LocalDbContext>();
 
             builder.Services.AddSingleton<LoginPage>();

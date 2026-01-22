@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<!-- Vereiste: gerealiseerd in .NET Maui (.NET versie 9 of 10) -->
 		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
+		<!-- Vereiste: de Windows "Desktop"-versie is ook beschikbaar -->
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
@@ -72,6 +74,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<!-- Vereiste: maakt gebruik van de (afgeleide) modellen in je Class Library -->
 		<ProjectReference Include="..\MangaBook_Models\MangaBook_Models.csproj" />
 	</ItemGroup>
 

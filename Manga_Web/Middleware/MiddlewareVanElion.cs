@@ -7,6 +7,7 @@ namespace Manga_Web.Middleware
 {
 
     //dit is de Middlware klasse die de gebruiker afhandelt, zie Program.cs voor gebruik
+    // Vereiste: Je voorziet eigen middelware (om bijvoorbeeld cookies te beheren/verwerken, ...)
     public class MijnGebruiker
     {
         //dit is nodig om request af te handelen
