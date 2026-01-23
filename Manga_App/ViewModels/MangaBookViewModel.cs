@@ -24,7 +24,30 @@ namespace Manga_App.ViewModels
         [ObservableProperty]
         string searchText;
 
-     
+        [ObservableProperty]
+        string sortOption;
+
+        //dit is om in de MangaBooks te sorteren en selectioneren.
+        partial void OnSortOptionChanged(string value)
+        {
+            SortMangaBooks(value);
+        }
+
+        private void SortMangaBooks(string option)
+        {
+            if (MangaBoeken == null) return;
+
+            var sorted = option switch
+            {
+                "Titel (A-Z)" => MangaBoeken.OrderBy(b => b.Title).ToList(),
+                "Titel (Z-A)" => MangaBoeken.OrderByDescending(b => b.Title).ToList(),
+                "Datum (Nieuw-Oud)" => MangaBoeken.OrderByDescending(b => b.ReleaseDate).ToList(),
+                "Datum (Oud-Nieuw)" => MangaBoeken.OrderBy(b => b.ReleaseDate).ToList(),
+                _ => MangaBoeken.ToList()
+            };
+
+            MangaBoeken = new ObservableCollection<MangaBook>(sorted);
+        }
 
         //Constructor updated to accept the context
         public MangaBookViewModel(MangaBook book, LocalDbContext context)
@@ -75,8 +98,6 @@ namespace Manga_App.ViewModels
                     alleMangaBoeken.Where(b => b.Title.Contains(query, StringComparison.OrdinalIgnoreCase))
                 );
             }
-            
-          
         }
     }
 }

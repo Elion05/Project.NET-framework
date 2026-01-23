@@ -18,7 +18,6 @@ namespace Manga_Web.Middleware
 
         MangaDbContext _context;
 
-
         public MijnGebruiker(RequestDelegate next)
         {
 

@@ -8,11 +8,8 @@
 }
 
 
-@using (Html.AjaxBeginForm("ViewBook", "Authors", new AjaxOptions {HttpMethod ="get", InsertionMode=InsertionMode.Replace, UpdateTargetId = Model.Id.ToString() }))
-{
-
     <link rel="stylesheet" href="~/css/Authors.css" asp-append-version="true" />
-    <tr id="@Model.Id.ToString()" class="author-view-row">
+    
         <td class="author-name">
             @Model.Name
         </td>
@@ -31,6 +28,4 @@
         <td class="author-favorite-sport">
             @Model.FavorieteSport
         </td>
-    </tr>
-}
 

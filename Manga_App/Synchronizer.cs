@@ -180,9 +180,7 @@ namespace Manga_App
                     return new List<MangaBook>();
 
                 string responseBody = await response.Content.ReadAsStringAsync();
-
                 List<MangaBook>? boeken = JsonSerializer.Deserialize<List<MangaBook>>(responseBody, sOptions);
-
 
                 Console.WriteLine($"Aantal boeken opgehaald: {boeken?.Count ?? 0}"); //testen of de boeken wel worden opgehaalt
 
@@ -193,7 +191,7 @@ namespace Manga_App
                 return new List<MangaBook>();
             }
         }
-
+        
 
         //Auteurs ophalen vanuit de API
         internal async Task<List<Author>> GetAuthorsFromApiAsync()

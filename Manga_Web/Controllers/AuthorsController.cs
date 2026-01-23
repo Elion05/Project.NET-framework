@@ -148,43 +148,6 @@ namespace Manga_Web
 
 
 
-
-
-        //// POST: Authors/Edit/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Id,Name,geboorteDatum,description,favoriteFood,Nationaliteit,FavorieteSport")] Author author)
-        //{
-        //    if (id != author.Id)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(author);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!AuthorExists(author.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(author);
-        //}
-
         // GET: Authors/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

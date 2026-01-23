@@ -17,6 +17,20 @@
                        SearchCommand="{Binding SearchCommand}"
                        SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}"
                        Margin="0,0,0,20"/>
+
+            <Picker Title="Sorteer op"
+                    SelectedItem="{Binding SortOption}"
+                    Margin="0,0,0,20"
+                    BackgroundColor="White"
+                    TextColor="Black"
+                    TitleColor="Gray">
+                <Picker.Items>
+                    <x:String>Titel (A-Z)</x:String>
+                    <x:String>Titel (Z-A)</x:String>
+                    <x:String>Datum (Nieuw-Oud)</x:String>
+                    <x:String>Datum (Oud-Nieuw)</x:String>
+                </Picker.Items>
+            </Picker>
             
             
 

@@ -10,7 +10,7 @@
 }
 
 @* Dit is een systematische manier om wijzigingen te maken in de backend via de EditAuthor view (PartialView), zie AuthorController in de Controllers voor de code *@
-@using (Html.AjaxBeginForm ("EditAuthor", "Authors", new AjaxOptions {HttpMethod ="post", InsertionMode=InsertionMode.Replace, UpdateTargetId = Model.Id.ToString() }))
+@using (Html.AjaxBeginForm ("EditAuthor", "Authors", new { id = Model.Id }, new AjaxOptions {HttpMethod ="post", InsertionMode=InsertionMode.Replace, UpdateTargetId = Model.Id.ToString() }))
 {
     @Html.AntiForgeryToken();
 
@@ -54,7 +54,6 @@
         <td>
             <a class="action-link action-delete" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
         </td>
-
 
     </tr>
 }
